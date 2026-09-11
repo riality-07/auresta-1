@@ -1,6 +1,6 @@
 <div align="center">
 
-# ✦ A U R E S T A ✦
+# A U R E S T A
 
 ### Where Moments Turn Golden
 
@@ -12,350 +12,396 @@
 
 ---
 
-## ✦ About Auresta
+## About Auresta
 
-**Auresta** is an all-in-one event platform designed to simplify every kind of event-related need.
+**Auresta** is an all-in-one event platform designed to simplify the process of planning and managing events.
 
-Whether you are planning a wedding, birthday party, corporate event, celebration, or any other special occasion, Auresta connects you with the right vendors, packages, services, and support in one place.
+The platform brings users, vendors, services, packages, bookings, payments, and support together in one place. It can be used for different types of events such as weddings, birthday parties, anniversaries, corporate events, engagements, baby showers, private celebrations, and other special occasions.
 
-The platform is designed around three different views:
+Auresta is organized into three main views:
 
-- **User View** — For customers planning and managing events
-- **Vendor View** — For event service providers managing their business
-- **Admin View** — For administrators managing the Auresta platform
+* **User View** — For customers planning and managing events
+* **Vendor View** — For event service providers managing their services and bookings
+* **Admin View** — For administrators managing vendors and monitoring the platform
 
 ---
 
 # 01 — USER VIEW
 
-The User View is designed for customers who want to plan an event, discover vendors, book services, purchase packages, and receive support.
+The User View is designed for customers who want to plan an event, discover suitable vendors, compare services, make bookings, purchase packages, make payments, and receive support.
+
+The user journey starts with entering event requirements and continues through vendor discovery, comparison, booking, payment, and event management.
 
 ---
 
-## 🏠 Home Page
+## Home Page
 
-The Home Page is the starting point for planning an event.
+The Home Page acts as the starting point for users who want to plan an event.
 
-Users can provide their event requirements to find relevant services and vendors.
+Users can enter their requirements so that they can find services and vendors suitable for their event.
 
 ### Event Planning Search
 
-Users can specify:
+Users can provide details such as:
 
-- 📅 **Event Date**
-- 💰 **Budget**
-- 🎉 **Type of Celebration**
-- 👥 **Guest Count**
-- 📍 **Location**
+* Event Date
+* Budget
+* Type of Celebration
+* Guest Count
+* Location
+
+These details help define the basic requirements of the event.
 
 ### Types of Celebrations
 
-Users can select the type of event they are planning, such as:
+Auresta supports different types of celebrations, including:
 
-- Wedding
-- Birthday Party
-- Anniversary
-- Corporate Event
-- Engagement
-- Baby Shower
-- Private Celebration
-- Other Events
+* Wedding
+* Birthday Party
+* Anniversary
+* Corporate Event
+* Engagement
+* Baby Shower
+* Private Celebration
+* Other Events
 
-Once the requirements are entered, Auresta can help users discover vendors and services that match their event requirements.
+After selecting the required event details, users can continue to explore vendors and services according to their requirements.
 
 ---
 
-## ⚡ Need a Vendor Immediately?
+## Need a Vendor Immediately
 
-If a user needs an event vendor urgently, they can use the **Need a Vendor Immediately** option.
+Auresta also provides an option for users who require an event vendor urgently.
 
-### How it works
+This is useful when a user has an immediate or last-minute requirement.
 
-1. Select the type of vendor or service required.
-2. Auresta identifies suitable available vendors.
-3. The platform displays approximately how quickly the vendor can arrive/provide the service.
-4. The user can review the vendor.
+### Basic Process
+
+1. The user selects the required type of vendor or service.
+2. Available vendors are identified according to the requirement.
+3. The user can review the available vendor.
+4. The user can check the relevant service information.
 5. The user can proceed with the booking.
 
-This feature is designed for users who have an immediate or last-minute event requirement.
+This provides users with a quicker way to find a vendor when there is limited time available.
 
 ---
 
-## 🎉 Previous Events
+## Previous Events
 
-The Home Page also allows users to explore events that have already been conducted through Auresta.
+The Previous Events section allows users to view events that have already been conducted through Auresta.
 
-Users can browse previous events for:
+Previous events can help users understand the type of events and services available through the platform.
 
-- Inspiration
-- Event ideas
-- Vendor discovery
-- Package ideas
-- Understanding the quality of services offered
+Users can use previous events for:
+
+* Event inspiration
+* Event planning ideas
+* Vendor discovery
+* Package ideas
+* Understanding available services
 
 ---
 
 # 02 — EXPLORE VENDORS
 
-The **Explore Vendors** section allows users to discover and compare event vendors.
+The **Explore Vendors** section allows users to discover event service providers according to their requirements.
 
-Users can find vendors for different event requirements, including:
+Users can browse different categories of vendors and services.
 
-- Photography
-- Catering
-- Decoration
-- Makeup
-- Music & Entertainment
-- Event Planning
-- Venues
-- Wedding Services
-- Birthday Services
-- Other Event Services
+The available categories include:
 
----
+* Photography
+* Catering
+* Decoration
+* Makeup
+* Music and Entertainment
+* Event Planning
+* Venues
+* Wedding Services
+* Birthday Services
+* Other Event Services
 
-## 🔎 Filter Vendors
-
-Users can apply filters to narrow down their search.
-
-Depending on the available options, users can filter vendors based on factors such as:
-
-- Vendor category
-- Location
-- Price
-- Rating
-- Availability
-- Event type
-- Other relevant requirements
-
-Filters make it easier to find the most suitable vendor without browsing through every available option.
+The vendor section provides users with a central place to search for the services required for their event.
 
 ---
 
-## ↕️ Sort Vendors
+## Filter Vendors
 
-Users can also sort vendor results to make comparison easier.
+Users can narrow down the vendor results using available filtering options.
 
-Sorting can help users identify vendors based on factors such as:
+The filtering process helps users avoid going through every vendor individually.
 
-- Price
-- Rating
-- Relevance
-- Availability
-- Other available criteria
+Users can filter vendors based on factors such as:
+
+* Vendor Category
+* Location
+* Price
+* Rating
+* Availability
+* Event Type
+* Other Requirements
+
+Filtering is particularly useful when a user has a specific budget, location, event type, or service requirement.
 
 ---
 
-## 👤 Vendor Profiles
+## Sort Vendors
 
-Users can open an individual vendor's profile to learn more about their services.
+After applying filters, users can also sort the available vendor results.
+
+Sorting makes it easier to compare vendors according to different priorities.
+
+Available sorting criteria can include:
+
+* Price
+* Rating
+* Relevance
+* Availability
+* Other available criteria
+
+Users can select the sorting option that is most useful for their event requirements.
+
+---
+
+## Vendor Profiles
+
+Each vendor can have an individual profile containing information about the services they provide.
 
 A vendor profile can include:
 
-- Vendor name
-- Service category
-- Description
-- Images/portfolio
-- Pricing
-- Ratings
-- Reviews
-- Location
-- Availability
-- Services offered
+* Vendor Name
+* Service Category
+* Description
+* Images or Portfolio
+* Pricing
+* Ratings
+* Reviews
+* Location
+* Availability
+* Services Offered
 
-Users should review the vendor profile carefully before confirming a booking.
+Users can review this information before deciding whether a particular vendor is suitable for their event.
+
+The profile gives users a better understanding of the vendor before they proceed with the booking.
 
 ---
 
-## 💰 Vendor Pricing
+## Vendor Pricing and Comparison
 
-Users can view the pricing information provided by vendors.
+Users can view the pricing information provided by different vendors.
 
-This allows users to:
+This makes it possible to compare available services before making a final decision.
+
+The comparison process helps users:
 
 1. Compare different vendors.
-2. Check whether a vendor fits their budget.
-3. Understand the expected cost before booking.
-4. Choose the service that best matches their requirements.
+2. Check whether the service fits their budget.
+3. Understand the expected cost.
+4. Compare services offered by different vendors.
+5. Select a suitable option for their event.
+
+This is useful when users need to balance their event requirements with their available budget.
 
 ---
 
-## 📅 Vendor Calendar & Availability
+## Vendor Calendar and Availability
 
-Users can view a vendor's calendar to check their availability.
+Vendor availability is an important part of the booking process.
 
-The calendar helps users determine whether a vendor is available on their required event date.
+Users can check the vendor's calendar to determine whether the vendor is available for the required event date.
 
-Before making a booking, users should check:
+Before booking, users should check:
 
-- Required event date
-- Vendor availability
-- Service timing
-- Any other booking requirements
+* Event Date
+* Vendor Availability
+* Service Timing
+* Other Booking Requirements
 
----
-
-## 💬 Chat With Vendors
-
-Users can communicate directly with vendors through the chat feature.
-
-The chat can be used to:
-
-- Ask questions
-- Discuss event requirements
-- Clarify pricing
-- Discuss services
-- Confirm details
-- Coordinate before the event
-
-Users should ensure that all important booking details are clearly communicated before confirming the service.
+Checking availability before booking helps reduce the possibility of scheduling conflicts.
 
 ---
 
-## 📌 Booking a Vendor
+## Chat With Vendors
 
-To book a vendor:
+Auresta provides a way for users to communicate with vendors.
 
-1. Open **Explore Vendors**.
+Users can use the chat feature to discuss their requirements before confirming a service.
+
+The conversation can be used to:
+
+* Ask questions
+* Discuss event requirements
+* Clarify pricing
+* Discuss services
+* Confirm details
+* Coordinate with the vendor
+
+This communication allows users to clarify important information before completing the booking.
+
+---
+
+## Booking a Vendor
+
+The vendor booking process can be completed through the vendor discovery and profile sections.
+
+### Booking Process
+
+1. Open the Explore Vendors section.
 2. Search for the required service.
-3. Use filters and sorting to narrow down the results.
-4. Open the vendor's profile.
-5. Review their services, pricing, rating, and availability.
-6. Select the required date/service.
-7. Confirm the booking.
-8. Proceed with the required payment.
+3. Apply relevant filters.
+4. Sort the available results if required.
+5. Open the selected vendor profile.
+6. Review the vendor's services.
+7. Check pricing and ratings.
+8. Check vendor availability.
+9. Select the required service and date.
+10. Confirm the booking.
+11. Proceed to the payment stage.
 
-Once the booking is confirmed, the event details can be accessed from the user's booking/event section.
-
----
-
-# 03 — PACKAGES & DEALS
-
-The **Packages & Deals** section provides users with ready-made event packages and discounted combinations of services.
+After the booking is confirmed, the relevant event and booking information can be accessed by the user.
 
 ---
 
-## 🎁 Premade Packages
+# 03 — PACKAGES AND DEALS
 
-Users can select a pre-designed package instead of individually booking every vendor.
+The **Packages and Deals** section provides users with different ways to select multiple event services.
 
-A package may combine multiple event services into one offering.
-
-For example:
-
-**Wedding Package**
-
-- Decoration
-- Photography
-- Catering
-- Makeup
-- Entertainment
-
-The exact services included depend on the package.
+Instead of booking every service separately, users can choose from available packages or create a package according to their requirements.
 
 ---
 
-## 💎 Discounted Deals
+## Premade Packages
 
-Packages may provide discounted pricing compared with booking individual services separately.
+Premade packages allow users to select a collection of services that has already been put together.
+
+For example, a wedding package may contain:
+
+* Decoration
+* Photography
+* Catering
+* Makeup
+* Entertainment
+
+The services included in a package depend on the package selected by the user.
+
+Premade packages can make event planning easier because users do not have to individually search for every service.
+
+---
+
+## Discounted Deals
+
+Auresta can also provide packages or combinations of services at discounted prices.
 
 Users can:
 
-1. Browse available packages.
+1. Browse available deals.
 2. Review the services included.
 3. Check the package price.
-4. Select a suitable package.
-5. Proceed with the booking and payment.
+4. Select a suitable deal.
+5. Proceed with booking and payment.
+
+This provides users with another option when they want to select multiple services together.
 
 ---
 
-## 🛠️ Build Your Own Package
+## Build Your Own Package
 
-Users can also create a customized package based on their requirements.
+Users can also create a package based on their individual event requirements.
 
 Instead of selecting a premade package, users can choose the services they need.
 
-For example:
+For example, a customized wedding package may include:
 
-**Build Your Own Wedding Package**
+* Photography
+* Catering
+* Decoration
+* Makeup
+* DJ
 
-- Photography
-- Catering
-- Decoration
-- Makeup
-- DJ
-
-This allows users to create an event package that fits their individual requirements and budget.
+This gives users more control over which services they want to include in their event package.
 
 ---
 
 # 04 — PAYMENTS
 
-Auresta supports online payment for applicable bookings and packages.
+After selecting a vendor, service, or package, users can proceed to the payment stage.
 
-After selecting a booking or package, users can proceed to the payment stage.
+Auresta supports online payment methods for applicable bookings and packages.
 
-Available payment methods may include:
+Available payment methods can include:
 
-- **UPI**
-- **Credit/Debit Card**
-- Other supported online payment methods
+* UPI
+* Credit Card
+* Debit Card
+* Other supported online payment methods
 
----
-
-## 💳 Advance Payment
-
-Depending on the booking, users may be required to pay an amount in advance to confirm the service.
-
-The remaining amount may be payable later according to the booking terms.
-
-Users should review the payment details before completing a transaction.
+The payment stage is used to complete the transaction associated with the selected service or package.
 
 ---
 
-# 05 — CONFIRMED BOOKINGS & EVENT DETAILS
+## Advance Payment
 
-After confirming a booking, users can access the relevant event details through their account.
+Depending on the booking requirements, users may need to make an advance payment to confirm a service.
 
-Event details may include:
+The remaining amount may be payable later according to the applicable booking terms.
 
-- Event date
-- Event type
-- Location
-- Guest count
-- Selected vendors
-- Selected services
-- Package details
-- Payment details
-- Booking status
-- Other relevant event information
-
-Users should verify that all details are correct after confirming their booking.
+Users should review the payment information before completing the transaction.
 
 ---
 
-# 06 — SUPPORT & HELP CENTRE
+# 05 — CONFIRMED BOOKINGS AND EVENT DETAILS
 
-Auresta provides a dedicated **Help Centre** for users who require assistance.
+After a successful booking, users can access the information related to their event and selected services.
 
-Users can communicate with the Auresta support team through the support/chat system.
+The event information can include:
 
-Support can be requested for:
+* Event Date
+* Event Type
+* Location
+* Guest Count
+* Selected Vendors
+* Selected Services
+* Package Details
+* Payment Details
+* Booking Status
+* Other Relevant Event Information
 
-### 📋 Booking Help
-Questions or problems related to existing or upcoming bookings.
+This section provides users with the information they need after completing their booking.
 
-### 💰 Refund Help
-Assistance regarding refunds and payment reversals.
+Users can also use the stored event information when communicating with vendors or requesting support.
 
-### ❌ Cancellation Requests
-Users can request cancellation of applicable bookings.
+---
 
-### 💳 Payment Help
-Support for payment-related problems or questions.
+# 06 — SUPPORT AND HELP CENTRE
 
-### 💬 General Support
-General questions or assistance related to using Auresta.
+Auresta provides a Help Centre for users who need assistance with their bookings, payments, cancellations, refunds, or general platform-related questions.
+
+Users can communicate with the Auresta support team through the available support or chat system.
+
+Support can be requested for different types of problems.
+
+### Booking Help
+
+Users can request help with existing or upcoming bookings.
+
+This can include questions about booking details, vendor services, or other booking-related issues.
+
+### Refund Help
+
+Users can request assistance regarding refunds or payment reversals where applicable.
+
+### Cancellation Requests
+
+Users can submit cancellation requests for applicable bookings.
+
+### Payment Help
+
+Users can contact support when they experience problems or have questions related to payments.
+
+### General Support
+
+Users can also request general assistance when they have questions about using Auresta.
 
 ---
 
@@ -363,69 +409,84 @@ General questions or assistance related to using Auresta.
 
 The Vendor View is designed for event service providers who offer their services through Auresta.
 
-Vendors can manage their business, bookings, availability, profile, and performance.
+Vendors can use this section to manage their business activity on the platform.
+
+The Vendor View focuses on:
+
+* Vendor Profile
+* Bookings
+* Availability
+* Revenue
+* Ratings
+* Vendor Verification
 
 ---
 
-## 📊 Vendor Dashboard
+## Vendor Dashboard
 
-The Vendor Dashboard provides an overview of the vendor's activity on Auresta.
+The Vendor Dashboard provides vendors with an overview of their activity on Auresta.
 
-Vendors can view information such as:
+The dashboard can display information such as:
 
-- 💰 Total Revenue
-- 📋 Total Bookings
-- ⭐ Average Rating
-- Other relevant performance information
+* Total Revenue
+* Total Bookings
+* Average Rating
+* Other Relevant Performance Information
 
-This allows vendors to understand how their business is performing through the platform.
-
----
-
-## 💵 Revenue
-
-Vendors can view the revenue generated through Auresta.
-
-The dashboard can help vendors understand:
-
-- Total earnings
-- Booking-related revenue
-- Revenue trends
-- Other available financial information
+This gives vendors a quick overview of how their services are performing on the platform.
 
 ---
 
-## 📋 Total Bookings
+## Vendor Revenue
 
-Vendors can view their total number of bookings.
+Vendors can view the revenue generated through their bookings.
 
-This allows them to track how many customers have booked their services through Auresta.
+Revenue information helps vendors understand the financial performance of their services on Auresta.
+
+The available information can include:
+
+* Total Earnings
+* Booking-Related Revenue
+* Revenue Information
+* Other Available Financial Information
 
 ---
 
-## ⭐ Vendor Rating
+## Vendor Bookings
 
-Vendors can view the ratings provided by users after their services.
+Vendors can view the bookings received through Auresta.
 
-Ratings help vendors understand customer satisfaction and identify areas where they can improve.
+The total booking information allows vendors to understand how many customers have selected their services.
+
+Managing bookings is important because vendors need to keep track of their upcoming services and customer requirements.
+
+---
+
+## Vendor Ratings
+
+Vendors can view ratings provided by users.
+
+Ratings provide feedback about the customer's experience with the vendor.
+
+This information can help vendors understand customer satisfaction and identify areas where their services can be improved.
 
 ---
 
 # 08 — VENDOR PROFILE VERIFICATION
 
+Vendor verification is used to establish trust between vendors and users.
+
 Vendors can submit their profiles for verification through Auresta.
 
-The verification process helps establish trust between vendors and users.
+### Vendor Verification Process
 
-### Vendor verification process
+1. The vendor completes their profile.
+2. The required information and documents are provided.
+3. The vendor submits the profile for verification.
+4. The administration team reviews the submitted information.
+5. The vendor receives the applicable verification status.
 
-1. Complete the vendor profile.
-2. Provide the required information/documents.
-3. Submit the profile for verification.
-4. The Auresta administration team reviews the submission.
-5. The vendor receives the relevant verification status.
-
-Vendors should ensure that the information provided is accurate and complete.
+Vendors should make sure that the information provided during the verification process is accurate and complete.
 
 ---
 
@@ -433,89 +494,315 @@ Vendors should ensure that the information provided is accurate and complete.
 
 The Vendor Calendar allows vendors to manage their availability.
 
-Vendors can view their calendar and identify:
+Vendors can use the calendar to keep track of their schedule and bookings.
 
-- Available dates
-- Booked dates
-- Upcoming events
-- Unavailable dates
+The calendar can help vendors identify:
 
-Maintaining an accurate calendar helps prevent scheduling conflicts and allows users to see reliable availability information.
+* Available Dates
+* Booked Dates
+* Upcoming Events
+* Unavailable Dates
+
+Maintaining the calendar is important because it helps vendors manage their schedules and provides users with availability information when they are looking for services.
 
 ---
 
 # 10 — ADMIN VIEW
 
-The Admin View is designed for Auresta administrators.
+The Admin View is designed for administrators who manage and monitor the Auresta platform.
 
-The Admin Portal provides oversight of vendors, platform activity, transactions, and commissions.
+The Admin View provides administrative control over vendor verification and platform-level information.
+
+The main areas include:
+
+* Vendor Verification
+* Vendor Management
+* Platform Monitoring
+* Admin Dashboard
+* GMV
+* Commission Information
 
 ---
 
-## 🛡️ Vendor Verification
+## Vendor Verification Through Admin
 
-Administrators can review vendor verification requests.
+Administrators can review vendor verification requests submitted through Auresta.
 
-The Admin Portal allows administrators to:
+The administrator can:
 
 1. View vendor applications.
-2. Review submitted information.
-3. Verify vendor details.
-4. Approve or reject verification requests where applicable.
-5. Manage vendor verification status.
+2. Review submitted vendor information.
+3. Check vendor details.
+4. Verify the submitted information.
+5. Approve or reject verification requests where applicable.
+6. Manage the vendor verification status.
+
+This process helps maintain trust and ensures that vendor information is reviewed before vendors are approved.
 
 ---
 
 # 11 — ADMIN DASHBOARD
 
-The Admin Dashboard provides an overview of Auresta's platform-level performance.
+The Admin Dashboard provides administrators with an overview of platform-level business information.
 
-Administrators can view important business metrics such as:
-
-### 💰 Total GMV
-
-**GMV (Gross Merchandise Value)** represents the total value of transactions processed through the platform.
-
-This provides an overview of the total transaction volume handled by Auresta.
+The dashboard includes important metrics related to Auresta's transactions and revenue.
 
 ---
 
-### 💵 Total Commission
+## Total GMV
 
-The Admin Portal can also display the total commission generated by Auresta from vendor transactions.
+**GMV (Gross Merchandise Value)** represents the total value of transactions processed through the platform.
 
-This allows administrators to monitor the platform's revenue generated through bookings.
+The GMV figure provides administrators with an overview of the transaction volume generated through Auresta.
+
+---
+
+## Total Commission
+
+The Admin Dashboard can also provide information about the commission generated through vendor transactions.
+
+Commission information allows administrators to monitor the revenue generated by Auresta through bookings.
+
+Together, GMV and commission provide a high-level view of the platform's business performance.
 
 ---
 
 # 12 — PLATFORM WORKFLOW
 
-The basic Auresta workflow can be understood as:
+The Auresta platform connects three main roles: User, Vendor, and Admin.
+
+Each role performs a different part of the overall platform process.
 
 ```text
-                    AURESTA
-                       │
-          ┌────────────┼────────────┐
-          │            │            │
-        USER         VENDOR       ADMIN
-          │            │            │
-          ▼            ▼            ▼
-      Find Event    Manage       Manage
-      Requirements  Services     Platform
-          │            │            │
-          ▼            ▼            ▼
-       Discover      Manage      Verify
-       Vendors      Bookings     Vendors
-          │            │            │
-          ▼            ▼            │
-       Compare       Calendar      │
-       Vendors       & Revenue     │
-          │                         │
-          ▼                         ▼
-        Book                  GMV & Commission
-          │
-          ▼
-       Payment
+                         AURESTA
+                            |
+          +-----------------+-----------------+
+          |                 |                 |
+        USER              VENDOR            ADMIN
+          |                 |                 |
+          v                 v                 v
+   Enter Event         Manage Vendor      Manage Platform
+   Requirements           Profile               |
+          |                 |                   |
+          v                 v                   v
+   Explore Vendors    Profile Verification  Verify Vendors
+          |                 |                   |
+          v                 v                   v
+   Filter and Sort    Manage Bookings       Admin Dashboard
+          |                 |                   |
+          v                 v                   |
+   View Vendor        Manage Calendar          |
+   Profile                 |                   |
+          |                 v                   |
+          v             Track Revenue           |
+   Compare Services        |                   |
+          |                 v                   |
+          v             View Ratings            |
+   Check Availability
+          |
+          v
+      Chat With
+       Vendor
+          |
+          v
+       Book Service
+          |
+          v
+        Payment
+          |
+          v
+   Confirmed Booking
+          |
+          v
+    Event Details
+          |
+          v
+      Support if
+        Required
+```
+
+---
+
+## User Workflow
+
+The main user workflow begins when the user enters their event requirements.
+
+```text
+Event Requirements
+        |
+        v
+Explore Vendors
+        |
+        v
+Filter and Sort
+        |
+        v
+View Vendor Profile
+        |
+        v
+Compare Services
+        |
+        v
+Check Availability
+        |
+        v
+Chat With Vendor
+        |
+        v
+Book Service
+        |
+        v
+Payment
+        |
+        v
+Confirmed Booking
+        |
+        v
+Event Details
+        |
+        v
+Support if Required
+```
+
+The user therefore moves from event planning to vendor discovery, service comparison, booking, payment, and finally event management.
+
+---
+
+## Vendor Workflow
+
+The vendor workflow focuses on managing the vendor's services and business activity.
+
+```text
+Vendor Profile
+       |
+       v
+Profile Verification
+       |
+       v
+Services Available
+       |
+       v
+Receive Customer Bookings
+       |
+       v
+Manage Bookings
+       |
+       v
+Update Calendar
+       |
+       v
+Track Revenue
+       |
+       v
+View Customer Ratings
+```
+
+The vendor uses Auresta to manage the information required to provide services to customers.
+
+---
+
+## Admin Workflow
+
+The admin workflow focuses mainly on vendor verification and platform-level monitoring.
+
+```text
+Vendor Application
+        |
+        v
+Review Vendor Information
+        |
+        v
+Verify Vendor
+        |
+        v
+Approve / Reject
+        |
+        v
+Monitor Platform Activity
+        |
+        v
+View GMV and Commission
+```
+
+The administrator therefore provides platform-level oversight while vendors manage their services and users manage their events.
+
+---
+
+## Complete Platform Flow
+
+The complete flow connects all three roles.
+
+```text
+                         AURESTA
+                            |
+            +---------------+---------------+
+            |               |               |
+            v               v               v
+          USER            VENDOR           ADMIN
+            |               |               |
+            v               v               v
+   Event Requirements   Vendor Profile   Vendor Application
+            |               |               |
+            v               v               v
+    Explore Vendors    Verification    Review Information
+            |               |               |
+            v               v               v
+     Compare Services   Bookings        Approve / Reject
+            |               |               |
+            v               v               v
+     Check Availability  Calendar      Platform Monitoring
+            |               |               |
+            v               v               v
+       Book Service      Revenue       GMV / Commission
+            |
+            v
+         Payment
+            |
+            v
+    Confirmed Booking
+            |
+            v
+      Event Details
+```
+
+This workflow shows how the three different parts of Auresta work together. Users interact with vendors to plan and book services, vendors manage their services and bookings, and administrators handle verification and platform-level monitoring.
+
+---
+
+# 13 — HOW THE MAIN FEATURES WORK TOGETHER
+
+The main features of Auresta are connected rather than working as completely separate sections.
+
+A user first provides basic event requirements such as the event date, budget, celebration type, guest count, and location.
+
+The user can then explore vendors and use filters and sorting options to narrow down the available choices.
+
+After selecting a vendor, the user can review the vendor profile, pricing, ratings, services, and availability. If additional clarification is required, the user can communicate with the vendor through the chat feature.
+
+Once the user decides on a suitable service, the booking can be confirmed and the required payment can be completed.
+
+After booking, the user can access their event and booking information.
+
+At the same time, vendors can manage their profiles, bookings, availability, revenue, and ratings through the Vendor View.
+
+Administrators manage vendor verification and can monitor platform-level metrics such as GMV and commission through the Admin View.
+
+This creates a connected workflow between customers, vendors, and administrators.
+
+---
+
+# 14 — CONCLUSION
+
+Auresta brings the main stages of event planning into a single platform.
+
+For users, the platform provides a way to enter event requirements, discover vendors, compare services, check availability, communicate with vendors, book services, purchase packages, make payments, manage confirmed bookings, and receive support.
+
+For vendors, Auresta provides tools for managing profiles, verification, bookings, availability, revenue, and customer ratings.
+
+For administrators, the platform provides vendor verification and an overview of important platform-level business information.
+
+The overall purpose of Auresta is to make event planning more organized by bringing users, vendors, services, packages, bookings, payments, and support together within one platform.
+
           │
           ▼
      Event Details
