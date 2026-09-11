@@ -57,51 +57,57 @@ function renderNavbar(state) {
           <span>AURESTA</span>
         </a>
 
-        ${isConsumer ? `
-          <div class="nav-links">
-            <a href="#" class="nav-link ${state.currentView === 'home' ? 'active' : ''}" onclick="navigateTo('home')">
-              <i data-lucide="home"></i> Home
-            </a>
-            <a href="#" class="nav-link ${state.currentView === 'explore' ? 'active' : ''}" onclick="navigateTo('explore')">
-              <i data-lucide="compass"></i> Explore Vendors
-            </a>
-            <a href="#" class="nav-link ${state.currentView === 'packages' ? 'active' : ''}" onclick="navigateTo('packages')">
-              <i data-lucide="package"></i> Packages & Deals
-            </a>
-            <a href="#" class="nav-link ${state.currentView === 'builder' ? 'active' : ''}" onclick="navigateTo('builder')">
-              <i data-lucide="wand-2"></i> Build Package
-            </a>
-            <a href="#" class="nav-link ${state.currentView === 'urgency' ? 'active' : ''}" onclick="navigateTo('urgency')">
-              <span class="badge badge-urgent">⚡ NEED IT NOW</span>
-            </a>
-            <a href="#" class="nav-link ${state.currentView === 'my_event' ? 'active' : ''}" onclick="navigateTo('my_event')">
-              <i data-lucide="calendar"></i> My Event
-            </a>
-            <a href="#" class="nav-link ${state.currentView === 'support' ? 'active' : ''}" onclick="navigateTo('support')">
-              <i data-lucide="headphones"></i> Chat Support
-            </a>
-          </div>
-        ` : ''}
+        <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
 
-        ${isVendor ? `
-          <div class="nav-links">
-            <a href="#" class="nav-link active"><i data-lucide="layout-dashboard"></i> Vendor Portal</a>
-            <a href="#" class="nav-link" onclick="openVendorPreviewModal()"><i data-lucide="eye"></i> Preview Public Profile</a>
-          </div>
-        ` : ''}
+        <div class="nav-right">
+          ${isConsumer ? `
+            <div class="nav-links">
+              <a href="#" class="nav-link ${state.currentView === 'home' ? 'active' : ''}" onclick="navigateTo('home')">
+                <i data-lucide="home"></i> Home
+              </a>
+              <a href="#" class="nav-link ${state.currentView === 'explore' ? 'active' : ''}" onclick="navigateTo('explore')">
+                <i data-lucide="compass"></i> Explore Vendors
+              </a>
+              <a href="#" class="nav-link ${state.currentView === 'packages' ? 'active' : ''}" onclick="navigateTo('packages')">
+                <i data-lucide="package"></i> Packages & Deals
+              </a>
+              <a href="#" class="nav-link ${state.currentView === 'builder' ? 'active' : ''}" onclick="navigateTo('builder')">
+                <i data-lucide="wand-2"></i> Build Package
+              </a>
+              <a href="#" class="nav-link ${state.currentView === 'urgency' ? 'active' : ''}" onclick="navigateTo('urgency')">
+                <span class="badge badge-urgent">⚡ NEED IT NOW</span>
+              </a>
+              <a href="#" class="nav-link ${state.currentView === 'my_event' ? 'active' : ''}" onclick="navigateTo('my_event')">
+                <i data-lucide="calendar"></i> My Event
+              </a>
+              <a href="#" class="nav-link ${state.currentView === 'support' ? 'active' : ''}" onclick="navigateTo('support')">
+                <i data-lucide="headphones"></i> Chat Support
+              </a>
+            </div>
+          ` : ''}
 
-        ${isAdmin ? `
-          <div class="nav-links">
-            <a href="#" class="nav-link active"><i data-lucide="shield-check"></i> Admin Portal</a>
-            <a href="#" class="nav-link"><i data-lucide="users"></i> Verification Desk</a>
-          </div>
-        ` : ''}
+          ${isVendor ? `
+            <div class="nav-links">
+              <a href="#" class="nav-link active"><i data-lucide="layout-dashboard"></i> Vendor Portal</a>
+              <a href="#" class="nav-link" onclick="openVendorPreviewModal()"><i data-lucide="eye"></i> Preview Public Profile</a>
+            </div>
+          ` : ''}
 
-        <!-- Global Role Switcher -->
-        <div class="role-switcher">
-          <button class="role-btn ${isConsumer ? 'active' : ''}" onclick="switchRole('consumer')">User View</button>
-          <button class="role-btn ${isVendor ? 'active' : ''}" onclick="switchRole('vendor')">Vendor View</button>
-          <button class="role-btn ${isAdmin ? 'active' : ''}" onclick="switchRole('admin')">Admin View</button>
+          ${isAdmin ? `
+            <div class="nav-links">
+              <a href="#" class="nav-link active"><i data-lucide="shield-check"></i> Admin Portal</a>
+              <a href="#" class="nav-link"><i data-lucide="users"></i> Verification Desk</a>
+            </div>
+          ` : ''}
+
+          <!-- Global Role Switcher -->
+          <div class="role-switcher">
+            <button class="role-btn ${isConsumer ? 'active' : ''}" onclick="switchRole('consumer')">User View</button>
+            <button class="role-btn ${isVendor ? 'active' : ''}" onclick="switchRole('vendor')">Vendor View</button>
+            <button class="role-btn ${isAdmin ? 'active' : ''}" onclick="switchRole('admin')">Admin View</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -148,7 +154,34 @@ function renderHomeView(state) {
         <div class="hero-tagline">"Where Moments Turn Golden"</div>
         <p class="hero-subtitle">Discover verified vendors, compare prices, build custom packages & book your entire celebration effortlessly.</p>
 
-        <!-- Interactive Search Widget -->
+        <!-- Need It Now Urgency Bar with Packages CTA -->
+        <div class="urgency-banner">
+          <div class="urgency-text">
+            <h3>⚡ Need a Vendor Immediately?</h3>
+            <p>Find decorators, caterers & photographers ready to serve within 2 to 24 hours.</p>
+          </div>
+          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+            <button class="btn btn-purple" onclick="navigateTo('urgency')">
+              Browse Urgent Availability
+            </button>
+            <button class="btn btn-primary" onclick="navigateTo('packages')">
+              <i data-lucide="package"></i> Explore Packages & Deals
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explore by Event Type -->
+    <section style="padding: 3rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Explore by Event Type</h2>
+            <p class="section-subtitle">Handpicked vendor packages for every occasion</p>
+          </div>
+        </div>
+
         <div class="search-widget">
           <div class="search-tabs">
             ${categories.map(c => `
@@ -162,7 +195,7 @@ function renderHomeView(state) {
             <!-- Typable + Selectable Location Input -->
             <div class="field-group">
               <label class="field-label">Location</label>
-              <input type="text" list="locationOptions" class="field-input" value="${state.searchParams.location}" oninput="setSearchParam('location', this.value)" placeholder="Type or select location..." />
+              <input type="text" list="locationOptions" class="field-input" value="${state.searchParams.location}" onchange="setSearchParam('location', this.value)" placeholder="Type or select location..." />
               <datalist id="locationOptions">
                 <option value="Bangalore"></option>
                 <option value="Indiranagar, Bangalore"></option>
@@ -183,57 +216,19 @@ function renderHomeView(state) {
             <!-- Typable Guest Count Input -->
             <div class="field-group">
               <label class="field-label">Guest Count</label>
-              <input type="number" min="1" class="field-input" value="${state.searchParams.guests || 50}" oninput="setSearchParam('guests', parseInt(this.value) || 1)" placeholder="Enter guests count..." />
+              <input type="number" min="1" class="field-input" value="${state.searchParams.guests || 50}" onchange="setSearchParam('guests', parseInt(this.value) || 1)" placeholder="Enter guests count..." />
             </div>
 
             <!-- Typable Budget Input -->
             <div class="field-group">
               <label class="field-label">Budget (₹)</label>
-              <input type="number" min="500" step="500" class="field-input" value="${state.searchParams.budgetMax || 50000}" oninput="setSearchParam('budgetMax', parseInt(this.value) || 0)" placeholder="Enter budget (e.g. 37500)..." />
+              <input type="number" min="500" step="500" class="field-input" value="${state.searchParams.budgetMax || 50000}" onchange="setSearchParam('budgetMax', parseInt(this.value) || 0)" placeholder="Enter budget (e.g. 37500)..." />
             </div>
 
             <button class="btn btn-primary" onclick="navigateTo('explore')">
               <i data-lucide="search"></i> Find Available
             </button>
           </div>
-        </div>
-
-        <!-- Need It Now Urgency Bar with Packages CTA -->
-        <div class="urgency-banner">
-          <div class="urgency-text">
-            <h3>⚡ Need a Vendor Immediately?</h3>
-            <p>Find decorators, caterers & photographers ready to serve within 2 to 24 hours.</p>
-          </div>
-          <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-            <button class="btn btn-purple" onclick="navigateTo('urgency')">
-              Browse Urgent Availability
-            </button>
-            <button class="btn btn-primary" onclick="navigateTo('packages')">
-              <i data-lucide="package"></i> Explore Packages & Deals
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick Event Categories -->
-    <section class="categories-section">
-      <div class="container">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Explore by Event Type</h2>
-            <p class="section-subtitle">Handpicked vendor packages for every occasion</p>
-          </div>
-        </div>
-
-        <div class="categories-grid">
-          ${categories.map(c => `
-            <div class="category-card" onclick="selectCategoryFilter('${c.id}')">
-              <div class="category-icon">${c.icon}</div>
-              <div class="category-name">${c.name}</div>
-              <span class="badge badge-gold">${c.count} Vendors</span>
-            </div>
-          `).join('')}
         </div>
       </div>
     </section>
@@ -248,7 +243,7 @@ function renderHomeView(state) {
           </div>
         </div>
 
-        <div class="moments-grid">
+        <div class="moments-grid reveal-group">
           ${moments.map(m => `
             <div class="moment-card">
               <img src="${m.image}" class="moment-img" alt="${m.title}" />
@@ -355,7 +350,7 @@ function renderExploreView(state) {
               <button class="btn btn-primary" onclick="resetFilters()">Reset Filters</button>
             </div>
           ` : `
-            <div class="vendors-grid">
+            <div class="vendors-grid reveal-group">
               ${vendors.map(v => renderVendorCard(v, state)).join('')}
             </div>
           `}
@@ -432,7 +427,7 @@ function renderPackagesView(state) {
           <button class="btn btn-primary" style="margin-top:1rem;" onclick="resetPackageFilters()">Reset Package Filters</button>
         </div>
       ` : `
-        <div class="vendors-grid">
+        <div class="vendors-grid reveal-group">
           ${filtered.map(p => renderPackageCard(p)).join('')}
         </div>
       `}
@@ -484,7 +479,7 @@ function renderBuilderView(state) {
       </div>
 
       <!-- Category Selector Grid -->
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <div class="reveal-group" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
         ${categories.map(cat => {
           const selectedVendorId = custom.selectedVendors[cat.id];
           const selectedVendor = allVendors.find(v => v.id === selectedVendorId);
@@ -544,7 +539,7 @@ function renderUrgencyView(state) {
         </div>
       </div>
 
-      <div class="vendors-grid" style="margin-top: 2rem;">
+      <div class="vendors-grid reveal-group" style="margin-top: 2rem;">
         ${urgentVendors.map(v => renderVendorCard(v, state)).join('')}
       </div>
     </div>
@@ -566,7 +561,7 @@ function renderMyEventView(state) {
       </div>
 
       <!-- Overview Stats -->
-      <div class="stats-row">
+      <div class="stats-row reveal-group">
         <div class="stat-card">
           <div class="stat-icon">📅</div>
           <div>
@@ -701,7 +696,7 @@ function renderVendorDashboard(state) {
       </div>
 
       <!-- Overview Stats displaying NUMERICAL BOOKING COUNT (Requirement #3) -->
-      <div class="stats-row">
+      <div class="stats-row reveal-group">
         <div class="stat-card">
           <div class="stat-icon">💰</div>
           <div>
@@ -813,7 +808,7 @@ function renderAdminPortal(state) {
         </div>
       </div>
 
-      <div class="stats-row">
+      <div class="stats-row reveal-group">
         <div class="stat-card">
           <div class="stat-icon">📈</div>
           <div>
@@ -834,7 +829,8 @@ function renderAdminPortal(state) {
       <!-- Real-Time Verification Requests Queue (Requirements #4 & #5) -->
       <div class="package-card" style="margin-top:2rem;">
         <h3 style="color:var(--text-primary); margin-bottom:1.25rem;">Vendor Verification Requests</h3>
-        <table style="width:100%; text-align:left; border-collapse:collapse; color:var(--text-secondary); font-size:0.9rem;">
+        <div style="overflow-x:auto;">
+        <table style="width:100%; min-width:520px; text-align:left; border-collapse:collapse; color:var(--text-secondary); font-size:0.9rem;">
           <thead>
             <tr style="border-bottom:1px solid var(--border-color); color:var(--text-primary);">
               <th style="padding:0.75rem;">Vendor Name</th>
@@ -860,6 +856,7 @@ function renderAdminPortal(state) {
             `).join('')}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   `;
@@ -876,7 +873,7 @@ function renderVendorCard(v, state) {
         <span class="badge ${v.verified ? 'badge-verified' : 'badge-gold'}">
           ${v.verified ? '✓ VERIFIED' : 'PENDING'}
         </span>
-        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${v.id}')">❤️</button>
+        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${v.id}')" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}" aria-pressed="${isFav}">❤️</button>
       </div>
 
       <div class="vendor-card-body">
@@ -937,7 +934,7 @@ function renderModal(state) {
         <div class="modal-container" style="max-width:550px;">
           <div class="modal-header">
             <div class="modal-title">Review & Pay Deposit</div>
-            <button class="modal-close" onclick="closeModal()">✕</button>
+            <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">✕</button>
           </div>
           <div class="modal-body">
             <div style="background:var(--bg-main); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:1rem; margin-bottom:1.5rem;">
@@ -1025,7 +1022,7 @@ function renderModal(state) {
         <div class="modal-container">
           <div class="modal-header">
             <div class="modal-title">Public Profile Preview (${p.businessName})</div>
-            <button class="modal-close" onclick="closeModal()">✕</button>
+            <button class="modal-close" onclick="closeModal()" aria-label="Close dialog">✕</button>
           </div>
           <div class="modal-body">
             <div style="position:relative; margin-bottom:1.5rem;">
@@ -1175,7 +1172,8 @@ function renderVendorDetailView(state) {
               const isSelected = selectedDate === dateStr;
 
               return `
-                <div class="calendar-date-cell ${isBooked ? 'booked' : 'available'} ${isSelected ? 'selected' : ''}" 
+                <div class="calendar-date-cell ${isBooked ? 'booked' : 'available'} ${isSelected ? 'selected' : ''}"
+                     ${isBooked ? 'aria-disabled="true"' : `role="button" tabindex="0" aria-label="Select ${dateStr}" onkeypress="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectVendorProfileDate('${dateStr}')}"`}
                      onclick="${isBooked ? '' : `selectVendorProfileDate('${dateStr}')`}">
                   ${dayNum}
                 </div>
@@ -1385,6 +1383,43 @@ function approveVendorVerification(vendorId) {
   alert('Vendor approved! Verified badge updated across Vendor View, Admin Desk, and Consumer Marketplace.');
 }
 
+/* Mobile Navigation Toggle */
+function toggleMobileNav() {
+  const nav = document.querySelector('.nav-right');
+  const toggle = document.querySelector('.nav-toggle');
+  if (!nav || !toggle) return;
+  const isOpen = nav.classList.toggle('nav-open');
+  toggle.classList.toggle('open', isOpen);
+  toggle.setAttribute('aria-expanded', String(isOpen));
+}
+
+function closeMobileNav() {
+  const nav = document.querySelector('.nav-right');
+  const toggle = document.querySelector('.nav-toggle');
+  if (nav) nav.classList.remove('nav-open');
+  if (toggle) {
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+}
+
+let _globalListenersBound = false;
 function bindEvents() {
-  // Global event bindings
+  // Global event bindings (bound once; renderApp rebuilds the DOM on every state change)
+  if (_globalListenersBound) return;
+  _globalListenersBound = true;
+
+  document.addEventListener('click', (e) => {
+    const nav = document.querySelector('.nav-right');
+    const toggle = document.querySelector('.nav-toggle');
+    if (nav && nav.classList.contains('nav-open') && !nav.contains(e.target) && !(toggle && toggle.contains(e.target))) {
+      closeMobileNav();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (window.appStore.state.activeModal) closeModal();
+    closeMobileNav();
+  });
 }
