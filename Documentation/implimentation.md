@@ -31,6 +31,7 @@ This document records the significant development tasks undertaken during the im
 | T023    | Document the current Auresta architecture and future production architecture | Documentation             | Completed   | —              | Yes           | `Architecture.md`                        |
 | T024    | Review remaining limitations and production requirements                     | Testing/QA                | In Progress | —              | Yes           | Project review                           |
 | T025    | Prepare final project documentation and submission materials                 | Documentation             | In Progress | —              | Yes           | Project documentation                    |
+| T026    | Implement PostgreSQL database and real authentication (signup/login/Google)  | Backend/Database          | Completed   | 2026-09-11     | Yes           | `backend/` routes, models, schema.sql    |
 
 ---
 
@@ -800,6 +801,31 @@ Documentation includes:
 * Final submission materials.
 
 The final documentation is intended to describe both the current implementation and the future direction of the Auresta platform.
+
+---
+
+## T026 — PostgreSQL Database and Real Authentication
+
+The first slice of the proposed production backend described in `Architecture.md` (Sections 14–16) was implemented: a real PostgreSQL database and real user authentication, replacing the client-side role-switcher as the source of identity.
+
+### Database
+
+* Added a `users` table (`backend/config/schema.sql`) supporting both password accounts and Google accounts on the same row (`password_hash` and `google_id` are both nullable, but at least one is required).
+* Added a connection pool (`backend/config/db.js`) and a migration runner (`npm run migrate`).
+
+### Authentication API
+
+* `POST /api/auth/signup` and `POST /api/auth/login` — bcrypt password hashing, JWT issuance, express-validator input checks.
+* `POST /api/auth/google` — verifies a Google Identity Services ID token server-side and finds-or-creates the matching user, linking to an existing password account by email where applicable.
+* `GET /api/auth/me` — returns the authenticated user for a valid Bearer token.
+* Rate limiting and helmet security headers were added to the auth routes.
+
+### Frontend
+
+* A new login/signup page (`js/auth.js`) was added to the existing vanilla-JS view router, styled to match the current design system, including a "Sign in with Google" button.
+* The navbar now reflects authentication state (Log In/Sign Up vs. a user chip with Log Out).
+
+This directly addresses the "Real user authentication" and part of the "Persistent database" items listed as production requirements in T024.
 
 ---
 
