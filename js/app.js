@@ -29,6 +29,7 @@ function renderApp() {
     }
 
     bindEvents();
+    renderGoogleButtonIfNeeded(state);
   } catch (err) {
     console.error("Auresta Render Error:", err);
     const appContainer = document.getElementById('app');
@@ -108,14 +109,33 @@ function renderNavbar(state) {
             <button class="role-btn ${isVendor ? 'active' : ''}" onclick="switchRole('vendor')">Vendor View</button>
             <button class="role-btn ${isAdmin ? 'active' : ''}" onclick="switchRole('admin')">Admin View</button>
           </div>
+
+          <!-- Auth Controls -->
+          ${state.auth.isAuthenticated ? `
+            <div class="navbar-user-chip">
+              <span>👤 ${state.auth.user.name}</span>
+              <button class="btn btn-sm btn-outline" style="padding:0.25rem 0.7rem;" onclick="logoutUser()">Log Out</button>
+            </div>
+          ` : `
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn btn-sm btn-outline" onclick="openAuthPage('login')">Log In</button>
+              <button class="btn btn-sm btn-primary" onclick="openAuthPage('signup')">Sign Up</button>
+            </div>
+          `}
         </div>
       </div>
     </nav>
   `;
 }
 
+function openAuthPage(view) {
+  window.appStore.setAuthView(view);
+  navigateTo('auth');
+}
+
 /* Master View Router */
 function renderView(state) {
+  if (state.currentView === 'auth') return renderAuthView(state);
   if (state.currentRole === 'vendor') return renderVendorDashboard(state);
   if (state.currentRole === 'admin') return renderAdminPortal(state);
 
