@@ -1343,11 +1343,45 @@ function confirmPaymentGateway() {
   window.appStore.processPayment(selectedMethod);
 }
 
-function sendSupportMsg() {
+async function sendSupportMsg() {
   const input = document.getElementById('supportInput');
   if (!input || !input.value.trim()) return;
-  window.appStore.sendSupportMessage('SUP-101', input.value.trim());
+
+  const message = input.value.trim();
   input.value = '';
+
+  window.appStore.sendSupportMessage('SUP-101', message);
+
+  try {
+    const response = await fetch('http://localhost:5050/api/ai/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: message
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.success && data.response) {
+      window.appStore.sendSupportMessage('SUP-101', data.response, 'support');
+    } else {
+      window.appStore.sendSupportMessage(
+        'SUP-101',
+        'Sorry, I could not process your request.'
+      );
+    }
+
+  } catch (error) {
+    console.error('AURESTA AI Error:', error);
+
+    window.appStore.sendSupportMessage(
+      'SUP-101',
+      'Sorry, I could not connect to AURESTA AI.'
+    );
+  }
 }
 
 function openVendorChatDirect(vendorId) {

@@ -265,23 +265,14 @@ class StateStore {
     this.save();
   }
 
-  sendSupportMessage(ticketId, text) {
+  sendSupportMessage(ticketId, text, sender = 'user') {
     const ticket = this.state.supportTickets.find(t => t.id === ticketId) || this.state.supportTickets[0];
     if (ticket) {
       ticket.messages.push({
-        sender: 'user',
+        sender,
         text,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       });
-
-      setTimeout(() => {
-        ticket.messages.push({
-          sender: 'support',
-          text: 'Thank you for reaching out to Auresta Support. An Auresta Concierge agent has reviewed your request.',
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        });
-        this.save();
-      }, 1200);
     }
     this.save();
   }
