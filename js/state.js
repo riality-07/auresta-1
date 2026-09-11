@@ -16,7 +16,12 @@ class StateStore {
     const saved = localStorage.getItem('auresta_state_v4');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        // Backfill auth state for sessions saved before login/signup existed
+        if (!parsed.auth) {
+          parsed.auth = { isAuthenticated: false, token: null, user: null, view: 'login', error: null, loading: false };
+        }
+        return parsed;
       } catch (e) {
         console.error("Error loading saved state", e);
       }
@@ -50,6 +55,16 @@ class StateStore {
 
       // Selected Booking Date for Vendor Profile Modal/Page
       selectedBookingDate: '2026-09-25',
+
+      // Authentication State
+      auth: {
+        isAuthenticated: false,
+        token: null,
+        user: null,
+        view: 'login', // 'login' | 'signup'
+        error: null,
+        loading: false
+      },
 
       // Saved Favorites
       favorites: ['v-1', 'v-5'],
@@ -165,6 +180,49 @@ class StateStore {
   closeModal() {
     this.state.activeModal = null;
     this.state.modalData = null;
+    this.save();
+  }
+
+  setAuthView(view) {
+    this.state.auth.view = view;
+    this.state.auth.error = null;
+    this.save();
+  }
+
+  setAuthLoading(isLoading) {
+    this.state.auth.loading = isLoading;
+    this.save();
+  }
+
+  setAuthError(message) {
+    this.state.auth.error = message;
+    this.state.auth.loading = false;
+    this.save();
+  }
+
+  loginSuccess(token, user) {
+    this.state.auth = {
+      isAuthenticated: true,
+      token,
+      user,
+      view: 'login',
+      error: null,
+      loading: false
+    };
+    this.state.currentView = 'home';
+    this.save();
+  }
+
+  logout() {
+    this.state.auth = {
+      isAuthenticated: false,
+      token: null,
+      user: null,
+      view: 'login',
+      error: null,
+      loading: false
+    };
+    this.state.currentView = 'home';
     this.save();
   }
 
