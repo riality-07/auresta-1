@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.post("/signup", signupValidators, handleValidationErrors, authController.signup);
 router.post("/login", loginValidators, handleValidationErrors, authController.login);
+router.post("/google", authController.googleAuth);
 router.get("/me", requireAuth, authController.me);
 
 module.exports = router;
