@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/userModel");
 const { signToken } = require("../utils/jwt");
+const { verifyGoogleIdToken } = require("../services/googleAuthService");
 
 const SALT_ROUNDS = 10;
 
@@ -44,9 +45,38 @@ async function login(req, res, next) {
   }
 }
 
+async function googleAuth(req, res, next) {
+  try {
+    const { idToken } = req.body;
+    if (!idToken) {
+      return res.status(400).json({ success: false, message: "idToken is required" });
+    }
+
+    const { googleId, email, name, avatarUrl } = await verifyGoogleIdToken(idToken);
+
+    let user = await userModel.findByGoogleId(googleId);
+
+    if (!user) {
+      const existingByEmail = await userModel.findByEmail(email);
+
+      if (existingByEmail) {
+        // Existing password-based account with the same email: link Google to it.
+        user = await userModel.linkGoogleAccount({ userId: existingByEmail.id, googleId, avatarUrl });
+      } else {
+        user = await userModel.createUserWithGoogle({ name, email, googleId, avatarUrl });
+      }
+    }
+
+    const token = signToken({ sub: user.id, role: user.role });
+    res.status(200).json({ success: true, token, user: userModel.toPublicUser(user) });
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function me(req, res) {
   // req.user is already loaded via findById, which only selects public columns
   res.status(200).json({ success: true, user: req.user });
 }
 
-module.exports = { signup, login, me };
+module.exports = { signup, login, googleAuth, me };
