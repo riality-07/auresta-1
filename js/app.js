@@ -687,7 +687,13 @@ function renderSupportView(state) {
             `).join('')}
           </div>
 
-          <div style="display:flex; gap:0.5rem; padding-top:1rem; border-top:1px solid var(--border-color);">
+          <div style="display:flex; flex-wrap:wrap; gap:0.4rem; padding-top:1rem;">
+            ${['Deposit & balance', 'Vendors & prices', 'Available today?', 'Packages & deals', 'Refunds', 'My bookings'].map((label, i) => `
+              <button class="chip" style="background:var(--bg-main); border:1px solid var(--border-color); color:var(--text-primary); padding:0.35rem 0.75rem; border-radius:999px; font-size:0.78rem; cursor:pointer; transition:all .2s ease;" onclick="sendSupportMsg('${['How much deposit do I pay?','What vendors do you have?','Who is available today?','What packages do you have?','How do refunds work?','Show my bookings'][i]}')">${label}</button>
+            `).join('')}
+          </div>
+
+          <div style="display:flex; gap:0.5rem; padding-top:0.85rem; border-top:1px solid var(--border-color);">
             <input type="text" id="supportInput" class="field-input" placeholder="Type support question or request refund help..." onkeypress="if(event.key==='Enter') sendSupportMsg()" />
             <button class="btn btn-primary" onclick="sendSupportMsg()">Send</button>
           </div>
@@ -1363,12 +1369,19 @@ function confirmPaymentGateway() {
   window.appStore.processPayment(selectedMethod);
 }
 
-function sendSupportMsg() {
+function sendSupportMsg(prefillQuestion) {
   const input = document.getElementById('supportInput');
-  if (!input || !input.value.trim()) return;
 
-  const message = input.value.trim();
-  input.value = '';
+  let message = '';
+  if (typeof prefillQuestion === 'string' && prefillQuestion.trim()) {
+    // Quick-pick chip clicked — use its question as the message.
+    message = prefillQuestion.trim();
+    if (input) input.value = '';
+  } else {
+    if (!input || !input.value.trim()) return;
+    message = input.value.trim();
+    input.value = '';
+  }
 
   // Echo the user's message into the ticket.
   window.appStore.sendSupportMessage('SUP-101', message);
