@@ -1363,45 +1363,33 @@ function confirmPaymentGateway() {
   window.appStore.processPayment(selectedMethod);
 }
 
-async function sendSupportMsg() {
+function sendSupportMsg() {
   const input = document.getElementById('supportInput');
   if (!input || !input.value.trim()) return;
 
   const message = input.value.trim();
   input.value = '';
 
+  // Echo the user's message into the ticket.
   window.appStore.sendSupportMessage('SUP-101', message);
 
-  try {
-    const response = await fetch(`${window.AURESTA_API_BASE_URL || 'http://localhost:5000/api'}/ai/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: message
-      })
-    });
-
-    const data = await response.json();
-
-    if (data.success && data.response) {
-      window.appStore.sendSupportMessage('SUP-101', data.response, 'support');
-    } else {
-      window.appStore.sendSupportMessage(
-        'SUP-101',
-        'Sorry, I could not process your request.'
-      );
-    }
-
-  } catch (error) {
-    console.error('AURESTA AI Error:', error);
-
+  // Fully local answer — no network, no API, no key. Everything runs in the browser.
+  const kb = window.AurestaSupportKB;
+  if (!kb || typeof kb.getAnswer !== 'function') {
     window.appStore.sendSupportMessage(
       'SUP-101',
-      'Sorry, I could not connect to AURESTA AI.'
+      'Sorry, the local support assistant is not loaded yet. Please hard-refresh (Ctrl+Shift+R) to update the app.'
     );
+    return;
   }
+
+  const result = kb.getAnswer(message);
+  const reply = result && result.answer ? result.answer : 'Hmm — I didn’t quite catch that. Try asking about vendors, packages, deposits, or cancellations.';
+
+  // Short delay so the answer feels like a human concierge replying.
+  setTimeout(function () {
+    window.appStore.sendSupportMessage('SUP-101', reply, 'support');
+  }, 450);
 }
 
 function openVendorChatDirect(vendorId) {
