@@ -790,47 +790,26 @@
   --------------------------------------------------------- */
   function querySet(querySyn) { return new Set(querySyn); }
 
-  function escapeRe(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  /* Word-boundary containment: "hi" must not match inside "this". */
-  function containsPhrase(queryNorm, phrase) {
-    if (phrase === '') return false;
-    return new RegExp('\\b' + escapeRe(phrase) + '\\b').test(queryNorm);
-  }
-
   /* Score a single candidate phrase against the query. */
   function analyzePhrase(queryNorm, querySetObj, phrase, pTokens, pSyn) {
     if (phrase === '') return { score: 0, words: 0 };
     var score = 0;
 
-    // Full-phrase word-boundary containment is the strongest signal.
-    if (containsPhrase(queryNorm, phrase)) {
+    // Full phrase containment is the strongest signal.
+    if (queryNorm.indexOf(phrase) !== -1) {
       var words = phrase.split(' ').length;
       return { score: 3 + words, words: words };
     }
 
-    // Token coverage: hits against the synonym-expanded query set,
-    // out of the DISTINCT expanded pattern words (keeps scores ~0..3).
-    var hitSet = {};
-    var hits = 0;
-    var i;
-    for (i = 0; i < pSyn.length; i++) {
-      if (querySetObj.has(pSyn[i]) && !hitSet[pSyn[i]]) {
-        hitSet[pSyn[i]] = true;
-        hits++;
-      }
+    // Token coverage against the synonym-expanded query set.
+    var hits = 0, k;
+    for (k = 0; k < pSyn.length; k++) {
+      if (querySetObj.has(pSyn[k])) hits++;
     }
-    var distinct = [];
-    var seen = {};
-    for (i = 0; i < pSyn.length; i++) {
-      if (!seen[pSyn[i]]) { seen[pSyn[i]] = true; distinct.push(pSyn[i]); }
-    }
-    var total = distinct.length;
+    var total = pTokens.length;
     if (total > 0) {
       score = (hits / total) * 2.4;
-      if (hits > 0 && total > 1) score += Math.min(2, hits) * 0.3; // nudge multi-word matches
+      if (hits > 0 && total > 1) score += Math.min(2, hits) * 0.3; // nudge multi-token matches
     }
     return { score: score, words: total };
   }
@@ -892,9 +871,9 @@
     var state = app ? app.state : null;
     var qSyn = new Set(querySyn);
 
-    // My bookings ("my bookings", "show my bookings", "my voucher", …).
-    if (/(?:^|\s)(my|show|list|see|what|view)\s.{0,12}booking|\bmy (?:voucher|vouchers|reservation|reservations)\b/.test(queryNorm) &&
-        hasAny(querySyn, ['bookings','vouchers','reservations','booked','reserved'])) {
+    // My bookings
+    if (hasAny(querySyn, ['bookings','vouchers','reservations','booked','reserved']) &&
+        hasAny(queryTokens, ['my','show','list','see','what','how'])) {
       if (state && state.bookings && state.bookings.length) {
         var lines = state.bookings.map(function (b) {
           return '• ' + b.vendorName + ' — ' + b.date + ' (' + b.status + '), deposit ₹' + fmtNum(b.depositPaid) + ' paid, ₹' + fmtNum(b.balanceDue) + ' due. Voucher ' + (b.id || 'AUR-XXXXX') + '.';
@@ -914,7 +893,7 @@
     }
 
     // My event
-    if (/\bmy event\b|\bshow my event\b|\bview my event\b/.test(queryNorm)) {
+    if (hasAny(queryTokens, ['event','events']) && hasAny(queryTokens, ['my','show','view'])) {
       if (state && state.events && state.events.length) {
         var ev = state.events[0];
         return 'Your current event is “' + ev.title + '” on ' + ev.date + ' in ' + ev.location + ' (≈' + ev.guestCount + ' guests). Budget: ₹' + fmtNum(ev.spentBudget) + ' spent of ₹' + fmtNum(ev.totalBudget) + '. Open My Event from the navbar to see the checklist and vouchers.';
