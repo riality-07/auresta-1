@@ -7,8 +7,6 @@ const helmet = require("helmet");
 const authRoutes = require("./routes/authRoutes");
 const { notFoundHandler, errorHandler } = require("./middleware/errorHandler");
 
-const aiRoutes = require("./routes/aiRoutes");
-
 const app = express();
 
 app.use(helmet());
@@ -24,8 +22,6 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-// AI Agent routes
-app.use("/api/ai", aiRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

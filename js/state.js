@@ -1,5 +1,22 @@
 /* AURESTA - Reactive State Manager with Real-Time Calendar Sync */
 
+// Fresh Chat Support conversation used whenever the app starts a new session.
+// A full page reload must begin with a clean support chat, so this seed is
+// applied on every load instead of restoring previously sent chat messages.
+const DEFAULT_SUPPORT_TICKETS = [
+  {
+    id: 'SUP-101',
+    topic: 'Refund & Deposit Policy',
+    title: 'Deposit status for Booking AUR-89021',
+    status: 'Open',
+    date: '2026-08-19',
+    messages: [
+      { sender: 'user', text: 'Hi Auresta Support, when is the remaining balance due?', time: '10:15 AM' },
+      { sender: 'support', text: 'Hello! As per Auresta protection policy, your deposit guarantees your date. The remaining balance is payable directly on the event day.', time: '10:20 AM' }
+    ]
+  }
+];
+
 class StateStore {
   constructor() {
     this.listeners = [];
@@ -21,6 +38,10 @@ class StateStore {
         if (!parsed.auth) {
           parsed.auth = { isAuthenticated: false, token: null, user: null, view: 'login', error: null, loading: false };
         }
+        // Chat Support starts fresh after a full page reload. Keep every other
+        // persisted value (auth, favorites, bookings, events, vendor profile),
+        // but never restore the previous support conversation.
+        parsed.supportTickets = DEFAULT_SUPPORT_TICKETS;
         return parsed;
       } catch (e) {
         console.error("Error loading saved state", e);
@@ -73,20 +94,8 @@ class StateStore {
       events: window.CELEBRATION_DATA.initialEvents,
       bookings: window.CELEBRATION_DATA.initialBookings,
 
-      // Auresta Support Ticket Inbox
-      supportTickets: [
-        {
-          id: 'SUP-101',
-          topic: 'Refund & Deposit Policy',
-          title: 'Deposit status for Booking AUR-89021',
-          status: 'Open',
-          date: '2026-08-19',
-          messages: [
-            { sender: 'user', text: 'Hi Auresta Support, when is the remaining balance due?', time: '10:15 AM' },
-            { sender: 'support', text: 'Hello! As per Auresta protection policy, your deposit guarantees your date. The remaining balance is payable directly on the event day.', time: '10:20 AM' }
-          ]
-        }
-      ],
+      // Auresta Support Ticket Inbox (fresh conversation seed for each session)
+      supportTickets: DEFAULT_SUPPORT_TICKETS,
 
       // Vendor Direct Messaging
       vendorMessages: [
