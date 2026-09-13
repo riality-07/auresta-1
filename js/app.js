@@ -44,27 +44,60 @@ function renderApp() {
   }
 }
 
-/* Navbar Component */
+/* Navbar Component — Two-Level Header (Brand Bar + Navigation Bar) */
 function renderNavbar(state) {
   const isConsumer = state.currentRole === 'consumer';
   const isVendor = state.currentRole === 'vendor';
   const isAdmin = state.currentRole === 'admin';
+  const isAuth = state.auth.isAuthenticated;
+  const userName = isAuth && state.auth.user ? (state.auth.user.name || '') : '';
+  const avatarInitial = userName ? userName.trim().charAt(0).toUpperCase() : 'A';
+  const roleLabel = isVendor ? 'Vendor View' : (isAdmin ? 'Admin View' : 'User View');
+  const brandTagline = (window.CELEBRATION_DATA && window.CELEBRATION_DATA.tagline)
+    ? window.CELEBRATION_DATA.tagline
+    : 'Where Moments Turn Golden';
 
   return `
-    <nav class="navbar">
-      <div class="container nav-content">
-        <a href="#" class="logo" onclick="navigateTo('home')">
-          <div class="logo-icon">👑</div>
-          <span>AURESTA</span>
-        </a>
+    <header class="site-header">
 
+      <!-- LEVEL 1 — BRAND BAR -->
+      <div class="brand-bar">
         <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
 
-        <div class="nav-right">
-          ${isConsumer ? `
-            <div class="nav-links">
+        <a href="#" class="brand-mark" onclick="navigateTo('home')" aria-label="Auresta home">
+          <span class="brand-crown" aria-hidden="true">👑</span>
+          <span class="brand-word">AURESTA</span>
+          <span class="brand-tagline">${brandTagline}</span>
+        </a>
+
+        <div class="brand-profile">
+          ${isAuth && userName ? `
+            <button class="profile-trigger" onclick="toggleProfileMenu()" aria-haspopup="true" aria-expanded="false">
+              <span class="profile-avatar" aria-hidden="true">${avatarInitial}</span>
+              <span class="profile-name">${userName}</span>
+              <i data-lucide="chevron-down" class="profile-chevron"></i>
+            </button>
+            <div class="profile-menu" id="profileMenu">
+              <button class="profile-menu-item" onclick="logoutUser()">
+                <i data-lucide="log-out"></i> Log Out
+              </button>
+            </div>
+          ` : `
+            <div class="brand-auth">
+              <button class="btn btn-sm btn-outline" onclick="openAuthPage('login')">Log In</button>
+              <button class="btn btn-sm btn-primary" onclick="openAuthPage('signup')">Sign Up</button>
+            </div>
+          `}
+        </div>
+      </div>
+
+      <!-- LEVEL 2 — NAVIGATION BAR -->
+      <nav class="main-nav" aria-label="Primary navigation">
+        <div class="main-nav-inner">
+          <div class="main-nav-links">
+            ${isConsumer ? `
               <a href="#" class="nav-link ${state.currentView === 'home' ? 'active' : ''}" onclick="navigateTo('home')">
                 <i data-lucide="home"></i> Home
               </a>
@@ -77,54 +110,45 @@ function renderNavbar(state) {
               <a href="#" class="nav-link ${state.currentView === 'builder' ? 'active' : ''}" onclick="navigateTo('builder')">
                 <i data-lucide="wand-2"></i> Build Package
               </a>
-              <a href="#" class="nav-link ${state.currentView === 'urgency' ? 'active' : ''}" onclick="navigateTo('urgency')">
-                <span class="badge badge-urgent">⚡ NEED IT NOW</span>
-              </a>
               <a href="#" class="nav-link ${state.currentView === 'my_event' ? 'active' : ''}" onclick="navigateTo('my_event')">
                 <i data-lucide="calendar"></i> My Event
               </a>
               <a href="#" class="nav-link ${state.currentView === 'support' ? 'active' : ''}" onclick="navigateTo('support')">
                 <i data-lucide="headphones"></i> Chat Support
               </a>
-            </div>
-          ` : ''}
+            ` : ''}
 
-          ${isVendor ? `
-            <div class="nav-links">
+            ${isVendor ? `
               <a href="#" class="nav-link active"><i data-lucide="layout-dashboard"></i> Vendor Portal</a>
               <a href="#" class="nav-link" onclick="openVendorPreviewModal()"><i data-lucide="eye"></i> Preview Public Profile</a>
-            </div>
-          ` : ''}
+            ` : ''}
 
-          ${isAdmin ? `
-            <div class="nav-links">
+            ${isAdmin ? `
               <a href="#" class="nav-link active"><i data-lucide="shield-check"></i> Admin Portal</a>
               <a href="#" class="nav-link"><i data-lucide="users"></i> Verification Desk</a>
-            </div>
-          ` : ''}
-
-          <!-- Global Role Switcher -->
-          <div class="role-switcher">
-            <button class="role-btn ${isConsumer ? 'active' : ''}" onclick="switchRole('consumer')">User View</button>
-            <button class="role-btn ${isVendor ? 'active' : ''}" onclick="switchRole('vendor')">Vendor View</button>
-            <button class="role-btn ${isAdmin ? 'active' : ''}" onclick="switchRole('admin')">Admin View</button>
+            ` : ''}
           </div>
 
-          <!-- Auth Controls -->
-          ${state.auth.isAuthenticated ? `
-            <div class="navbar-user-chip">
-              <span>👤 ${state.auth.user.name}</span>
-              <button class="btn btn-sm btn-outline" style="padding:0.25rem 0.7rem;" onclick="logoutUser()">Log Out</button>
+          <div class="main-nav-actions">
+            <a href="#" class="nav-cta" onclick="navigateTo('urgency')">
+              <i data-lucide="zap"></i> NEED IT NOW
+            </a>
+
+            <div class="role-dropdown">
+              <button class="role-trigger" onclick="toggleRoleMenu()" aria-haspopup="true" aria-expanded="false">
+                <span>${roleLabel}</span>
+                <i data-lucide="chevron-down" class="role-chevron"></i>
+              </button>
+              <div class="role-menu" id="roleMenu">
+                <button class="role-menu-item ${isConsumer ? 'active' : ''}" onclick="switchRole('consumer')">User View</button>
+                <button class="role-menu-item ${isVendor ? 'active' : ''}" onclick="switchRole('vendor')">Vendor View</button>
+                <button class="role-menu-item ${isAdmin ? 'active' : ''}" onclick="switchRole('admin')">Admin View</button>
+              </div>
             </div>
-          ` : `
-            <div style="display:flex; gap:0.5rem;">
-              <button class="btn btn-sm btn-outline" onclick="openAuthPage('login')">Log In</button>
-              <button class="btn btn-sm btn-primary" onclick="openAuthPage('signup')">Sign Up</button>
-            </div>
-          `}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   `;
 }
 
@@ -1437,9 +1461,42 @@ function approveVendorVerification(vendorId) {
   alert('Vendor approved! Verified badge updated across Vendor View, Admin Desk, and Consumer Marketplace.');
 }
 
+/* Profile & Role Dropdowns */
+function toggleProfileMenu() {
+  closeRoleMenu();
+  const menu = document.getElementById('profileMenu');
+  const trigger = document.querySelector('.profile-trigger');
+  if (!menu) return;
+  const isOpen = menu.classList.toggle('open');
+  if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
+}
+
+function toggleRoleMenu() {
+  closeProfileMenu();
+  const menu = document.getElementById('roleMenu');
+  const trigger = document.querySelector('.role-trigger');
+  if (!menu) return;
+  const isOpen = menu.classList.toggle('open');
+  if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
+}
+
+function closeProfileMenu() {
+  const menu = document.getElementById('profileMenu');
+  if (menu) menu.classList.remove('open');
+  const trigger = document.querySelector('.profile-trigger');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+}
+
+function closeRoleMenu() {
+  const menu = document.getElementById('roleMenu');
+  if (menu) menu.classList.remove('open');
+  const trigger = document.querySelector('.role-trigger');
+  if (trigger) trigger.setAttribute('aria-expanded', 'false');
+}
+
 /* Mobile Navigation Toggle */
 function toggleMobileNav() {
-  const nav = document.querySelector('.nav-right');
+  const nav = document.querySelector('.main-nav');
   const toggle = document.querySelector('.nav-toggle');
   if (!nav || !toggle) return;
   const isOpen = nav.classList.toggle('nav-open');
@@ -1448,7 +1505,7 @@ function toggleMobileNav() {
 }
 
 function closeMobileNav() {
-  const nav = document.querySelector('.nav-right');
+  const nav = document.querySelector('.main-nav');
   const toggle = document.querySelector('.nav-toggle');
   if (nav) nav.classList.remove('nav-open');
   if (toggle) {
@@ -1464,10 +1521,20 @@ function bindEvents() {
   _globalListenersBound = true;
 
   document.addEventListener('click', (e) => {
-    const nav = document.querySelector('.nav-right');
+    const nav = document.querySelector('.main-nav');
     const toggle = document.querySelector('.nav-toggle');
     if (nav && nav.classList.contains('nav-open') && !nav.contains(e.target) && !(toggle && toggle.contains(e.target))) {
       closeMobileNav();
+    }
+    const profileMenu = document.getElementById('profileMenu');
+    const profileTrigger = document.querySelector('.profile-trigger');
+    if (profileMenu && profileMenu.classList.contains('open') && !profileMenu.contains(e.target) && !(profileTrigger && profileTrigger.contains(e.target))) {
+      closeProfileMenu();
+    }
+    const roleMenu = document.getElementById('roleMenu');
+    const roleTrigger = document.querySelector('.role-trigger');
+    if (roleMenu && roleMenu.classList.contains('open') && !roleMenu.contains(e.target) && !(roleTrigger && roleTrigger.contains(e.target))) {
+      closeRoleMenu();
     }
   });
 
@@ -1475,5 +1542,7 @@ function bindEvents() {
     if (e.key !== 'Escape') return;
     if (window.appStore.state.activeModal) closeModal();
     closeMobileNav();
+    closeProfileMenu();
+    closeRoleMenu();
   });
 }
