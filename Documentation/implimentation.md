@@ -1,924 +1,1056 @@
 # AURESTA — Project Implementation Work Log
 
-This document records the significant development tasks undertaken during the implementation of the Auresta event discovery, planning, booking, and management platform.
+This document records the significant implementation, integration, testing, documentation and scalability tasks completed during the development of Auresta.
 
-## Implementation Work Log
+Auresta is an event discovery, planning, booking and management platform with User, Vendor and Admin views.
 
-| Task ID | Task                                                                         | Component                 | Status      | Date Completed | AI Assistance | Evidence                                 |
-| ------- | ---------------------------------------------------------------------------- | ------------------------- | ----------- | -------------- | ------------- | ---------------------------------------- |
-| T001    | Set up project structure and development environment                         | Project Setup             | Completed   | —              | Yes           | GitHub repository / project files        |
-| T002    | Design the Auresta application interface and overall navigation structure    | Frontend/UI               | Completed   | —              | Yes           | User, Vendor and Admin views             |
-| T003    | Implement the main application rendering and view routing system             | Frontend                  | Completed   | —              | Yes           | `app.js` / Git commit                    |
-| T004    | Implement client-side application state management                           | Frontend/State Management | Completed   | —              | Yes           | `state.js` / application functionality   |
-| T005    | Create event categories, vendor data and demo application data               | Data Layer                | Completed   | —              | Yes           | `data.js`                                |
-| T006    | Create the event planning home page and event requirement search             | Frontend                  | Completed   | —              | Yes           | Home page / published application        |
-| T007    | Implement vendor discovery, filtering and sorting functionality              | Frontend/Search           | Completed   | —              | Yes           | Explore Vendors functionality            |
-| T008    | Implement vendor profiles, service information and availability views        | Frontend                  | Completed   | —              | Yes           | Vendor profile screens                   |
-| T009    | Implement vendor booking and checkout workflow                               | Application Functionality | Completed   | —              | Yes           | Booking flow / application demo          |
-| T010    | Implement Packages & Deals functionality                                     | Frontend/Business Logic   | Completed   | —              | Yes           | Packages screen                          |
-| T011    | Implement the Build Your Own Package feature                                 | Frontend/Business Logic   | Completed   | —              | Yes           | Package builder functionality            |
-| T012    | Implement the Need It Now urgent vendor discovery workflow                   | Frontend                  | Completed   | —              | Yes           | Urgency view / application functionality |
-| T013    | Implement My Event and confirmed booking management                          | Frontend/State Management | Completed   | —              | Yes           | My Event screen                          |
-| T014    | Implement vendor communication and customer support interfaces               | Frontend                  | Completed   | —              | Yes           | Chat and support screens                 |
-| T015    | Implement Vendor View and vendor dashboard                                   | Frontend/Dashboard        | Completed   | —              | Yes           | Vendor Portal                            |
-| T016    | Implement vendor profile management, verification and availability workflow  | Frontend/Business Logic   | Completed   | —              | Yes           | Vendor functionality                     |
-| T017    | Implement Admin View and vendor verification management                      | Frontend/Admin            | Completed   | —              | Yes           | Admin Portal                             |
-| T018    | Implement platform metrics such as GMV and commission displays               | Frontend/Analytics        | Completed   | —              | Yes           | Admin dashboard                          |
-| T019    | Implement browser-side state persistence using localStorage                  | State Management          | Completed   | —              | Yes           | `state.js` / browser persistence         |
-| T020    | Improve responsive styling, visual consistency and user experience           | Frontend/UI               | Completed   | —              | Yes           | `styles.css` / published website         |
-| T021    | Test major user, vendor and admin workflows                                  | Testing                   | Completed   | —              | Yes           | Application testing                      |
-| T022    | Deploy and publish Auresta as a live web application                         | Deployment                | Completed   | —              | Yes           | GitHub Pages                             |
-| T023    | Document the current Auresta architecture and future production architecture | Documentation             | Completed   | —              | Yes           | `Architecture.md`                        |
-| T024    | Review remaining limitations and production requirements                     | Testing/QA                | In Progress | —              | Yes           | Project review                           |
-| T025    | Prepare final project documentation and submission materials                 | Documentation             | In Progress | —              | Yes           | Project documentation                    |
-| T026    | Implement PostgreSQL database and real authentication (signup/login/Google)  | Backend/Database          | Completed   | 2026-09-11     | Yes           | `backend/` routes, models, schema.sql    |
+The work log records task responsibility, completion, AI assistance and implementation evidence so that individual technical contributions can be traced to the project.
+
+Dates should be maintained using the actual project completion dates.
 
 ---
 
-# Work Log Details
+# 1. Implementation Work Log
 
-## T001 — Project Setup
+| Task ID | Task                                                     | Component                | Assigned To | Status    | Completed By | Date Completed | AI Assistance | Evidence                         |
+| ------- | -------------------------------------------------------- | ------------------------ | ----------- | --------- | ------------ | -------------- | ------------- | -------------------------------- |
+| T001    | Set up Auresta project structure                         | Project Setup            | Anushka     | Completed | Anushka      | [Date]         | Claude        | Repository structure             |
+| T002    | Create main HTML entry point                             | Frontend                 | Anushka     | Completed | Anushka      | [Date]         | Claude        | `index.html`                     |
+| T003    | Implement global styling and layouts                     | Frontend/CSS             | Ria         | Completed | Ria          | [Date]         | Claude        | `css/styles.css`                 |
+| T004    | Build main frontend application structure                | Frontend                 | Anushka     | Completed | Anushka      | [Date]         | Claude        | `js/app.js`                      |
+| T005    | Implement UI/UX layout consistency                       | UI/UX                    | Ria         | Completed | Ria          | [Date]         | Claude        | Auresta interface                |
+| T006    | Implement 3D visual effects                              | Visual Experience        | Avana       | Completed | Avana        | [Date]         | Claude        | Frontend visual effects          |
+| T007    | Integrate 3D visual elements with interface              | Visual Experience        | Avana       | Completed | Avana        | [Date]         | Claude        | Frontend integration             |
+| T008    | Test and refine visual animations                        | Visual Experience        | Avana       | Completed | Avana        | [Date]         | Claude        | Working interface                |
+| T009    | Add event category data                                  | Data Layer               | Anushka     | Completed | Anushka      | [Date]         | Claude        | `js/data.js`                     |
+| T010    | Add service category data                                | Data Layer               | Anushka     | Completed | Anushka      | [Date]         | Claude        | `js/data.js`                     |
+| T011    | Add vendor dataset                                       | Vendor Data              | Anushka     | Completed | Anushka      | [Date]         | Claude        | `js/data.js`                     |
+| T012    | Add vendor pricing, ratings and availability fields      | Vendor Data              | Ria         | Completed | Ria          | [Date]         | Claude        | Vendor data                      |
+| T013    | Implement central application state                      | State Management         | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `js/state.js`                    |
+| T014    | Implement localStorage state persistence                 | State Management         | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `js/state.js`                    |
+| T015    | Implement state subscription and UI re-rendering         | State Management         | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `js/state.js`, `js/app.js`       |
+| T016    | Implement role and view switching                        | Application Logic        | Ria         | Completed | Ria          | [Date]         | Claude        | `js/state.js`, `js/app.js`       |
+| T017    | Implement User navigation                                | User View                | Anushka     | Completed | Anushka      | [Date]         | Claude        | User navigation                  |
+| T018    | Implement Vendor navigation and portal                   | Vendor View              | Anushka     | Completed | Anushka      | [Date]         | Claude        | Vendor Portal                    |
+| T019    | Implement Admin navigation and portal                    | Admin View               | Ria         | Completed | Ria          | [Date]         | Claude        | Admin Portal                     |
+| T020    | Implement vendor category filtering                      | Business Logic           | Anushka     | Completed | Anushka      | [Date]         | Claude        | `filterVendors()`                |
+| T021    | Implement verified-vendor filtering                      | Business Logic           | Anushka     | Completed | Anushka      | [Date]         | Claude        | `filterVendors()`                |
+| T022    | Implement urgent availability filtering                  | Business Logic           | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `filterVendors()`                |
+| T023    | Implement vendor sorting and ranking                     | Business Algorithm       | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `filterVendors()`                |
+| T024    | Test vendor filtering and ranking logic                  | Testing                  | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | Filtering tests                  |
+| T025    | Implement vendor detail profiles                         | Vendor Interface         | Anushka     | Completed | Anushka      | [Date]         | Claude        | Vendor detail view               |
+| T026    | Implement vendor availability calendar                   | Vendor Interface         | Ria         | Completed | Ria          | [Date]         | Claude        | Vendor detail calendar           |
+| T027    | Implement Packages and Deals interface                   | Packages                 | Anushka     | Completed | Anushka      | [Date]         | Claude        | Packages view                    |
+| T028    | Implement custom package builder                         | Package Logic            | Ria         | Completed | Ria          | [Date]         | Claude        | Build Package view               |
+| T029    | Implement package total calculation                      | Business Logic           | Ria         | Completed | Ria          | [Date]         | Claude        | `js/app.js`                      |
+| T030    | Implement deposit and balance calculation                | Business Logic           | Ria         | Completed | Ria          | [Date]         | Claude        | Checkout logic                   |
+| T031    | Test package and budget calculations                     | Testing                  | Avana       | Completed | Avana        | [Date]         | Claude        | Package testing                  |
+| T032    | Implement vendor booking workflow                        | Booking                  | Anushka     | Completed | Anushka      | [Date]         | Claude        | Booking interface                |
+| T033    | Implement package booking workflow                       | Booking                  | Anushka     | Completed | Anushka      | [Date]         | Claude        | Checkout interface               |
+| T034    | Implement guest-accessible booking flow                  | Booking                  | Ria         | Completed | Ria          | [Date]         | Claude        | Booking workflow                 |
+| T035    | Implement payment-method selection                       | Checkout                 | Avana       | Completed | Avana        | [Date]         | Claude        | Checkout UI                      |
+| T036    | Implement booking confirmation and state update          | Booking Logic            | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `state.js`                       |
+| T037    | Test booking and checkout workflow                       | Testing                  | Avana       | Completed | Avana        | [Date]         | Claude        | Booking tests                    |
+| T038    | Implement My Event interface                             | User View                | Anushka     | Completed | Anushka      | [Date]         | Claude        | My Event view                    |
+| T039    | Implement favourites functionality                       | User Features            | Ria         | Completed | Ria          | [Date]         | Claude        | `state.js`, `app.js`             |
+| T040    | Implement vendor direct messaging interface              | Communication            | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `state.js`, `app.js`             |
+| T041    | Implement Chat Support interface                         | Support                  | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | Support view                     |
+| T042    | Implement support message handling                       | Support Logic            | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | Support JavaScript               |
+| T043    | Connect Chat Support to AI API                           | Support/API              | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `/api/ai/chat`                   |
+| T044    | Implement Auresta AI agent integration                   | Backend/AI               | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | `backend/ai-agent/agent.js`      |
+| T045    | Test Chat Support and AI response flow                   | Testing                  | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | Support testing                  |
+| T046    | Implement Login and Signup interface                     | Authentication           | Raghav      | Completed | Raghav       | [Date]         | Claude        | Authentication interface         |
+| T047    | Implement authentication routes                          | Backend/Auth             | Raghav      | Completed | Raghav       | [Date]         | Claude        | `authRoutes.js`                  |
+| T048    | Implement authentication controller                      | Backend/Auth             | Raghav      | Completed | Raghav       | [Date]         | Claude        | `authController.js`              |
+| T049    | Create PostgreSQL user schema                            | Database                 | Raghav      | Completed | Raghav       | [Date]         | Claude        | `schema.sql`                     |
+| T050    | Configure PostgreSQL connection                          | Database                 | Raghav      | Completed | Raghav       | [Date]         | Claude        | `db.js`                          |
+| T051    | Implement password hashing                               | Authentication           | Raghav      | Completed | Raghav       | [Date]         | Claude        | `authController.js`              |
+| T052    | Implement JWT authentication                             | Authentication           | Raghav      | Completed | Raghav       | [Date]         | Claude        | JWT implementation               |
+| T053    | Implement protected authentication middleware            | Authentication           | Raghav      | Completed | Raghav       | [Date]         | Claude        | `authMiddleware.js`              |
+| T054    | Implement Google authentication                          | Authentication           | Raghav      | Completed | Raghav       | [Date]         | Claude        | Google auth implementation       |
+| T055    | Implement request validation and rate limiting           | Security                 | Raghav      | Completed | Raghav       | [Date]         | Claude        | Validation/rate limiter          |
+| T056    | Test authentication workflows                            | Testing                  | Raghav      | Completed | Raghav       | [Date]         | Claude        | Authentication tests             |
+| T057    | Implement vendor profile management                      | Vendor Portal            | Anushka     | Completed | Anushka      | [Date]         | Claude        | Vendor Portal                    |
+| T058    | Implement vendor verification submission                 | Vendor Management        | Ria         | Completed | Ria          | [Date]         | Claude        | Verification workflow            |
+| T059    | Implement admin verification approval                    | Admin Management         | Ria         | Completed | Ria          | [Date]         | Claude        | Admin verification               |
+| T060    | Implement Vendor Dashboard interface                     | Dashboard                | Anushka     | Completed | Anushka      | [Date]         | Claude        | Vendor Dashboard                 |
+| T061    | Implement Admin Portal interface                         | Dashboard/Admin          | Ria         | Completed | Ria          | [Date]         | Claude        | Admin Portal                     |
+| T062    | Implement responsive frontend layouts                    | Frontend                 | Avana       | Completed | Avana        | [Date]         | Claude        | Responsive UI                    |
+| T063    | Integrate visual/animation elements into final interface | Frontend/Visuals         | Avana       | Completed | Avana        | [Date]         | Claude        | Auresta UI                       |
+| T064    | Implement backend security middleware                    | Backend/Security         | Raghav      | Completed | Raghav       | [Date]         | Claude        | `server.js`, middleware          |
+| T065    | Configure backend deployment environment                 | Deployment               | Raghav      | Completed | Raghav       | [Date]         | Claude        | `render.yaml`                    |
+| T066    | Deploy frontend through GitHub Pages                     | Deployment               | Anushka     | Completed | Anushka      | [Date]         | Claude        | Live Auresta site                |
+| T067    | Test overall User workflow                               | Integration Testing      | Avana       | Completed | Avana        | [Date]         | Claude        | Working demonstration            |
+| T068    | Test Vendor workflow                                     | Integration Testing      | Anushka     | Completed | Anushka      | [Date]         | Claude        | Vendor interface                 |
+| T069    | Test Admin workflow                                      | Integration Testing      | Ria         | Completed | Ria          | [Date]         | Claude        | Admin interface                  |
+| T070    | Review final UI/UX consistency                           | UI/UX Testing            | Avana       | Completed | Avana        | [Date]         | Claude        | Final interface review           |
+| T071    | Document current system architecture                     | Documentation            | Ria         | Completed | Ria          | [Date]         | Claude        | `docs/architecture.md`           |
+| T072    | Document implementation work log                         | Documentation            | Avana       | Completed | Avana        | [Date]         | Claude        | `docs/project-implementation.md` |
+| T073    | Document vendor filtering algorithm                      | Documentation            | Sakhi       | Completed | Sakhi        | [Date]         | Claude        | Algorithm documentation          |
+| T074    | Document guest booking and authentication decision       | Architecture             | Ria         | Completed | Ria          | [Date]         | Claude        | `docs/architecture.md`           |
+| T075    | Document scalable architecture for 1 million users       | Architecture/Scalability | Ria         | Completed | Ria          | [Date]         | Claude        | Scalability section              |
+| T076    | Document scalable architecture for 5 million users       | Architecture/Scalability | Raghav      | Completed | Raghav       | [Date]         | Claude        | Scalability section              |
+| T077    | Perform quantitative scalability calculations            | Scalability              | Raghav      | Completed | Raghav       | [Date]         | Claude        | Quantitative analysis            |
+| T078    | Perform final feature integration review                 | Integration              | Avana       | Completed | Avana        | [Date]         | Claude        | Final working system             |
+| T079    | Verify final frontend and backend integration            | Integration              | Raghav      | Completed | Raghav       | [Date]         | Claude        | Working implementation           |
+| T080    | Perform final project verification                       | Final Testing            | Ria         | Completed | Ria          | [Date]         | Claude        | Final demonstration              |
 
-The Auresta project structure and frontend development environment were established.
+---
 
-The project was organized as a lightweight client-side web application using HTML, CSS and JavaScript.
+# 2. Work Log Details
 
-The main project structure includes:
+## T001–T008 — Project Setup, Frontend Foundation and Visual Experience
+
+### T001 — Project Structure
+
+Auresta's project structure was established with separate frontend, backend, CSS, JavaScript, data and documentation areas.
+
+The repository contains:
 
 ```text
-auresta-1/
-│
-├── index.html
-│
-├── css/
-│   └── styles.css
-│
-├── js/
-│   ├── app.js
-│   ├── data.js
-│   └── state.js
-│
-└── README.md
+frontend/
+backend/
+css/
+js/
+DataSet/
+Documentation/
 ```
 
-The project was designed as an interactive event platform for discovering, planning, booking and managing event-related services.
+### T002 — HTML Entry Point
 
----
-
-## T002 — UI and Navigation
-
-The overall Auresta user interface and navigation structure were designed.
-
-The application was organized around three major platform views:
-
-* User View
-* Vendor View
-* Admin View
-
-The User View allows customers to:
-
-* Plan events.
-* Discover vendors.
-* Browse packages.
-* Build custom packages.
-* Find urgent vendors.
-* Manage events.
-* Access support.
-
-The Vendor View allows service providers to:
-
-* View business information.
-* Monitor bookings.
-* Monitor revenue.
-* Manage availability.
-* Manage verification information.
-
-The Admin View allows administrators to:
-
-* Review vendor verification requests.
-* Manage verification status.
-* Monitor platform activity.
-* View GMV.
-* View commission-related information.
-
----
-
-## T003 — Application Rendering and View Routing
-
-The main Auresta application rendering system was implemented.
-
-The application dynamically renders the interface inside the main application container.
-
-The application uses the following general rendering flow:
+The main Auresta HTML entry point was implemented in:
 
 ```text
-Browser Loads Application
-        │
-        ▼
-DOMContentLoaded
-        │
-        ▼
-Application Initialization
-        │
-        ▼
-State Subscription
-        │
-        ▼
-renderApp()
-        │
-        ▼
-Navigation
-        +
-Current Application View
-        +
-Footer
-        +
-Modal
-        │
-        ▼
-Rendered User Interface
+index.html
 ```
 
-The application supports multiple views, including:
+The file loads the required stylesheets, JavaScript modules and supporting libraries.
 
-* Home
-* Explore Vendors
-* Packages & Deals
-* Build Package
-* Need It Now
-* My Event
-* Support
-* Vendor Detail
-* Vendor Dashboard
-* Admin Portal
+### T003 — Global Styling
 
-The application renderer selects the appropriate view depending on the current user role and application state.
-
----
-
-## T004 — Client-Side State Management
-
-A custom client-side state management system was implemented for Auresta.
-
-The state manager maintains important application information, including:
-
-* Current user role.
-* Current application view.
-* Search parameters.
-* Vendor selections.
-* Favorites.
-* Events.
-* Bookings.
-* Support information.
-* Vendor messages.
-* Package selections.
-* Checkout information.
-* Vendor profile information.
-* Vendor verification information.
-
-The general state flow is:
-
-```text
-User Interaction
-        │
-        ▼
-JavaScript Event
-        │
-        ▼
-Update Application State
-        │
-        ▼
-Notify Application
-        │
-        ▼
-Re-render Interface
-        │
-        ▼
-Display Updated Information
-```
-
-This centralized state approach allows different Auresta features to work together through a shared application state.
-
----
-
-## T005 — Application Data Structure
-
-Auresta uses a client-side data layer for the current implementation.
-
-The data structure was created to support the main platform features.
-
-The demo data includes information related to:
-
-* Event categories.
-* Celebration types.
-* Service categories.
-* Vendors.
-* Vendor services.
-* Vendor profiles.
-* Vendor portfolios.
-* Vendor packages.
-* Vendor availability.
-* Previous events.
-* Event packages.
-* Bookings.
-* Support topics.
-
-The application data is maintained in:
-
-```text
-js/data.js
-```
-
-This data supports the interactive demonstration of Auresta without requiring a production backend or database.
-
----
-
-## T006 — Event Planning Home Page
-
-The Auresta Home Page was implemented as the starting point for event planning.
-
-Users can provide event-related requirements such as:
-
-* Event date.
-* Budget.
-* Celebration type.
-* Guest count.
-* Location.
-
-The event planning interface is designed to help users begin the process of finding relevant vendors and services.
-
-The Home Page also provides access to:
-
-* Event categories.
-* Previous events.
-* Event inspiration.
-* Urgent vendor discovery.
-
----
-
-## T007 — Vendor Discovery, Filtering and Sorting
-
-The Explore Vendors functionality was implemented.
-
-Users can discover vendors for different services, including:
-
-* Photography.
-* Catering.
-* Decoration.
-* Makeup.
-* Music and entertainment.
-* Event planning.
-* Venues.
-* Other event services.
-
-Filtering functionality allows users to narrow vendor results based on relevant requirements.
-
-The available vendor discovery criteria can include:
-
-* Category.
-* Location.
-* Price.
-* Rating.
-* Availability.
-* Event requirements.
-
-Sorting functionality was also incorporated to improve vendor comparison.
-
-Users can compare vendors based on factors such as:
-
-* Price.
-* Rating.
-* Relevance.
-* Availability.
-
----
-
-## T008 — Vendor Profiles and Availability
-
-Vendor profile functionality was implemented to provide users with detailed information about individual vendors.
-
-Vendor information can include:
-
-* Vendor name.
-* Service category.
-* Description.
-* Portfolio images.
-* Pricing.
-* Ratings.
-* Reviews.
-* Location.
-* Services.
-* Availability.
-
-Users can review a vendor before proceeding with a booking.
-
-Vendor availability information was also incorporated into the application.
-
-This allows users to check whether a vendor is suitable for their required event date.
-
----
-
-## T009 — Vendor Booking and Checkout
-
-A booking workflow was implemented for the Auresta application.
-
-The general booking flow is:
-
-```text
-User
- │
- ▼
-Explore Vendors
- │
- ▼
-Select Vendor
- │
- ▼
-Review Vendor Profile
- │
- ▼
-Select Service
- │
- ▼
-Select Event Date
- │
- ▼
-Check Availability
- │
- ▼
-Create Booking
- │
- ▼
-Checkout
- │
- ▼
-Booking Confirmation
-```
-
-The current implementation manages bookings through client-side application state.
-
-Booking information can then be displayed through the user's event management area.
-
-The current implementation is a frontend application workflow and does not yet represent a production transaction-processing backend.
-
----
-
-## T010 — Packages & Deals
-
-The Packages & Deals section was implemented to allow users to explore combinations of event services.
-
-Premade packages can combine multiple services into a single offering.
-
-For example:
-
-```text
-Event Package
-│
-├── Decoration
-├── Photography
-├── Catering
-├── Makeup
-└── Entertainment
-```
-
-The package functionality allows users to:
-
-* Browse available packages.
-* Review included services.
-* Compare package options.
-* Review pricing.
-* Select a suitable package.
-
-Packages are designed to simplify event planning by allowing users to select multiple services together.
-
----
-
-## T011 — Build Your Own Package
-
-A custom package-building feature was implemented.
-
-Instead of selecting a predefined package, users can choose individual services according to their event requirements.
-
-The general workflow is:
-
-```text
-User
- │
- ▼
-Select Event Requirements
- │
- ▼
-Select Required Services
- │
- ▼
-Select Vendors
- │
- ▼
-Create Custom Package
- │
- ▼
-Review Package
- │
- ▼
-Proceed to Booking
-```
-
-Users can select combinations of services such as:
-
-* Photography.
-* Catering.
-* Decoration.
-* Makeup.
-* Entertainment.
-
-This feature is designed to provide greater flexibility for different event requirements and budgets.
-
----
-
-## T012 — Need It Now
-
-The Need It Now functionality was implemented for urgent or last-minute event requirements.
-
-The workflow allows users to:
-
-1. Select the required vendor or service.
-2. Search for suitable available vendors.
-3. Review the available vendor.
-4. Check the estimated availability or response information.
-5. Proceed with booking.
-
-The feature is designed for situations where users require event services immediately.
-
----
-
-## T013 — My Event and Booking Management
-
-The My Event functionality was implemented to provide users with a centralized view of event-related information.
-
-Users can access information related to:
-
-* Event details.
-* Event date.
-* Event type.
-* Location.
-* Guest count.
-* Selected vendors.
-* Selected services.
-* Packages.
-* Booking status.
-* Payment-related information.
-
-The event management interface allows users to review the information associated with their planned event.
-
----
-
-## T014 — Vendor Communication and Support
-
-Communication-related interfaces were implemented for the Auresta platform.
-
-### Vendor Communication
-
-Users can interact with vendors through the application interface.
-
-The communication functionality is intended to support:
-
-* Event requirement discussions.
-* Service questions.
-* Pricing clarification.
-* Booking details.
-* Event coordination.
-
-### Support Centre
-
-A support interface was also implemented.
-
-Users can request assistance related to:
-
-* Bookings.
-* Refunds.
-* Cancellations.
-* Payments.
-* General platform usage.
-
-The current implementation represents communication and support through client-side application functionality.
-
-A future production implementation would require a persistent backend and real-time messaging system.
-
----
-
-## T015 — Vendor View and Vendor Dashboard
-
-The Vendor View was implemented for event service providers.
-
-The Vendor Portal provides information related to vendor performance.
-
-The Vendor Dashboard can display:
-
-* Total revenue.
-* Total bookings.
-* Average rating.
-* Business performance information.
-
-The Vendor View provides vendors with a dedicated interface separate from the customer experience.
-
----
-
-## T016 — Vendor Profile, Verification and Availability
-
-Vendor management functionality was implemented.
-
-The Vendor View supports features related to:
-
-* Vendor profile information.
-* Business details.
-* Vendor verification.
-* Availability management.
-* Calendar information.
-* Booking information.
-
-The vendor verification workflow is designed around the following process:
-
-```text
-Vendor
- │
- ▼
-Complete Profile
- │
- ▼
-Provide Required Information
- │
- ▼
-Submit Verification Request
- │
- ▼
-Admin Review
- │
- ├── Approved
- │
- └── Rejected / Pending
-```
-
-The Vendor Calendar also allows availability information to be represented through:
-
-* Available dates.
-* Booked dates.
-* Upcoming events.
-* Unavailable dates.
-
----
-
-## T017 — Admin View and Vendor Verification
-
-The Admin View was implemented to provide platform-level management functionality.
-
-The Admin Portal allows administrators to review vendor-related information.
-
-The vendor verification process allows administrators to:
-
-1. View vendor applications.
-2. Review submitted information.
-3. Review verification requests.
-4. Approve or reject requests.
-5. Manage verification status.
-
-The current implementation demonstrates the administrative workflow through the client-side Auresta application.
-
----
-
-## T018 — Platform Metrics and Analytics
-
-Platform-level metrics were incorporated into the Admin View.
-
-The Admin Dashboard can display information related to:
-
-### Total GMV
-
-GMV represents the total value of transactions processed through the platform.
-
-This provides an overview of the marketplace's transaction activity.
-
-### Total Commission
-
-Commission information represents the platform's potential revenue generated from vendor-related transactions.
-
-These metrics help demonstrate how Auresta could support platform-level business monitoring.
-
----
-
-## T019 — Browser-Side Data Persistence
-
-Browser-side persistence was implemented using:
-
-```text
-localStorage
-```
-
-Application state can be stored in the browser and restored when the application is loaded again.
-
-The persistence workflow is:
-
-```text
-Application State
-        │
-        ▼
-Serialize Data
-        │
-        ▼
-Browser localStorage
-        │
-        ▼
-Reload Application
-        │
-        ▼
-Restore Stored State
-```
-
-This approach allows the current prototype to maintain state within the user's browser.
-
-However, browser localStorage is not a replacement for a production database.
-
----
-
-## T020 — UI Improvements and Responsive Design
-
-The Auresta interface was developed and refined using CSS.
-
-The styling system is maintained in:
+Global styling and responsive layouts were implemented through:
 
 ```text
 css/styles.css
 ```
 
-The user interface was designed to provide:
+### T004 — Main Frontend Structure
 
-* Visual consistency.
-* Clear navigation.
-* Role-based interfaces.
-* Interactive components.
-* Event-focused visual presentation.
-* Responsive layout behavior.
-
-The interface was reviewed and improved to support a better user experience across the application's different views.
-
----
-
-## T021 — Functional Testing
-
-Major Auresta workflows were reviewed and tested through the application.
-
-Important workflows include:
-
-* Navigation.
-* Role switching.
-* Event planning.
-* Vendor discovery.
-* Filtering.
-* Sorting.
-* Vendor profile viewing.
-* Package browsing.
-* Custom package building.
-* Urgent vendor discovery.
-* Booking flow.
-* Event management.
-* Vendor dashboard.
-* Vendor verification.
-* Admin portal.
-
-Testing was focused on verifying that the major client-side workflows operate correctly within the published application.
-
----
-
-## T022 — Deployment
-
-Auresta was deployed and published as a live web application.
-
-The project is hosted using GitHub Pages.
-
-Current published application:
-
-https://riality-07.github.io/auresta-1/
-
-The source code is maintained in the Auresta GitHub repository.
-
-The current deployment model is:
+The main application rendering and interaction structure was implemented through:
 
 ```text
-Developer
- │
- ▼
-GitHub Repository
- │
- ▼
-GitHub Pages
- │
- ▼
-Static Website
- │
- ▼
-User Browser
+js/app.js
 ```
 
+### T005 — UI/UX Structure
+
+The interface was organised into consistent:
+
+* Navigation
+* Cards
+* Forms
+* Vendor sections
+* Package sections
+* Booking sections
+* Dashboard sections
+* Supporting components
+
+### T006–T008 — 3D and Visual Interaction
+
+3D visual effects and animations were integrated into the Auresta frontend.
+
+The work included:
+
+* Visual animation elements
+* Interactive visual effects
+* Frontend integration
+* Visual testing
+* Refinement of animation behaviour
+* Coordination of visual elements with the overall interface
+
 ---
 
-## T023 — Architecture Documentation
+# 3. Application Data and State Implementation
 
-The current Auresta system architecture and a proposed production architecture were documented.
+## Event and Service Data
 
-The architecture documentation covers:
+Auresta uses JavaScript application data for:
 
-* Current frontend architecture.
-* Client-side rendering.
-* Application state.
-* Data layer.
-* Browser persistence.
-* User workflows.
-* Vendor workflows.
-* Admin workflows.
-* Booking architecture.
-* Package architecture.
-* Vendor verification.
-* Proposed backend architecture.
-* Proposed authentication.
-* Proposed database.
-* Proposed cloud deployment.
-* Scalability considerations.
+* Event categories
+* Service categories
+* Vendors
+* Vendor pricing
+* Vendor ratings
+* Vendor locations
+* Vendor availability
+* Vendor packages
+* Initial events
+* Initial bookings
+* Predefined packages
 
-The current architecture is based primarily on:
+The primary data file is:
 
 ```text
-HTML
-  +
-CSS
-  +
-Vanilla JavaScript
-  +
-Static Data
-  +
-Client-Side State
-  +
+js/data.js
+```
+
+## Central State Management
+
+The application uses a custom `StateStore` implemented in:
+
+```text
+js/state.js
+```
+
+The state manages:
+
+* Current role
+* Current view
+* Search filters
+* Authentication information
+* Favourites
+* Events
+* Bookings
+* Support tickets
+* Vendor messages
+* Custom packages
+* Checkout information
+* Vendor verification information
+
+Client-side persistence is implemented through:
+
+```text
 localStorage
 ```
 
 ---
 
-## T024 — Remaining Issues and Production Improvements
+# 4. Overall Implementation Workflow
 
-The Auresta project is being reviewed for remaining limitations and future improvements.
+```text
+User / Vendor / Admin
+          |
+          v
+    Auresta Interface
+          |
+          v
+   JavaScript Handlers
+          |
+          v
+    Application State
+          |
+     +----+----+
+     |         |
+     v         v
+Business     Data
+Logic        Layer
+     |         |
+     +----+----+
+          |
+          v
+Processed Business Output
+          |
+          v
+      Updated UI
+          |
+          v
+      localStorage
+```
 
-Important production requirements include:
+For backend-supported functionality:
 
-* Real user authentication.
-* Secure authorization.
-* Persistent database.
-* Backend API.
-* Real vendor accounts.
-* Server-side availability management.
-* Transaction-safe bookings.
-* Real payment gateway integration.
-* Secure payment validation.
-* Real-time messaging.
-* Persistent support tickets.
-* Secure vendor document storage.
-* Production analytics.
-* Improved security and monitoring.
-
-These areas represent future development requirements for converting the current interactive prototype into a production-ready marketplace platform.
-
----
-
-## T025 — Final Documentation
-
-The team is contributing to the required Auresta project documentation.
-
-Documentation includes:
-
-* Project overview.
-* README documentation.
-* Architecture documentation.
-* Implementation work log.
-* Platform workflow.
-* Future architecture recommendations.
-* Final submission materials.
-
-The final documentation is intended to describe both the current implementation and the future direction of the Auresta platform.
-
----
-
-## T026 — PostgreSQL Database and Real Authentication
-
-The first slice of the proposed production backend described in `Architecture.md` (Sections 14–16) was implemented: a real PostgreSQL database and real user authentication, replacing the client-side role-switcher as the source of identity.
-
-### Database
-
-* Added a `users` table (`backend/config/schema.sql`) supporting both password accounts and Google accounts on the same row (`password_hash` and `google_id` are both nullable, but at least one is required).
-* Added a connection pool (`backend/config/db.js`) and a migration runner (`npm run migrate`).
-
-### Authentication API
-
-* `POST /api/auth/signup` and `POST /api/auth/login` — bcrypt password hashing, JWT issuance, express-validator input checks.
-* `POST /api/auth/google` — verifies a Google Identity Services ID token server-side and finds-or-creates the matching user, linking to an existing password account by email where applicable.
-* `GET /api/auth/me` — returns the authenticated user for a valid Bearer token.
-* Rate limiting and helmet security headers were added to the auth routes.
-
-### Frontend
-
-* A new login/signup page (`js/auth.js`) was added to the existing vanilla-JS view router, styled to match the current design system, including a "Sign in with Google" button.
-* The navbar now reflects authentication state (Log In/Sign Up vs. a user chip with Log Out).
-
-This directly addresses the "Real user authentication" and part of the "Persistent database" items listed as production requirements in T024.
+```text
+Auresta Frontend
+       |
+       v
+   Express API
+       |
+       +----------------+
+       |                |
+       v                v
+ Authentication     AI Support
+       |                |
+       v                v
+ PostgreSQL        AI Agent
+```
 
 ---
 
-# AI Assistance Record
+# 5. Vendor Filtering and Ranking Algorithm
 
-AI tools were used during development for activities including:
+## Problem
 
-* Generating and refining UI components.
-* Suggesting application structure.
-* Assisting with HTML implementation.
-* Assisting with CSS styling.
-* Assisting with JavaScript implementation.
-* Assisting with application state management.
-* Generating and refining frontend functionality.
-* Debugging and resolving implementation issues.
-* Improving navigation and user flows.
-* Suggesting data structures.
-* Improving documentation.
-* Designing the proposed system architecture.
-* Reviewing future production requirements.
+Users may have multiple vendors available for a particular event service.
 
-AI-generated suggestions were reviewed and adapted by the team before being incorporated into the project.
+Auresta therefore processes vendor information according to the user's requirements.
+
+## Inputs
+
+The algorithm uses:
+
+* Vendor dataset
+* Selected category
+* Verified-only preference
+* Urgent availability
+* Price
+* Rating
+* Availability
+* Sorting preference
+
+## Processing Logic
+
+```text
+Load Vendors
+     |
+     v
+Filter by Category
+     |
+     v
+Filter Verified Vendors
+     |
+     v
+Filter Urgent Availability
+     |
+     v
+Apply Sorting
+     |
+     +--> Price
+     +--> Rating
+     +--> Availability/Speed
+     |
+     v
+Display Filtered Vendor List
+```
+
+## Pseudocode
+
+```text
+vendors = load vendor dataset
+
+if category is selected:
+    vendors = vendors matching selected category
+
+if verifiedOnly is true:
+    vendors = verified vendors only
+
+if urgency is today:
+    vendors = vendors available urgently
+
+if sortBy is rating:
+    sort vendors by rating descending
+
+if sortBy is low_price:
+    sort vendors by price ascending
+
+if sortBy is high_price:
+    sort vendors by price descending
+
+if sortBy is speed:
+    sort vendors by urgent availability
+
+return filtered and ranked vendors
+```
+
+## Example
+
+Input:
+
+```text
+Category: Decoration
+Verified Only: Yes
+Urgent: Yes
+Sort: Highest Rating
+```
+
+Output:
+
+```text
+Verified decoration vendors
+with urgent availability,
+ordered by rating.
+```
+
+## Code Location
+
+```text
+js/app.js
+```
+
+Main implementation:
+
+```text
+filterVendors()
+```
 
 ---
 
-# Evidence
+# 6. Package and Budget Processing
 
-Evidence for completed tasks should be linked to the corresponding:
+Auresta supports both predefined packages and custom packages.
 
-* Git commits.
-* GitHub repository history.
-* Project source files.
-* Screenshots.
-* Application testing.
-* Published Auresta website.
-* Architecture documentation.
+For custom package checkout, the system calculates the selected package total.
 
-The current Auresta repository provides evidence through the project structure and source code, including:
+The deposit is calculated as:
+
+```text
+Deposit = Total × 20%
+```
+
+The remaining balance is:
+
+```text
+Balance = Total - Deposit
+```
+
+Example:
+
+```text
+Total = ₹15,000
+
+Deposit = ₹15,000 × 20%
+        = ₹3,000
+
+Balance = ₹15,000 - ₹3,000
+        = ₹12,000
+```
+
+The checkout interface also displays:
+
+* Base service price
+* Platform protection fee
+* Savings/discount information
+* Final total
+* Deposit
+* Balance
+
+---
+
+# 7. Booking Implementation
+
+The booking workflow allows a user to:
+
+1. Select a vendor or package.
+2. Select a booking date.
+3. Review the booking.
+4. Select a payment method.
+5. Confirm the checkout.
+6. Generate a booking record.
+7. Update application state.
+8. Update event information.
+9. Update vendor booked dates.
+10. Display booking confirmation.
+
+Available payment methods in the current interface are:
+
+```text
+UPI
+Card
+Net Banking
+```
+
+The booking process generates a booking identifier and stores information such as:
+
+* Booking ID
+* Vendor
+* Event
+* Date
+* Package
+* Booking status
+* Total amount
+* Deposit paid
+* Balance due
+* Payment method
+
+The current payment flow is simulated and is not connected to an external payment gateway.
+
+---
+
+# 8. Guest Booking Implementation
+
+Authentication exists in Auresta, but the core booking flow does not force users to log in before proceeding.
+
+The design is:
+
+```text
+Explore
+   |
+   v
+Select Vendor / Package
+   |
+   v
+Booking
+   |
+   +------------------+
+   |                  |
+   v                  v
+Guest Booking      Login/Signup
+   |                  |
+   +--------+---------+
+            |
+            v
+        Checkout
+            |
+            v
+       Confirmation
+```
+
+This was implemented intentionally because the backend may require a wake-up period when hosted/configured through Render.
+
+Depending on backend state and internet conditions, the service may take approximately 20 seconds to several minutes to become responsive.
+
+Making authentication mandatory at the beginning of the journey could unnecessarily interrupt users before they reach the main booking experience.
+
+The implementation therefore keeps authentication available while allowing the core booking journey to remain guest-friendly.
+
+---
+
+# 9. Chat Support Implementation
+
+Auresta provides a Chat Support interface.
+
+The frontend sends support messages to:
+
+```text
+POST /api/ai/chat
+```
+
+The backend flow is:
+
+```text
+Chat Support
+      |
+      v
+AI API Route
+      |
+      v
+AI Controller
+      |
+      v
+Auresta AI Agent
+      |
+      v
+Ollama / Llama
+      |
+      v
+AI Response
+      |
+      v
+Chat Interface
+```
+
+Relevant files are:
+
+```text
+backend/routes/aiRoutes.js
+backend/controllers/aiController.js
+backend/ai-agent/agent.js
+```
+
+The current AI agent is configured to communicate with a local Ollama service.
+
+---
+
+# 10. Authentication Implementation
+
+Authentication was implemented through the Node.js/Express backend.
+
+The authentication functionality includes:
+
+* Signup
+* Login
+* Google authentication
+* JWT generation
+* Protected user endpoint
+* Password hashing
+* Input validation
+* Rate limiting
+
+Relevant files are:
+
+```text
+backend/routes/authRoutes.js
+backend/controllers/authController.js
+backend/middleware/authMiddleware.js
+backend/middleware/rateLimiters.js
+```
+
+---
+
+# 11. Database Implementation
+
+PostgreSQL was integrated for persistent user/account information.
+
+The current schema includes the `users` table.
+
+Important fields include:
+
+```text
+id
+name
+email
+password_hash
+google_id
+avatar_url
+role
+created_at
+updated_at
+```
+
+The supported roles are:
+
+```text
+consumer
+vendor
+admin
+```
+
+Database-related files are:
+
+```text
+backend/config/db.js
+backend/config/schema.sql
+backend/config/migrate.js
+```
+
+The database connection uses PostgreSQL through a connection pool.
+
+---
+
+# 12. Security Implementation
+
+The backend includes several security mechanisms.
+
+### Password Hashing
+
+Passwords are hashed using bcrypt.
+
+### JWT
+
+JWT is used to authenticate protected API requests.
+
+### Authentication Middleware
+
+The middleware checks and verifies the Bearer token.
+
+### Validation
+
+Authentication requests are validated using:
+
+```text
+express-validator
+```
+
+### Rate Limiting
+
+Authentication endpoints use rate limiting to reduce repeated attempts.
+
+### Helmet
+
+Helmet provides security-related HTTP headers.
+
+### CORS
+
+CORS is configured for frontend/backend communication.
+
+---
+
+# 13. Vendor Management
+
+Vendor functionality includes:
+
+* Vendor profiles
+* Vendor service information
+* Vendor packages
+* Vendor availability
+* Vendor verification submission
+* Public profile preview
+* Vendor dashboard
+
+Vendor information is represented through the Auresta application data and state structures.
+
+Frontend and visual work also ensured that vendor information, cards, profiles and availability sections were presented consistently across the interface.
+
+---
+
+# 14. Admin Management
+
+The Admin interface includes:
+
+* Admin Portal
+* Verification Desk
+* Vendor verification review
+* Vendor verification approval
+
+The verification workflow is:
+
+```text
+Vendor
+  |
+  v
+Submit Profile
+  |
+  v
+Pending Verification
+  |
+  v
+Admin Verification Desk
+  |
+  v
+Review
+  |
+  v
+Approve / Update Verification State
+```
+
+---
+
+# 15. Testing and Verification
+
+Testing activities covered the main Auresta workflows.
+
+## Vendor Testing
+
+Checked:
+
+* Category filtering
+* Verified filtering
+* Urgent availability
+* Sorting
+* Vendor profile display
+* Vendor interface presentation
+
+## Package Testing
+
+Checked:
+
+* Package selection
+* Custom package selection
+* Total calculation
+* Deposit calculation
+* Balance calculation
+* Package interface consistency
+
+## Booking Testing
+
+Checked:
+
+* Vendor booking
+* Package booking
+* Date selection
+* Payment method selection
+* Booking confirmation
+* State updates
+* Checkout interface
+
+## Authentication Testing
+
+Checked:
+
+* Signup
+* Login
+* Password validation
+* JWT authentication
+* Protected user endpoint
+* Google authentication flow
+* Validation
+* Rate limiting
+
+## Support Testing
+
+Checked:
+
+* Chat Support interface
+* Message handling
+* AI API connection
+* Response display
+
+## UI Testing
+
+Checked:
+
+* Navigation
+* User View
+* Vendor View
+* Admin View
+* Responsive layouts
+* Visual effects
+* Booking interface
+* Animation behaviour
+* Overall UI consistency
+
+---
+
+# 16. AI Assistance Record
+
+Generative AI was used as development assistance during selected implementation activities.
+
+The AI tool used for assisted development was:
+
+```text
+Claude
+```
+
+AI assistance was used for activities such as:
+
+* Code drafting
+* JavaScript assistance
+* Frontend implementation assistance
+* Debugging
+* UI implementation assistance
+* Documentation support
+* Architecture documentation
+* Implementation-log preparation
+
+AI assistance does not represent student completion of a task.
+
+The student assigned to a task remained responsible for:
+
+* Reviewing the generated output
+* Integrating the implementation
+* Testing the implementation
+* Verifying the final result
+* Understanding the implementation
+
+Where `Claude` appears in the `AI Assistance` column, the student listed under `Completed By` is responsible for the final implementation and verification.
+
+---
+
+# 17. Evidence
+
+Evidence for implementation tasks may include:
+
+* GitHub repository files
+* GitHub commits
+* Source files
+* Working website
+* Backend routes
+* Database schema
+* API responses
+* Screenshots
+* Testing results
+* Working demonstrations
+
+Important implementation files include:
 
 ```text
 index.html
 css/styles.css
-js/app.js
 js/data.js
 js/state.js
-README.md
+js/app.js
+
+backend/server.js
+backend/routes/authRoutes.js
+backend/routes/aiRoutes.js
+backend/controllers/authController.js
+backend/controllers/aiController.js
+backend/middleware/authMiddleware.js
+backend/middleware/rateLimiters.js
+backend/ai-agent/agent.js
+backend/config/db.js
+backend/config/schema.sql
+backend/config/migrate.js
+
+render.yaml
 ```
-
-For final submission, generic evidence descriptions in the implementation work log should be replaced with actual:
-
-* Git commit IDs.
-* Screenshots.
-* Testing evidence.
-* Pull requests, if available.
-* Development records.
 
 ---
 
-# Current Project Status
+# 18. Current Project Status
 
-The core Auresta application has been implemented and published as an interactive event discovery, planning and management platform.
+The current Auresta implementation contains:
 
-The major components currently implemented include:
+* User interface
+* Vendor interface
+* Admin interface
+* Event categories
+* Vendor dataset
+* Vendor filtering
+* Vendor ranking and sorting
+* Vendor profiles
+* Vendor availability
+* Packages and deals
+* Custom package builder
+* Budget calculation
+* Booking and checkout workflow
+* Booking confirmation
+* My Event
+* Favourites
+* Vendor messaging
+* Chat Support
+* AI support API integration
+* Login and Signup
+* Google authentication
+* PostgreSQL user database
+* JWT authentication
+* Password hashing
+* Request validation
+* Rate limiting
+* Vendor verification
+* Admin verification
+* GitHub Pages frontend hosting
+* Render backend deployment configuration
+* Responsive interface
+* 3D/visual effects
 
-* Project structure.
-* User interface.
-* Application navigation.
-* User View.
-* Vendor View.
-* Admin View.
-* Event planning.
-* Vendor discovery.
-* Vendor filtering.
-* Vendor sorting.
-* Vendor profiles.
-* Vendor availability.
-* Packages & Deals.
-* Custom package building.
-* Need It Now functionality.
-* Booking workflow.
-* My Event management.
-* Vendor dashboard.
-* Vendor verification workflow.
-* Admin dashboard.
-* Platform metrics.
-* Browser-side state management.
-* localStorage persistence.
-* Responsive UI.
-* GitHub Pages deployment.
+The current implementation uses browser-side state and localStorage for several application features, while PostgreSQL currently provides persistent user/account storage.
 
-The current Auresta implementation is primarily a client-side prototype.
+The payment process is currently simulated and is not connected to an external payment gateway.
 
-The major frontend and application workflow components have been completed and published.
+The AI agent is implemented but currently depends on the configured local Ollama service.
 
-The remaining work focuses on reviewing limitations, identifying future production requirements, completing documentation and preparing final submission materials.
+---
 
+# 19. Worklog Division
+
+## Raghav
+
+* PostgreSQL database and user schema
+* Login and Signup authentication
+* Password hashing and JWT authentication
+* Google authentication and protected routes
+* Authentication security, validation and deployment configuration
+* Backend security middleware
+* Backend deployment configuration
+* Quantitative scalability calculations
+* Backend integration verification
+
+## Sakhi
+
+* Central application state management
+* localStorage state persistence
+* State subscription and UI re-rendering
+* Vendor filtering and ranking logic
+* Vendor filtering and ranking testing
+* Chat Support interface
+* Support message handling
+* AI Support API integration
+* Auresta AI agent connection
+* Support workflow testing
+
+## Avana
+
+* 3D visual effects and animations
+* Interactive animation elements
+* Frontend visual integration
+* Visual interaction enhancements
+* Responsive frontend layouts
+* Checkout and payment-method interface implementation
+* Package and budget workflow testing
+* Booking and checkout workflow testing
+* Overall User workflow testing
+* Final UI/UX consistency review
+* Visual and frontend integration review
+* Implementation work-log documentation
+* Final feature integration review
+* Animation testing and refinement
+
+## Anushka
+
+* Main frontend implementation
+* HTML entry point
+* Navigation and application views
+* Event and service data integration
+* Vendor dataset implementation
+* Vendor and package interfaces
+* Vendor profile management
+* Booking interface
+* My Event interface
+* Vendor Dashboard interface
+* Responsive frontend coordination
+* Frontend deployment through GitHub Pages
+
+## Ria
+
+* Global styling and UI/UX implementation
+* Layout and visual consistency
+* Role and view switching
+* Admin interface
+* Vendor availability calendar
+* Custom package builder
+* Package and budget calculations
+* Guest-accessible booking flow
+* Vendor verification workflow
+* Admin verification approval
+* Admin Portal
+* Overall integration testing
+* Architecture documentation
+* Guest booking and authentication architecture decision
+* Scalability architecture documentation
+* Final interface verification
+
+---
+
+# 20. Worklog Summary
+
+Auresta was developed through coordinated work across:
+
+* Frontend development
+* UI/UX
+* Visual effects
+* Application logic
+* Authentication
+* Database integration
+* Support functionality
+* Vendor management
+* Admin management
+* Testing
+* Deployment
+* Documentation
+* Scalability planning
+
+The implementation work was divided among the group members according to their respective technical areas.
+
+The project demonstrates the connection between:
+
+```text
+User Interface
+      |
+      v
+Application Logic
+      |
+      v
+Data / Backend Services
+      |
+      v
+Business Processing
+      |
+      v
+Business Output
+```
+```text
+                    AURESTA IMPLEMENTATION
+                              |
+       +----------------------+----------------------+
+       |                      |                      |
+    FRONTEND              BACKEND                VISUALS
+       |                      |                      |
+    Anushka                 Raghav                 Avana
+       |                      |                      |
+  UI Integration        Authentication         3D/Animation
+  Navigation             PostgreSQL             Visual Polish
+  Styling                Security               Testing
+       |
+       +-------------------+
+                           |
+                         Ria
+                           |
+                  UI/UX + Integration
+                  Design Review
+                  Workflow Review
+                           |
+                         Sakhi
+                           |
+                    Support + Booking
+                    Interaction Logic
+                   
+```
+The major business processing implemented in Auresta includes:
+
+* Vendor filtering and ranking
+* Package cost calculation
+* Deposit and balance calculation
+* Booking processing
+* Vendor verification workflow
+
+The project implementation record is maintained as the single work log for the Auresta project, with task-level responsibility, completion, AI assistance and evidence recorded for traceability.
