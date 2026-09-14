@@ -335,14 +335,14 @@ function renderExploreView(state) {
             <label class="filter-label">Categories (Select Multiple)</label>
             <label class="checkbox-item" style="font-weight:700; color:var(--text-primary);">
               <input type="checkbox" ${selectedCats.length === 0 ? 'checked' : ''} onchange="resetCategorySelection()" />
-              🌟 All Categories
+              All Categories
             </label>
             ${categories.map(cat => {
               const isChecked = selectedCats.includes(cat.id);
               return `
                 <label class="checkbox-item">
                   <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleCategorySelection('${cat.id}')" />
-                  ${cat.icon} ${cat.name}
+                  ${cat.name}
                 </label>
               `;
             }).join('')}
@@ -913,8 +913,8 @@ function renderVendorCard(v, state) {
     <div class="vendor-card">
       <img src="${v.coverImage}" class="vendor-card-img" alt="${v.name}" />
       <div class="vendor-card-overlay">
-        <span class="badge ${v.verified ? 'badge-verified' : 'badge-gold'}">
-          ${v.verified ? '✓ VERIFIED' : 'PENDING'}
+        <span class="vendor-verified-badge ${v.verified ? 'is-verified' : 'is-pending'}">
+          ${v.verified ? 'VERIFIED' : 'PENDING'}
         </span>
         <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${v.id}')" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}" aria-pressed="${isFav}">❤️</button>
       </div>
