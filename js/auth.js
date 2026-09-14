@@ -9,7 +9,7 @@ function renderAuthView(state) {
     <div class="auth-page">
       <div class="auth-card fade-in-up">
         <div class="auth-header">
-          <div class="logo-icon">👑</div>
+          <div class="logo-icon"><i data-lucide="crown" style="width:24px;height:24px"></i></div>
           <div class="auth-title">${isLogin ? 'Welcome Back' : 'Create Your Account'}</div>
           <div class="auth-subtitle">${isLogin ? 'Log in to plan your next celebration' : 'Join Auresta to start planning your event'}</div>
         </div>
