@@ -29,7 +29,6 @@ function renderApp() {
     }
 
     bindEvents();
-    renderGoogleButtonIfNeeded(state);
   } catch (err) {
     console.error("Auresta Render Error:", err);
     const appContainer = document.getElementById('app');

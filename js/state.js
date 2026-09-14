@@ -38,6 +38,9 @@ class StateStore {
         if (!parsed.auth) {
           parsed.auth = { isAuthenticated: false, token: null, user: null, view: 'login', error: null, loading: false };
         }
+        // Never restore the transient "Please wait..." state after a reload.
+        // Only the loading flag is reset — token/user/session are left intact.
+        parsed.auth.loading = false;
         // Chat Support starts fresh after a full page reload. Keep every other
         // persisted value (auth, favorites, bookings, events, vendor profile),
         // but never restore the previous support conversation.

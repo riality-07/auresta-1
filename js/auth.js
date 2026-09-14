@@ -40,13 +40,9 @@ function renderAuthView(state) {
           </div>
 
           <button type="submit" class="btn btn-primary" style="width:100%; padding:0.85rem; font-size:1rem; margin-top:0.4rem;" ${auth.loading ? 'disabled' : ''}>
-            ${auth.loading ? 'Please wait...' : (isLogin ? 'Log In' : 'Create Account')}
+            ${auth.loading ? 'Waking up Auresta servers…' : (isLogin ? 'Log In' : 'Create Account')}
           </button>
         </form>
-
-        <div class="auth-divider">or continue with</div>
-
-        <div class="google-btn-wrapper" id="googleSignInBtn"></div>
 
         <div class="auth-footer-note">
           ${isLogin ? `New to Auresta? <button onclick="switchAuthTab('signup')">Create an account</button>`
@@ -81,49 +77,14 @@ async function handleAuthSubmit(event, mode) {
     window.appStore.loginSuccess(data.token, data.user);
   } catch (err) {
     window.appStore.setAuthError(err.message);
+  } finally {
+    // Guarantee the auth loading flag is cleared even if the request hangs,
+    // stalls past the timeout, or errors unexpectedly (fixes stuck "Please wait...").
+    window.appStore.setAuthLoading(false);
   }
 }
 
 /* Log Out */
 function logoutUser() {
   window.appStore.logout();
-}
-
-/* Google Identity Services Integration */
-function renderGoogleButtonIfNeeded(state) {
-  const container = document.getElementById('googleSignInBtn');
-  if (!container) return;
-
-  if (!window.google || !window.google.accounts || !window.google.accounts.id) {
-    // Google Identity Services script hasn't finished loading yet — retry shortly.
-    setTimeout(() => renderGoogleButtonIfNeeded(state), 300);
-    return;
-  }
-
-  if (!window.AURESTA_GOOGLE_CLIENT_ID || window.AURESTA_GOOGLE_CLIENT_ID.includes('YOUR_')) {
-    container.innerHTML = `<div style="font-size:0.78rem; color:var(--text-secondary); text-align:center;">Google Sign-In not configured yet.</div>`;
-    return;
-  }
-
-  window.google.accounts.id.initialize({
-    client_id: window.AURESTA_GOOGLE_CLIENT_ID,
-    callback: handleGoogleCredentialResponse
-  });
-
-  window.google.accounts.id.renderButton(container, {
-    theme: 'outline',
-    size: 'large',
-    width: 336,
-    text: 'continue_with'
-  });
-}
-
-async function handleGoogleCredentialResponse(response) {
-  window.appStore.setAuthLoading(true);
-  try {
-    const data = await window.AurestaAPI.loginWithGoogle(response.credential);
-    window.appStore.loginSuccess(data.token, data.user);
-  } catch (err) {
-    window.appStore.setAuthError(err.message);
-  }
 }
