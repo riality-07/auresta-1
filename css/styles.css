@@ -290,8 +290,8 @@ h1, h2, h3, h4, h5, h6,
   text-decoration: none;
 }
 .brand-crown {
-  font-size: 1.3rem;
-  line-height: 1;
+  height: 30px;
+  width: auto;
   margin-bottom: 0.2rem;
 }
 .brand-word {
