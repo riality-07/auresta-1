@@ -66,7 +66,7 @@ function renderNavbar(state) {
         </button>
 
         <a href="#" class="brand-mark" onclick="navigateTo('home')" aria-label="Auresta home">
-          <span class="brand-crown" aria-hidden="true">👑</span>
+          <img class="brand-crown" src="logoauresta.png" alt="Auresta" />
           <span class="brand-word">AURESTA</span>
           <span class="brand-tagline">${brandTagline}</span>
         </a>
@@ -196,6 +196,18 @@ function renderHomeView(state) {
         <h1 class="hero-title">Everything You Need to Celebrate, <span>In One Place</span></h1>
         <div class="hero-tagline">"Where Moments Turn Golden"</div>
         <p class="hero-subtitle">Discover verified vendors, compare prices, build custom packages & book your entire celebration effortlessly.</p>
+      </div>
+    </section>
+
+    <!-- Explore by Event Type -->
+    <section style="padding: 3rem 0;">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Explore by Event Type</h2>
+            <p class="section-subtitle">Handpicked vendor packages for every occasion</p>
+          </div>
+        </div>
 
         <!-- Need It Now Urgency Bar with Packages CTA -->
         <div class="urgency-banner">
@@ -210,18 +222,6 @@ function renderHomeView(state) {
             <button class="btn btn-primary" onclick="navigateTo('packages')">
               <i data-lucide="package"></i> Explore Packages & Deals
             </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Explore by Event Type -->
-    <section style="padding: 3rem 0;">
-      <div class="container">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">Explore by Event Type</h2>
-            <p class="section-subtitle">Handpicked vendor packages for every occasion</p>
           </div>
         </div>
 
