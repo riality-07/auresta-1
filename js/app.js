@@ -1,5 +1,8 @@
 /* AURESTA - Master Application Logic */
 
+// Premium branded fallback for broken or slow-loading vendor images
+window.AURESTA_IMG_FALLBACK = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%23FFF6F0' width='800' height='600'/%3E%3Crect fill='none' stroke='%23E8D8BD' stroke-width='2' x='10' y='10' width='780' height='580' rx='16'/%3E%3Ctext font-family='Georgia,serif' font-size='180' font-weight='700' fill='%23ECC479' text-anchor='middle' x='400' y='340' opacity='0.85'%3EA%3C/text%3E%3Ctext font-family='sans-serif' font-size='18' fill='%236C5F51' text-anchor='middle' x='400' y='420' letter-spacing='6'%3EAURESTA%3C/text%3E%3C/svg%3E";
+
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     window.lucide.createIcons();
@@ -29,6 +32,11 @@ function renderApp() {
     }
 
     bindEvents();
+
+    // Hook the home hero 3D experience (no-op if js/3d.js or THREE.js absent)
+    if (window.Auresta3D && typeof window.Auresta3D.sync === 'function') {
+      try { window.Auresta3D.sync(); } catch (err) { /* 3D must never break the app */ }
+    }
   } catch (err) {
     console.error("Auresta Render Error:", err);
     const appContainer = document.getElementById('app');
@@ -66,7 +74,7 @@ function renderNavbar(state) {
         </button>
 
         <a href="#" class="brand-mark" onclick="navigateTo('home')" aria-label="Auresta home">
-          <img class="brand-crown" src="logoauresta.png" alt="Auresta" />
+          <img class="brand-crown" src="logo123.jpeg" alt="Auresta" />
           <span class="brand-word">AURESTA</span>
           <span class="brand-tagline">${brandTagline}</span>
         </a>
@@ -192,7 +200,10 @@ function renderHomeView(state) {
   return `
     <!-- Hero Section -->
     <section class="hero">
+      <!-- 3D sculptural forms are injected into .hero-3d by js/3d.js -->
+      <div class="hero-3d" aria-hidden="true"></div>
       <div class="container">
+        <div class="hero-eyebrow">Concierge Event Marketplace</div>
         <h1 class="hero-title">Everything You Need to Celebrate, <span>In One Place</span></h1>
         <div class="hero-tagline">"Where Moments Turn Golden"</div>
         <p class="hero-subtitle">Discover verified vendors, compare prices, build custom packages & book your entire celebration effortlessly.</p>
@@ -212,7 +223,7 @@ function renderHomeView(state) {
         <!-- Need It Now Urgency Bar with Packages CTA -->
         <div class="urgency-banner">
           <div class="urgency-text">
-            <h3>⚡ Need a Vendor Immediately?</h3>
+            <h3>Need a Vendor Immediately?</h3>
             <p>Find decorators, caterers & photographers ready to serve within 2 to 24 hours.</p>
           </div>
           <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
@@ -229,7 +240,7 @@ function renderHomeView(state) {
           <div class="search-tabs">
             ${categories.map(c => `
               <button class="search-tab ${state.searchParams.eventType === c.id ? 'active' : ''}" onclick="setSearchParam('eventType', '${c.id}')">
-                ${c.icon} ${c.name}
+                ${c.name}
               </button>
             `).join('')}
           </div>
@@ -289,11 +300,11 @@ function renderHomeView(state) {
         <div class="moments-grid reveal-group">
           ${moments.map(m => `
             <div class="moment-card">
-              <img src="${m.image}" class="moment-img" alt="${m.title}" />
+              <img src="${m.image}" class="moment-img" alt="${m.title}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=window.AURESTA_IMG_FALLBACK" />
               <div class="moment-body">
                 <span class="badge badge-gold" style="margin-bottom:0.5rem;">${m.categoryName}</span>
                 <h3 style="font-size:1.2rem; font-weight:700; color:var(--text-primary); margin-bottom:0.4rem;">${m.title}</h3>
-                <div style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:0.8rem;">📍 ${m.location}</div>
+                <div style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:0.8rem;">${m.location}</div>
                 <p style="font-size:0.88rem; color:var(--text-secondary); line-height:1.5; margin-bottom:1rem;">${m.description}</p>
                 <button class="btn btn-sm btn-outline" style="width:100%;" onclick="navigateTo('explore')">View Similar Vendors</button>
               </div>
@@ -324,10 +335,10 @@ function renderExploreView(state) {
           <div class="filter-group">
             <label class="filter-label">Sort Vendors By</label>
             <select class="field-select" onchange="setSearchParam('sortBy', this.value)">
-              <option value="rating" ${state.searchParams.sortBy === 'rating' ? 'selected' : ''}>⭐ Highest Rated</option>
-              <option value="price_asc" ${state.searchParams.sortBy === 'price_asc' ? 'selected' : ''}>💰 Price: Low to High</option>
-              <option value="price_desc" ${state.searchParams.sortBy === 'price_desc' ? 'selected' : ''}>💰 Price: High to Low</option>
-              <option value="speed" ${state.searchParams.sortBy === 'speed' ? 'selected' : ''}>⚡ Available Soonest / Speed</option>
+              <option value="rating" ${state.searchParams.sortBy === 'rating' ? 'selected' : ''}>Highest Rated</option>
+              <option value="price_asc" ${state.searchParams.sortBy === 'price_asc' ? 'selected' : ''}>Price: Low to High</option>
+              <option value="price_desc" ${state.searchParams.sortBy === 'price_desc' ? 'selected' : ''}>Price: High to Low</option>
+              <option value="speed" ${state.searchParams.sortBy === 'speed' ? 'selected' : ''}>Available Soonest / Speed</option>
             </select>
           </div>
 
@@ -356,7 +367,7 @@ function renderExploreView(state) {
             </label>
             <label class="checkbox-item">
               <input type="checkbox" ${state.searchParams.urgency === 'today' ? 'checked' : ''} onchange="setSearchParam('urgency', this.checked ? 'today' : 'any')" />
-              ⚡ Available Today / 3 Hrs
+              Available Today / 3 Hrs
             </label>
           </div>
         </aside>
@@ -365,6 +376,7 @@ function renderExploreView(state) {
         <main>
           <div class="section-header">
             <div>
+              <p class="view-eyebrow">Curated for You</p>
               <h2 class="section-title">Available Vendors (${vendors.length})</h2>
               <p class="section-subtitle">Showing verified service providers in ${state.searchParams.location}</p>
             </div>
@@ -531,7 +543,7 @@ function renderBuilderView(state) {
           return `
             <div class="package-card">
               <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-                <h3 style="color:var(--text-primary); font-size:1.2rem;">${cat.icon} ${cat.name}</h3>
+                <h3 style="color:var(--text-primary); font-size:1.2rem;">${cat.name}</h3>
                 ${selectedVendor ? `<span class="badge badge-verified">✓ ADDED</span>` : `<span class="badge badge-gold">SELECT</span>`}
               </div>
 
@@ -542,7 +554,7 @@ function renderBuilderView(state) {
                     <span class="badge badge-verified">✓ Verified</span>
                   </div>
                   <div style="font-size:0.85rem; color:var(--text-secondary); margin:0.3rem 0;">
-                    ⭐ <strong>${selectedVendor.rating}</strong> (${selectedVendor.reviewCount} reviews)
+                    <i data-lucide="star" style="width:14px;height:14px;vertical-align:-2px"></i> <strong>${selectedVendor.rating}</strong> (${selectedVendor.reviewCount} reviews)
                   </div>
                   <div style="color:var(--text-primary); font-weight:700; font-size:1rem;">₹${selectedVendor.startingPrice.toLocaleString('en-IN')} onwards</div>
                   <button class="btn btn-sm btn-outline" style="width:100%; margin-top:0.6rem;" onclick="removeBuilderVendor('${cat.id}')">Change Vendor</button>
@@ -551,7 +563,7 @@ function renderBuilderView(state) {
                 <select class="field-select" onchange="addBuilderVendor('${cat.id}', this.value)">
                   <option value="">Select ${cat.name} Vendor...</option>
                   ${availableVendors.map(v => `
-                    <option value="${v.id}">${v.name} • ⭐${v.rating} (₹${v.startingPrice.toLocaleString('en-IN')} onwards)</option>
+                    <option value="${v.id}">${v.name} • ${v.rating} (₹${v.startingPrice.toLocaleString('en-IN')} onwards)</option>
                   `).join('')}
                 </select>
               `}
@@ -577,7 +589,7 @@ function renderUrgencyView(state) {
     <div class="container" style="padding-top: 2rem;">
       <div class="urgency-banner" style="margin-top:0;">
         <div class="urgency-text">
-          <h1>⚡ Urgent & Express Event Vendors</h1>
+          <h1>Urgent & Express Event Vendors</h1>
           <p>Verified service providers with immediate calendar capacity ready to dispatch in Bangalore.</p>
         </div>
       </div>
@@ -606,7 +618,7 @@ function renderMyEventView(state) {
       <!-- Overview Stats -->
       <div class="stats-row reveal-group">
         <div class="stat-card">
-          <div class="stat-icon">📅</div>
+          <div class="stat-icon"><i data-lucide="calendar-days" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Event Date</div>
             <div style="font-size:1.1rem; font-weight:700; color:var(--text-primary);">${activeEvent.date}</div>
@@ -614,7 +626,7 @@ function renderMyEventView(state) {
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><i data-lucide="wallet" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Budget Spent</div>
             <div style="font-size:1.1rem; font-weight:700; color:var(--status-success);">₹${activeEvent.spentBudget.toLocaleString('en-IN')} / ₹${activeEvent.totalBudget.toLocaleString('en-IN')}</div>
@@ -622,7 +634,7 @@ function renderMyEventView(state) {
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">🛍️</div>
+          <div class="stat-icon"><i data-lucide="shopping-bag" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Confirmed Vouchers</div>
             <div style="font-size:1.1rem; font-weight:700; color:var(--text-primary);">${bookings.length} Bookings</div>
@@ -659,7 +671,7 @@ function renderMyEventView(state) {
               </div>
               <div style="color:var(--text-secondary); font-size:0.85rem; margin:0.4rem 0;">ID: ${b.id} | ${b.date}</div>
               <div style="font-weight:700; color:var(--status-success); font-size:0.95rem;">Deposit Paid: ₹${b.depositPaid.toLocaleString('en-IN')} (Remaining: ₹${b.balanceDue.toLocaleString('en-IN')})</div>
-              <button class="btn btn-sm btn-outline" style="margin-top:0.6rem; width:100%;" onclick="openVendorChatDirect('${b.vendorId}', '${b.id}')">💬 Chat with Vendor</button>
+              <button class="btn btn-sm btn-outline" style="margin-top:0.6rem; width:100%;" onclick="openVendorChatDirect('${b.vendorId}', '${b.id}')"><i data-lucide="message-circle" style="width:14px;height:14px;vertical-align:-2px"></i> Chat with Vendor</button>
             </div>
           `).join('')}
         </div>
@@ -688,7 +700,7 @@ function renderSupportView(state) {
           <div style="display:flex; flex-direction:column; gap:0.5rem;">
             ${topics.map(t => `
               <div style="padding:0.75rem; border-radius:var(--radius-md); border:1px solid var(--border-color); background:#FFFFFF; cursor:pointer;" onclick="alert('Connected to ${t.name} desk.')">
-                <div style="font-weight:700; font-size:0.9rem; color:var(--text-primary);">${t.icon} ${t.name}</div>
+                <div style="font-weight:700; font-size:0.9rem; color:var(--text-primary);">${t.name}</div>
                 <div style="font-size:0.78rem; color:var(--text-secondary);">${t.desc}</div>
               </div>
             `).join('')}
@@ -697,7 +709,7 @@ function renderSupportView(state) {
 
         <div class="package-card" style="height: 580px; display:flex; flex-direction:column;">
           <div style="padding-bottom:1rem; border-bottom:1px solid var(--border-color); font-weight:700; font-size:1.1rem; color:var(--text-primary); display:flex; justify-content:space-between; align-items:center;">
-            <span>🎧 Auresta Concierge Ticket #${ticket.id}</span>
+            <span><i data-lucide="headphones" style="width:15px;height:15px;vertical-align:-2px"></i> Auresta Concierge Ticket #${ticket.id}</span>
             <span class="badge badge-verified">✓ ACTIVE AGENT</span>
           </div>
 
@@ -741,7 +753,7 @@ function renderVendorDashboard(state) {
       <!-- Overview Stats displaying NUMERICAL BOOKING COUNT (Requirement #3) -->
       <div class="stats-row reveal-group">
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><i data-lucide="wallet" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Revenue (This Month)</div>
             <div style="font-size:1.3rem; font-weight:700; color:var(--status-success);">₹1,85,000</div>
@@ -749,7 +761,7 @@ function renderVendorDashboard(state) {
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">🛍️</div>
+          <div class="stat-icon"><i data-lucide="shopping-bag" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Total Bookings</div>
             <div style="font-size:1.3rem; font-weight:700; color:var(--text-primary);">Total Bookings: ${bookingsCount}</div>
@@ -757,10 +769,10 @@ function renderVendorDashboard(state) {
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">⭐</div>
+          <div class="stat-icon"><i data-lucide="star" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Rating & Reviews</div>
-            <div style="font-size:1.3rem; font-weight:700; color:var(--text-primary);">4.9 ⭐ (128 Reviews)</div>
+            <div style="font-size:1.3rem; font-weight:700; color:var(--text-primary);"><i data-lucide="star" style="width:16px;height:16px;vertical-align:-2px"></i> 4.9 (128 Reviews)</div>
           </div>
         </div>
       </div>
@@ -853,7 +865,7 @@ function renderAdminPortal(state) {
 
       <div class="stats-row reveal-group">
         <div class="stat-card">
-          <div class="stat-icon">📈</div>
+          <div class="stat-icon"><i data-lucide="trending-up" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Total GMV Processed</div>
             <div style="font-size:1.3rem; font-weight:700; color:var(--text-primary);">₹14,50,000</div>
@@ -861,7 +873,7 @@ function renderAdminPortal(state) {
         </div>
 
         <div class="stat-card">
-          <div class="stat-icon">💼</div>
+          <div class="stat-icon"><i data-lucide="briefcase" style="width:22px;height:22px"></i></div>
           <div>
             <div style="font-size:0.8rem; color:var(--text-secondary);">Platform Commission (10%)</div>
             <div style="font-size:1.3rem; font-weight:700; color:var(--status-success);">₹1,45,000</div>
@@ -911,12 +923,12 @@ function renderVendorCard(v, state) {
 
   return `
     <div class="vendor-card">
-      <img src="${v.coverImage}" class="vendor-card-img" alt="${v.name}" />
+      <img src="${v.coverImage}" class="vendor-card-img" alt="${v.name}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=window.AURESTA_IMG_FALLBACK" />
       <div class="vendor-card-overlay">
         <span class="vendor-verified-badge ${v.verified ? 'is-verified' : 'is-pending'}">
           ${v.verified ? 'VERIFIED' : 'PENDING'}
         </span>
-        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${v.id}')" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}" aria-pressed="${isFav}">❤️</button>
+        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav('${v.id}')" aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}" aria-pressed="${isFav}"><i data-lucide="heart" style="width:16px;height:16px"></i></button>
       </div>
 
       <div class="vendor-card-body">
@@ -924,11 +936,11 @@ function renderVendorCard(v, state) {
         <div class="vendor-category">${v.categoryName} • ${v.location}</div>
 
         <div class="vendor-meta">
-          <div class="rating-pill">⭐ ${v.rating} (${v.reviewCount})</div>
+          <div class="rating-pill"><i data-lucide="star" style="width:14px;height:14px"></i> ${v.rating} (${v.reviewCount})</div>
           <div class="price-tag">₹${v.startingPrice.toLocaleString('en-IN')} <span>starts</span></div>
         </div>
 
-        ${v.urgentAvailable ? `<div style="font-size:0.78rem; color:var(--status-error); margin-bottom:0.8rem; font-weight:700;">⚡ ${v.urgentNotice}</div>` : ''}
+        ${v.urgentAvailable ? `<div style="font-size:0.78rem; color:var(--status-error); margin-bottom:0.8rem; font-weight:700;"><i data-lucide="zap" style="width:12px;height:12px;vertical-align:-2px"></i> ${v.urgentNotice}</div>` : ''}
 
         <div class="vendor-card-actions">
           <button class="btn btn-outline btn-sm" style="flex:1;" onclick="openVendorDetail('${v.id}')">Profile & Calendar</button>
@@ -1011,8 +1023,8 @@ function renderModal(state) {
             </div>
 
             <div style="background:var(--bg-soft-gold); padding:0.85rem; border-radius:var(--radius-md); font-size:0.85rem; color:var(--text-primary); margin-bottom:1.5rem;">
-              💳 <strong>Pay Now: ₹${draft.depositPaid.toLocaleString('en-IN')}</strong> (20% Deposit)<br/>
-              🤝 <strong>Remaining Balance: ₹${draft.balanceDue.toLocaleString('en-IN')}</strong> (Payable directly on event day)
+              <i data-lucide="credit-card" style="width:15px;height:15px;vertical-align:-2px"></i> <strong>Pay Now: ₹${draft.depositPaid.toLocaleString('en-IN')}</strong> (20% Deposit)<br/>
+              <strong>Remaining Balance: ₹${draft.balanceDue.toLocaleString('en-IN')}</strong> (Payable directly on event day)
             </div>
 
             <button class="btn btn-primary" style="width:100%; padding:0.9rem; font-size:1rem;" onclick="confirmPaymentGateway()">
@@ -1032,7 +1044,7 @@ function renderModal(state) {
       <div class="modal-overlay active">
         <div class="modal-container" style="max-width:520px; text-align:center;">
           <div class="modal-body" style="padding:2.5rem 1.75rem;">
-            <div style="font-size:3rem; margin-bottom:0.5rem;">🎉</div>
+            <div style="margin-bottom:0.5rem;"><i data-lucide="party-popper" style="width:52px;height:52px;color:var(--primary-gold);"></i></div>
             <h2 style="font-size:1.8rem; font-weight:700; color:var(--text-primary);">Booking Confirmed!</h2>
             <div style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:1.5rem;">Your reservation has been locked & vendor calendar synchronized in real time.</div>
 
@@ -1069,7 +1081,7 @@ function renderModal(state) {
           </div>
           <div class="modal-body">
             <div style="position:relative; margin-bottom:1.5rem;">
-              <img src="${p.coverImage}" style="width:100%; height:260px; object-fit:cover; border-radius:var(--radius-xl);" />
+              <img src="${p.coverImage}" alt="${p.businessName}" style="width:100%; height:260px; object-fit:cover; border-radius:var(--radius-xl);" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=window.AURESTA_IMG_FALLBACK" />
               <span class="badge ${p.verificationStatus === 'Verified' ? 'badge-verified' : 'badge-urgent'}" style="position:absolute; top:16px; left:16px; font-size:0.9rem;">
                 ${p.verificationStatus === 'Verified' ? '✓ VERIFIED VENDOR' : 'PENDING VERIFICATION'}
               </span>
@@ -1079,9 +1091,9 @@ function renderModal(state) {
             <p style="color:var(--text-secondary); font-size:0.95rem; margin-bottom:0.8rem;">${p.categoryName} • ${p.location}</p>
             
             <div style="display:flex; gap:1rem; margin-bottom:1.5rem; font-size:0.88rem; font-weight:700;">
-              <span>⭐ 4.9 Rating (128 Reviews)</span>
-              <span>⚡ ${p.responseTime} Response</span>
-              <span>📈 Total Bookings: 12</span>
+              <span><i data-lucide="star" style="width:14px;height:14px;vertical-align:-2px"></i> 4.9 Rating (128 Reviews)</span>
+              <span><i data-lucide="zap" style="width:14px;height:14px;vertical-align:-2px"></i> ${p.responseTime} Response</span>
+              <span><i data-lucide="trending-up" style="width:14px;height:14px;vertical-align:-2px"></i> Total Bookings: 12</span>
             </div>
 
             <p style="color:var(--text-primary); font-size:0.95rem; line-height:1.6; margin-bottom:1.5rem;">${p.description}</p>
@@ -1104,7 +1116,7 @@ function renderFooter(state) {
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:2rem; margin-bottom:2.5rem;">
           <div>
             <div class="logo" style="margin-bottom:0.5rem;">
-              <div class="logo-icon">👑</div>
+              <div class="logo-icon"><i data-lucide="crown" style="width:22px;height:22px"></i></div>
               <span>AURESTA</span>
             </div>
             <div style="font-size:0.9rem; font-weight:600; color:var(--text-secondary); margin-bottom:1rem; font-style:italic;">
@@ -1167,7 +1179,7 @@ function renderVendorDetailView(state) {
       <div class="marketplace-layout" style="grid-template-columns: 2fr 1fr;">
         <div>
           <div style="position:relative; margin-bottom:1.5rem;">
-            <img src="${vendor.coverImage}" style="width:100%; height:320px; object-fit:cover; border-radius:var(--radius-xl);" />
+            <img src="${vendor.coverImage}" alt="${vendor.name}" style="width:100%; height:320px; object-fit:cover; border-radius:var(--radius-xl);" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=window.AURESTA_IMG_FALLBACK" />
             <span class="badge ${vendor.verified ? 'badge-verified' : 'badge-gold'}" style="position:absolute; top:16px; left:16px; font-size:0.9rem;">
               ${vendor.verified ? '✓ VERIFIED VENDOR' : 'PENDING VERIFICATION'}
             </span>
@@ -1180,7 +1192,7 @@ function renderVendorDetailView(state) {
           <h3 style="color:var(--text-primary); margin-bottom:1rem;">Portfolio Work</h3>
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:2.5rem;">
             ${vendor.portfolio.map(img => `
-              <img src="${img}" style="width:100%; height:140px; object-fit:cover; border-radius:var(--radius-lg); border:1px solid var(--border-color);" />
+              <img src="${img}" alt="Vendor portfolio image" style="width:100%; height:140px; object-fit:cover; border-radius:var(--radius-lg); border:1px solid var(--border-color);" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=window.AURESTA_IMG_FALLBACK" />
             `).join('')}
           </div>
 
@@ -1232,7 +1244,7 @@ function renderVendorDetailView(state) {
             <button class="btn btn-primary" onclick="startCheckoutFromVendor('${vendor.id}')">
               Book for ${selectedDate} (Starts ₹${vendor.startingPrice.toLocaleString('en-IN')})
             </button>
-            <button class="btn btn-outline" onclick="openVendorChatDirect('${vendor.id}')">💬 Chat with Vendor</button>
+            <button class="btn btn-outline" onclick="openVendorChatDirect('${vendor.id}')"><i data-lucide="message-circle" style="width:14px;height:14px;vertical-align:-2px"></i> Chat with Vendor</button>
           </div>
         </aside>
       </div>
