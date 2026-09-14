@@ -659,7 +659,7 @@ function renderMyEventView(state) {
               </div>
               <div style="color:var(--text-secondary); font-size:0.85rem; margin:0.4rem 0;">ID: ${b.id} | ${b.date}</div>
               <div style="font-weight:700; color:var(--status-success); font-size:0.95rem;">Deposit Paid: ₹${b.depositPaid.toLocaleString('en-IN')} (Remaining: ₹${b.balanceDue.toLocaleString('en-IN')})</div>
-              <button class="btn btn-sm btn-outline" style="margin-top:0.6rem; width:100%;" onclick="openVendorChatDirect('${b.vendorId}')">💬 Chat with Vendor</button>
+              <button class="btn btn-sm btn-outline" style="margin-top:0.6rem; width:100%;" onclick="openVendorChatDirect('${b.vendorId}', '${b.id}')">💬 Chat with Vendor</button>
             </div>
           `).join('')}
         </div>
@@ -1427,11 +1427,9 @@ function sendSupportMsg() {
   }, 450);
 }
 
-function openVendorChatDirect(vendorId) {
-  const text = prompt('Enter message to send directly to vendor:');
-  if (text && text.trim()) {
-    window.appStore.sendVendorDirectMessage(vendorId, text.trim());
-    alert('Message sent directly to vendor!');
+function openVendorChatDirect(vendorId, bookingId) {
+  if (window.VendorChat) {
+    window.VendorChat.open({ vendorId: vendorId || null, bookingId: bookingId || null });
   }
 }
 
