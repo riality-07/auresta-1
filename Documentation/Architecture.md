@@ -1,1731 +1,1199 @@
 # AURESTA — System Architecture
 
-## 1. Business Problem and Target Users
+## 1. Project Overview
 
-### Business Problem
+Auresta is an event discovery, planning, booking, and management platform designed to simplify the process of organising events.
 
-Planning an event usually requires users to coordinate multiple independent vendors and services.
+The platform allows users to explore event categories, discover vendors, compare vendor information, view packages, create customised packages, calculate costs, make bookings, manage event information, and access support.
 
-For a single event, a customer may need to find:
+Auresta provides three main views:
 
-* Venues
-* Decorators
-* Caterers
-* Photographers
-* Videographers
-* DJs and entertainment providers
-* Makeup artists
-* Cakes and desserts
-* Event planners
-* Other specialized services
+- User View
+- Vendor View
+- Admin View
 
-Managing these services manually can result in:
-
-* Difficulty discovering reliable vendors.
-* Time-consuming comparison of prices and services.
-* Limited visibility into vendor availability.
-* Difficulty coordinating multiple vendors.
-* Uncertainty regarding vendor quality and verification.
-* Complicated event budgeting.
-* Last-minute vendor requirements.
-* Fragmented communication between customers and service providers.
-* Difficulty managing bookings and payments.
-* No centralized view of an entire event.
-
-Auresta is designed as an all-in-one event discovery, planning, vendor marketplace, package-building, booking, and event-management platform.
-
-The platform allows customers to discover verified event vendors, compare services and pricing, check availability, build event packages, make bookings, manage event details, and receive support.
-
-The platform also provides dedicated views for vendors and administrators.
-
-### Target Users
-
-The primary target users are:
-
-#### 1. Event Customers
-
-Customers planning events such as:
-
-* Weddings
-* Birthday parties
-* Engagements
-* Anniversaries
-* Corporate events
-* Baby showers
-* Kids' parties
-* Bachelorette events
-* Private celebrations
-
-Customers can:
-
-* Enter event requirements.
-* Discover vendors.
-* Compare vendor profiles.
-* Check availability.
-* Build packages.
-* Book services.
-* Make payments.
-* Manage event details.
-* Communicate with vendors.
-* Contact support.
-
-#### 2. Event Vendors
-
-Event service providers can use Auresta to manage their marketplace presence.
-
-Examples include:
-
-* Decorators
-* Caterers
-* Photographers
-* Videographers
-* DJs
-* Entertainment providers
-* Venues
-* Makeup artists
-* Bakeries
-* Event planners
-
-Vendors can:
-
-* Manage their profile.
-* Manage service packages.
-* Manage availability.
-* View bookings.
-* Track revenue.
-* Monitor ratings.
-* Submit verification requests.
-
-#### 3. Auresta Administrators
-
-Administrators manage the overall marketplace.
-
-Administrators can:
-
-* Review vendor verification requests.
-* Approve or reject vendors.
-* Monitor platform activity.
-* Track bookings.
-* Monitor GMV.
-* Track platform commissions.
-* Manage marketplace quality.
+The current system combines a browser-based frontend, JavaScript application logic, client-side state management, browser storage, and a Node.js/Express backend for authentication and AI-support functionality.
 
 ---
 
-# 2. Technology Stack
+## 2. Business Problem
 
-## Current Implementation
+Planning an event often requires users to search for multiple vendors separately, compare prices and ratings, check availability, select suitable services, and coordinate bookings.
 
-Auresta is currently implemented as a client-side web application.
+This can make event planning time-consuming and difficult to manage.
 
-The repository contains:
+Auresta addresses this problem by bringing major event-planning activities into a single platform.
 
-* HTML
-* CSS
-* Vanilla JavaScript
-* Browser Local Storage
-* Static demo data
+The system allows users to:
 
-The application does not currently include a dedicated backend server.
+- Select an event type.
+- Enter event requirements.
+- Explore vendors.
+- Filter and sort vendors.
+- View vendor profiles.
+- Check vendor availability.
+- Explore packages and deals.
+- Build customised packages.
+- Calculate package costs.
+- Proceed to checkout.
+- Complete a booking flow.
+- View booking information.
+- Use Chat Support.
 
-### Frontend
-
-The current frontend stack includes:
-
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* DOM rendering
-* Browser Local Storage
-* Responsive web UI
-
-The application uses a single HTML entry point.
-
-```text
-index.html
-```
-
-The HTML document contains a single application container:
-
-```html
-<div id="app"></div>
-```
-
-JavaScript renders the application dynamically into this container.
-
-The application also loads:
-
-* Google Fonts
-* Lucide Icons
-* Canvas Confetti
-
-### Application Structure
-
-The core application is divided into:
-
-```text
-Auresta
-│
-├── index.html
-│
-├── css/
-│   └── styles.css
-│
-└── js/
-    ├── data.js
-    ├── state.js
-    └── app.js
-```
-
-### Data Layer
-
-The current application uses static JavaScript datasets.
-
-The demo data includes:
-
-* Event categories
-* Service categories
-* Previous events
-* Vendor information
-* Vendor portfolios
-* Vendor packages
-* Vendor availability
-* Premade event packages
-* User events
-* Bookings
-* Support topics
-
-The data is stored in browser-accessible JavaScript objects.
-
-### State Management
-
-A custom client-side state manager is implemented using the `StateStore` class.
-
-The state manager maintains:
-
-* Current user role
-* Current application view
-* Search parameters
-* Package filters
-* Booking dates
-* Favorites
-* Events
-* Bookings
-* Support tickets
-* Vendor messages
-* Custom package selections
-* Checkout state
-* Vendor profile state
-* Vendor verification state
-
-State changes trigger application re-rendering.
-
-### Browser Persistence
-
-The current implementation uses:
-
-```text
-localStorage
-```
-
-for browser-side persistence.
-
-Example:
-
-```text
-Auresta State
-        │
-        ▼
-Browser localStorage
-        │
-        ▼
-JSON Serialized Data
-        │
-        ▼
-Restored When Application Loads
-```
-
-This means the current data persistence is local to the user's browser and is not a shared multi-user database.
-
-### External Client-Side Services
-
-The current implementation uses external browser resources for:
-
-* Google Fonts
-* Lucide Icons
-* Canvas Confetti
-* Unsplash image URLs
-* QR code generation
+The platform also provides Vendor and Admin views for vendor-related management activities.
 
 ---
 
-# 3. Current System Architecture
+## 3. Target Users
 
-The current Auresta implementation is primarily a static client-side application.
+### 3.1 User
 
-There is no dedicated application server or database in the repository.
+The User is the main customer of the platform.
 
-### Current Architecture Diagram
+Users can:
 
-```mermaid
-flowchart TD
+- Explore event categories.
+- Search for vendors.
+- Filter vendors.
+- Sort vendors.
+- View vendor details.
+- Check availability.
+- Explore packages.
+- Build custom packages.
+- Calculate package costs.
+- Book vendors or packages.
+- View booking information.
+- Manage event information.
+- Save favourites.
+- Contact Chat Support.
 
-    U[User]
-    V[Vendor]
-    A[Administrator]
+### 3.2 Vendor
 
-    U --> B[Web Browser]
-    V --> B
-    A --> B
+The Vendor provides event-related services through Auresta.
 
-    B --> H[Static HTML Application]
+Vendor functionality includes:
 
-    H --> APP[Vanilla JavaScript Application]
+- Vendor Portal access.
+- Vendor profile management.
+- Vendor service information.
+- Vendor package information.
+- Availability information.
+- Vendor verification submission.
+- Public profile preview.
 
-    APP --> DATA[Static Demo Data]
+### 3.3 Admin
 
-    APP --> STATE[Client-Side State Store]
+The Admin manages selected platform-level activities.
 
-    STATE --> LS[(Browser localStorage)]
+Admin functionality includes:
 
-    APP --> UI[Dynamic DOM Rendering]
+- Admin Portal.
+- Verification Desk.
+- Vendor verification review.
+- Vendor verification approval.
 
-    APP --> EXT[External Browser Resources]
+---
 
-    EXT --> ICONS[Lucide Icons]
-    EXT --> FONTS[Google Fonts]
-    EXT --> IMG[External Image URLs]
-    EXT --> QR[QR Code Service]
-```
+## 4. Main Auresta Features
 
-### Architecture Explanation
+### User Features
 
-The user accesses Auresta through a web browser.
+The current User View contains:
 
-The browser loads:
+- Home
+- Explore Vendors
+- Packages & Deals
+- Build Package
+- Need It Now
+- My Event
+- Chat Support
+- Vendor Details
+- Vendor Availability Calendar
+- Favourites
+- Booking and Checkout
+- Booking Confirmation
+
+### Vendor Features
+
+The Vendor View contains:
+
+- Vendor Portal
+- Vendor Profile Management
+- Public Profile Preview
+- Vendor Verification Submission
+- Vendor Packages
+- Vendor Availability
+
+### Admin Features
+
+The Admin View contains:
+
+- Admin Portal
+- Verification Desk
+- Vendor Verification Review
+- Vendor Verification Approval
+
+### Authentication Features
+
+The backend authentication implementation includes:
+
+- Signup
+- Login
+- Google Authentication
+- JWT Authentication
+- Protected User Information
+- Password Hashing
+- Request Validation
+- Authentication Rate Limiting
+
+---
+
+## 5. Technology Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| Frontend Structure | HTML5 | Main application structure |
+| Styling | CSS3 | Layout, styling and responsive design |
+| Application Logic | JavaScript | UI rendering and business logic |
+| Data Layer | JavaScript | Vendors, packages, categories and initial application data |
+| State Management | Custom JavaScript StateStore | Central application state |
+| Browser Storage | localStorage | Client-side state persistence |
+| Backend Runtime | Node.js | Server-side execution |
+| Backend Framework | Express.js | API and server routing |
+| Database | PostgreSQL | Persistent user/account data |
+| Authentication | JWT | Authenticated API access |
+| Password Security | bcryptjs | Password hashing |
+| Google Authentication | Google Auth Library | Google ID-token verification |
+| Validation | express-validator | Request validation |
+| Rate Limiting | express-rate-limit | Authentication endpoint protection |
+| Security | Helmet | HTTP security headers |
+| Backend Configuration | Render | Backend deployment configuration |
+| Frontend Hosting | GitHub Pages | Frontend hosting |
+
+---
+
+## 6. High-Level Architecture
 
 ```text
-index.html
-        │
-        ▼
-CSS Styling
-        │
-        ▼
-data.js
-        │
-        ▼
-state.js
-        │
-        ▼
-app.js
-```
-
-The `data.js` module provides the initial application dataset.
-
-The `state.js` module creates the client-side application state.
-
-The `app.js` module renders the interface and manages application interactions.
-
-The application dynamically renders content into:
-
-```text
-<div id="app"></div>
-```
-
-When the user performs an action, the application:
-
-```text
-User Interaction
-        │
-        ▼
-JavaScript Event
-        │
-        ▼
-State Update
-        │
-        ▼
-localStorage Persistence
-        │
-        ▼
-State Notification
-        │
-        ▼
-Application Re-render
-        │
-        ▼
-Updated User Interface
+                         AURESTA PLATFORM
+                                |
+             +------------------+------------------+
+             |                  |                  |
+             v                  v                  v
+          USER VIEW         VENDOR VIEW        ADMIN VIEW
+             |                  |                  |
+             +------------------+------------------+
+                                |
+                                v
+                       Auresta Frontend
+                                |
+             +------------------+------------------+
+             |                  |                  |
+             v                  v                  v
+         index.html         styles.css         JavaScript
+                                                   |
+                                      +------------+------------+
+                                      |            |            |
+                                      v            v            v
+                                  data.js      state.js      app.js
+                                      |            |            |
+                                      +------------+------------+
+                                                   |
+                                                   v
+                                            Business Logic
+                                                   |
+                       +---------------------------+--------------------+
+                       |                           |                    |
+                       v                           v                    v
+                 Vendor Logic               Package Logic        Booking Logic
+                       |                           |                    |
+                       +---------------------------+--------------------+
+                                                   |
+                                                   v
+                                            Application State
+                                                   |
+                              +--------------------+-------------------+
+                              |                                        |
+                              v                                        v
+                         localStorage                            Backend APIs
+                                                                      |
+                                           +--------------------------+---------+
+                                           |                                    |
+                                           v                                    v
+                                   Authentication API                    AI Support API
+                                           |                                    |
+                                           v                                    v
+                                      PostgreSQL                       Auresta AI Agent
 ```
 
 ---
 
-# 4. Frontend Architecture
+## 7. Frontend Architecture
 
-The frontend is responsible for the complete current Auresta user experience.
+The Auresta frontend is organised around HTML, CSS and JavaScript modules.
 
-### Main Responsibilities
+### 7.1 `index.html`
 
-The frontend currently handles:
+`index.html` is the main entry point of the Auresta application.
 
-* User interface rendering.
-* Navigation.
-* Role switching.
-* Vendor discovery.
-* Search and filtering.
-* Vendor comparison.
-* Package browsing.
-* Custom package building.
-* Booking simulation.
-* Payment flow simulation.
-* Event management.
-* Vendor messaging simulation.
-* Support messaging simulation.
-* Vendor dashboard rendering.
-* Vendor verification workflow simulation.
-* Admin dashboard rendering.
+It loads:
 
-### Role-Based Views
+- Google Fonts
+- Lucide icons
+- Canvas Confetti
+- `css/styles.css`
+- `js/data.js`
+- `js/state.js`
+- `js/app.js`
 
-Auresta currently supports three primary application roles.
+The page title is:
 
-```mermaid
-flowchart TD
+```text
+AURESTA - Where Moments Turn Golden
+```
 
-    APP[Auresta Application]
+### 7.2 `css/styles.css`
 
-    APP --> USER[User View]
-    APP --> VENDOR[Vendor View]
-    APP --> ADMIN[Admin View]
+The stylesheet controls the visual presentation of the application.
+
+It includes styling for:
+
+- Navigation
+- Layouts
+- Buttons
+- Forms
+- Cards
+- Vendor sections
+- Package sections
+- Dashboards
+- Modals
+- Responsive layouts
+- Visual effects
+
+### 7.3 `js/data.js`
+
+`data.js` contains the main frontend application data.
+
+It includes:
+
+- Event categories
+- Service categories
+- Vendors
+- Vendor ratings
+- Vendor review counts
+- Vendor pricing
+- Vendor locations
+- Vendor availability
+- Vendor packages
+- Initial events
+- Initial bookings
+- Gallery data
+- Predefined packages
+
+### 7.4 `js/state.js`
+
+`state.js` implements the central `StateStore`.
+
+The application state contains information such as:
+
+- Current role
+- Current view
+- Search parameters
+- Package filters
+- Selected booking date
+- Authentication state
+- Favourites
+- Events
+- Bookings
+- Support tickets
+- Vendor messages
+- Custom package
+- Checkout information
+- Vendor profile information
+- Vendor verification information
+
+The state is persisted in browser storage using `localStorage`.
+
+### 7.5 `js/app.js`
+
+`app.js` contains the main application rendering and interaction logic.
+
+It handles:
+
+- Application rendering
+- Navigation
+- Role-based views
+- Vendor filtering
+- Vendor sorting
+- Vendor profiles
+- Package selection
+- Package calculation
+- Booking workflow
+- Checkout
+- Booking confirmation
+- Support interaction
+- Vendor verification interfaces
+
+---
+
+## 8. Role-Based Architecture
+
+Auresta separates the main application experience according to the user's role.
+
+```text
+                         Auresta
+                            |
+             +--------------+--------------+
+             |              |              |
+             v              v              v
+           User           Vendor         Admin
+             |              |              |
+             v              v              v
+         User View      Vendor Portal   Admin Portal
+             |              |              |
+             v              v              v
+       Booking/Event    Profile and     Verification
+       Management       Availability    Management
 ```
 
 ### User View
 
-The user view includes:
+The User navigation contains:
 
-```text
-Home
-│
-├── Event Search
-├── Explore Vendors
-├── Packages & Deals
-├── Build Package
-├── Need It Now
-├── My Event
-└── Support
-```
+- Home
+- Explore Vendors
+- Packages & Deals
+- Build Package
+- Need It Now
+- My Event
+- Chat Support
 
 ### Vendor View
 
-The vendor view includes:
+The Vendor navigation contains:
 
-```text
-Vendor Portal
-│
-├── Vendor Dashboard
-├── Revenue
-├── Bookings
-├── Ratings
-├── Profile Management
-├── Verification
-└── Availability Management
-```
+- Vendor Portal
+- Preview Public Profile
 
 ### Admin View
 
-The admin view includes:
+The Admin navigation contains:
+
+- Admin Portal
+- Verification Desk
+
+---
+
+## 9. User Workflow
+
+The main Auresta user workflow is:
 
 ```text
-Admin Portal
-│
-├── Vendor Verification
-├── Platform Monitoring
-├── GMV
-└── Commission Monitoring
-```
-
-### Frontend Flow
-
-```text
-User
- │
- ▼
-Web Browser
- │
- ▼
-Auresta UI
- │
- ▼
-JavaScript Event Handler
- │
- ▼
-StateStore
- │
- ▼
-Application State
- │
- ├── Static Data
- │
- └── Browser localStorage
- │
- ▼
-State Notification
- │
- ▼
-renderApp()
- │
- ▼
-Updated Interface
-```
-
----
-
-# 5. Application State Architecture
-
-The current Auresta application uses a centralized browser-side state manager.
-
-The main state object contains:
-
-```text
-StateStore
-│
-├── currentRole
-├── currentView
-├── activeVendorId
-├── activeModal
-│
-├── searchParams
-│   ├── eventType
-│   ├── location
-│   ├── date
-│   ├── guests
-│   ├── budget
-│   ├── urgency
-│   ├── selectedCategories
-│   ├── verifiedOnly
-│   └── sortBy
-│
-├── packageFilters
-│
-├── favorites
-│
-├── events
-│
-├── bookings
-│
-├── supportTickets
-│
-├── vendorMessages
-│
-├── customPackage
-│
-├── checkoutDraft
-│
-├── vendorProfileDraft
-│
-└── vendorVerifications
-```
-
-### State Update Flow
-
-```mermaid
-sequenceDiagram
-
-    participant User
-    participant UI as Auresta UI
-    participant Store as StateStore
-    participant Storage as localStorage
-    participant Render as renderApp
-
-    User->>UI: Perform action
-    UI->>Store: Update state
-    Store->>Storage: Save JSON state
-    Store->>Render: Notify listeners
-    Render->>UI: Re-render application
-    UI-->>User: Display updated interface
-```
-
----
-
-# 6. Vendor Discovery Architecture
-
-The vendor discovery system allows users to search for suitable event service providers.
-
-### Search Inputs
-
-Users can provide:
-
-* Event type
-* Location
-* Event date
-* Guest count
-* Budget
-* Urgency
-* Service categories
-* Verification requirement
-* Availability preference
-
-### Vendor Discovery Flow
-
-```mermaid
-flowchart TD
-
-    U[User]
-
-    U --> S[Enter Event Requirements]
-
-    S --> TYPE[Event Type]
-    S --> LOC[Location]
-    S --> DATE[Event Date]
-    S --> GUESTS[Guest Count]
-    S --> BUDGET[Budget]
-
-    TYPE --> FILTER[Vendor Filtering]
-    LOC --> FILTER
-    DATE --> FILTER
-    GUESTS --> FILTER
-    BUDGET --> FILTER
-
-    FILTER --> SORT[Sort Results]
-
-    SORT --> RESULTS[Vendor Results]
-
-    RESULTS --> PROFILE[Vendor Profile]
-
-    PROFILE --> CHECK[Check Pricing and Availability]
-
-    CHECK --> BOOK[Booking Flow]
-```
-
-### Current Implementation
-
-Currently, filtering and discovery operate against browser-side demo data.
-
-A production system should replace this with database queries and server-side APIs.
-
----
-
-# 7. Booking Architecture
-
-The current booking flow is implemented in client-side JavaScript.
-
-### Booking Workflow
-
-```mermaid
-sequenceDiagram
-
-    participant User
-    participant UI as Auresta UI
-    participant State as StateStore
-    participant Booking as Booking State
-    participant Calendar as Vendor Availability
-
-    User->>UI: Select Vendor
-    UI->>User: Display Vendor Profile
-
-    User->>UI: Select Date and Service
-
-    UI->>State: Create Checkout Draft
-
-    State->>UI: Open Payment Modal
-
-    User->>UI: Select Payment Method
-
-    UI->>Booking: Create Booking
-
-    Booking->>Calendar: Update Booked Date
-
-    Booking->>State: Save Booking
-
-    State->>UI: Display Confirmation
-```
-
-### Current Booking Behavior
-
-The current implementation:
-
-1. Creates a booking object in browser state.
-2. Generates a booking ID.
-3. Adds the booking to the local booking list.
-4. Updates vendor booked dates.
-5. Updates event spending.
-6. Stores state in browser localStorage.
-7. Displays a booking confirmation.
-
-The current payment process is a frontend simulation.
-
-No real payment gateway transaction is implemented.
-
----
-
-# 8. Package Architecture
-
-Auresta supports two package models.
-
-### Premade Packages
-
-Premade packages combine multiple event services.
-
-Example:
-
-```text
-Wedding Package
-│
-├── Decoration
-├── Photography
-├── Catering
-├── Makeup
-└── Entertainment
-```
-
-### Custom Package Builder
-
-Users can build their own package.
-
-```mermaid
-flowchart TD
-
-    U[User]
-
-    U --> EVENT[Select Event Type]
-
-    EVENT --> BUDGET[Set Budget]
-
-    BUDGET --> GUESTS[Set Guest Count]
-
-    GUESTS --> SERVICES[Select Service Categories]
-
-    SERVICES --> VENDORS[Select Vendors]
-
-    VENDORS --> PACKAGE[Generate Custom Package]
-
-    PACKAGE --> CHECKOUT[Checkout]
-
-    CHECKOUT --> BOOKING[Booking]
-```
-
-### Current Implementation
-
-The selected vendors are stored in the browser-side application state.
-
-A production implementation should store custom packages in a persistent database.
-
----
-
-# 9. Vendor Availability Architecture
-
-Vendor availability is an important component of Auresta.
-
-Vendors have:
-
-* Available dates.
-* Booked dates.
-* Unavailable dates.
-* Booking capacity.
-* Response time.
-* Service radius.
-* Urgent availability.
-
-### Current Availability Flow
-
-```text
-Vendor Data
-     │
-     ▼
-bookedDates
-     │
-     ▼
-User Selects Date
-     │
-     ▼
-Frontend Availability Check
-     │
-     ▼
-Vendor Available?
-     │
- ┌───┴────┐
- │        │
-Yes       No
- │        │
- ▼        ▼
-Booking   Display Unavailable
-```
-
-### Current Limitation
-
-The current availability system is browser-side.
-
-A booking performed by one browser session will not automatically update another user's browser.
-
-A production implementation requires a centralized database and transaction-safe booking logic.
-
----
-
-# 10. Messaging and Support Architecture
-
-Auresta currently supports two communication concepts.
-
-### Vendor Messaging
-
-Users can communicate with vendors.
-
-```text
-Customer
-    │
-    ▼
-Vendor Chat Interface
-    │
-    ▼
-Client-Side Message State
-    │
-    ▼
-Simulated Vendor Response
-```
-
-### Support Messaging
-
-Users can communicate with Auresta support.
-
-```text
-Customer
-    │
-    ▼
-Support Interface
-    │
-    ▼
-Support Ticket State
-    │
-    ▼
-Simulated Support Response
-```
-
-### Current Limitation
-
-Messages currently exist in browser state.
-
-A production system requires persistent conversations and real-time message delivery.
-
----
-
-# 11. Vendor Verification Architecture
-
-Auresta includes a vendor verification workflow.
-
-### Verification Workflow
-
-```mermaid
-flowchart TD
-
-    V[Vendor]
-
-    V --> PROFILE[Complete Vendor Profile]
-
-    PROFILE --> DOCS[Submit Required Documents]
-
-    DOCS --> REQUEST[Create Verification Request]
-
-    REQUEST --> ADMIN[Admin Review]
-
-    ADMIN --> REVIEW[Review Information]
-
-    REVIEW --> DECISION{Approve?}
-
-    DECISION -->|Yes| VERIFIED[Verified Vendor]
-
-    DECISION -->|No| REJECTED[Rejected / Requires Changes]
-```
-
-### Current Implementation
-
-The current application stores verification status in client-side state.
-
-Example statuses include:
-
-* Verified
-* Pending Verification
-
-The admin view can update the verification state.
-
-### Production Requirement
-
-Vendor documents and verification information must be stored securely in a backend system.
-
----
-
-# 12. Admin Architecture
-
-The Admin Portal provides platform-level management.
-
-### Main Responsibilities
-
-Administrators should be able to:
-
-* Review vendors.
-* Verify vendor information.
-* Approve vendors.
-* Reject vendors.
-* Monitor bookings.
-* Monitor transaction volume.
-* Monitor GMV.
-* Monitor commission.
-* Manage marketplace activity.
-
-### Admin Data Flow
-
-```text
-Platform Data
-      │
-      ├── Vendors
-      │
-      ├── Verification Requests
-      │
-      ├── Bookings
-      │
-      ├── Payments
-      │
-      └── Commission Data
-              │
-              ▼
-         Admin API
-              │
-              ▼
-         Admin Dashboard
-```
-
----
-
-# 13. Current Data Architecture
-
-The current Auresta repository does not contain a centralized database.
-
-Data currently exists in:
-
-```text
-Static JavaScript Data
-        +
-Browser State
-        +
-localStorage
-```
-
-### Current Data Sources
-
-```mermaid
-flowchart TD
-
-    DATA[Static Demo Data]
-
-    DATA --> CATEGORIES[Event Categories]
-
-    DATA --> SERVICES[Service Categories]
-
-    DATA --> VENDORS[Vendor Profiles]
-
-    DATA --> PACKAGES[Event Packages]
-
-    DATA --> EVENTS[Sample Events]
-
-    DATA --> BOOKINGS[Sample Bookings]
-
-    DATA --> SUPPORT[Support Topics]
-
-    STATE[Application State]
-
-    STATE --> LS[(Browser localStorage)]
-```
-
-### Limitation
-
-This architecture is suitable for:
-
-* Demonstrations
-* Prototypes
-* UI testing
-* Concept validation
-
-It is not sufficient for a real multi-user marketplace because:
-
-* Data is not globally shared.
-* Users cannot securely authenticate.
-* Vendors cannot securely manage accounts.
-* Real bookings cannot be transactionally protected.
-* Payments cannot be securely processed.
-* Admin permissions cannot be enforced.
-* Data can be modified from the browser.
-
----
-
-# 14. Proposed Production Backend Architecture
-
-A production Auresta platform should introduce a dedicated backend/API layer.
-
-### Proposed Architecture
-
-```mermaid
-flowchart TD
-
-    USER[Customer]
-    VENDOR[Vendor]
-    ADMIN[Administrator]
-
-    USER --> WEB[Web Application]
-    VENDOR --> WEB
-    ADMIN --> WEB
-
-    WEB --> CDN[CDN / Static Hosting]
-
-    WEB --> API[Backend API]
-
-    API --> AUTH[Authentication Service]
-
-    API --> DB[(PostgreSQL Database)]
-
-    API --> STORAGE[Object Storage]
-
-    API --> PAYMENT[Payment Gateway]
-
-    API --> REALTIME[Realtime Messaging]
-
-    API --> NOTIFY[Notification Service]
-
-    DB --> USERS[Users]
-    DB --> VENDORS[Vendor Data]
-    DB --> EVENTS[Events]
-    DB --> BOOKINGS[Bookings]
-    DB --> PACKAGES[Packages]
-    DB --> PAYMENTS[Payments]
-    DB --> MESSAGES[Messages]
-```
-
-### Backend Responsibilities
-
-The backend should handle:
-
-* Authentication.
-* Authorization.
-* User management.
-* Vendor management.
-* Vendor verification.
-* Vendor discovery.
-* Search and filtering.
-* Availability checks.
-* Booking creation.
-* Booking conflict prevention.
-* Payment processing.
-* Commission calculation.
-* Messaging.
-* Notifications.
-* Support tickets.
-* Admin operations.
-* Reporting and analytics.
-
----
-
-# 15. Proposed Authentication Architecture
-
-A production Auresta platform requires real authentication.
-
-### User Roles
-
-```text
-User
-Vendor
-Administrator
-Support Staff
-```
-
-### Authentication Flow
-
-```mermaid
-sequenceDiagram
-
-    participant User
-    participant Browser
-    participant Frontend
-    participant Auth
-    participant API
-    participant DB
-
-    User->>Browser: Open Auresta
-
-    Browser->>Frontend: Load Application
-
-    User->>Frontend: Login / Register
-
-    Frontend->>Auth: Authentication Request
-
-    Auth->>Auth: Validate Credentials
-
-    Auth-->>Frontend: Access Token / Session
-
-    Frontend->>API: Authorized Request
-
-    API->>API: Validate Token
-
-    API->>DB: Query Authorized Data
-
-    DB-->>API: Return Data
-
-    API-->>Frontend: Response
-
-    Frontend-->>User: Display Dashboard
-```
-
-### Role-Based Authorization
-
-Authorization should control access.
-
-Example:
-
-```text
-Customer
-    │
-    ├── Browse Vendors
-    ├── Create Events
-    ├── Create Bookings
-    └── Manage Payments
-
-Vendor
-    │
-    ├── Manage Profile
-    ├── Manage Services
-    ├── Manage Availability
-    └── View Bookings
-
-Administrator
-    │
-    ├── Verify Vendors
-    ├── Manage Platform
-    └── View Platform Analytics
-```
-
----
-
-# 16. Proposed Database Architecture
-
-A production implementation should use a relational database such as PostgreSQL.
-
-### Core Entities
-
-```text
-Users
-│
-├── Events
-├── Bookings
-├── Favorites
-├── Messages
-└── Support Tickets
-
-Vendors
-│
-├── Vendor Services
-├── Vendor Packages
-├── Vendor Availability
-├── Vendor Documents
-├── Ratings
-└── Reviews
-
-Packages
-│
-├── Package Services
-└── Package Vendors
-
-Bookings
-│
-├── Booking Items
-├── Payments
-└── Booking Status History
-```
-
-### Proposed Entity Relationship Model
-
-```mermaid
-erDiagram
-
-    USERS ||--o{ EVENTS : creates
-    USERS ||--o{ BOOKINGS : creates
-    USERS ||--o{ FAVORITES : saves
-    USERS ||--o{ SUPPORT_TICKETS : creates
-
-    VENDORS ||--o{ VENDOR_SERVICES : provides
-    VENDORS ||--o{ VENDOR_AVAILABILITY : manages
-    VENDORS ||--o{ BOOKINGS : receives
-    VENDORS ||--o{ REVIEWS : receives
-
-    EVENTS ||--o{ BOOKINGS : contains
-
-    BOOKINGS ||--o{ BOOKING_ITEMS : contains
-
-    BOOKINGS ||--o{ PAYMENTS : generates
-
-    PACKAGES ||--o{ PACKAGE_ITEMS : contains
-
-    USERS {
-        uuid id
-        string name
-        string email
-        string role
-    }
-
-    VENDORS {
-        uuid id
-        uuid user_id
-        string business_name
-        string verification_status
-    }
-
-    EVENTS {
-        uuid id
-        uuid user_id
-        string event_type
-        date event_date
-        string location
-        int guest_count
-        decimal budget
-    }
-
-    BOOKINGS {
-        uuid id
-        uuid user_id
-        uuid vendor_id
-        uuid event_id
-        string status
-        decimal total_amount
-    }
-
-    PAYMENTS {
-        uuid id
-        uuid booking_id
-        decimal amount
-        string status
-    }
-```
-
----
-
-# 17. Proposed Booking Data Flow
-
-A real booking must prevent scheduling conflicts.
-
-### Production Booking Flow
-
-```mermaid
-sequenceDiagram
-
-    participant User
-    participant Frontend
-    participant API
-    participant DB
-    participant Payment
-
-    User->>Frontend: Select Vendor and Date
-
-    Frontend->>API: Check Availability
-
-    API->>DB: Query Vendor Calendar
-
-    DB-->>API: Availability Result
-
-    API-->>Frontend: Available
-
-    User->>Frontend: Confirm Booking
-
-    Frontend->>API: Create Pending Booking
-
-    API->>DB: Lock / Validate Availability
-
-    API->>Payment: Create Payment Request
-
-    Payment-->>API: Payment Success
-
-    API->>DB: Confirm Booking
-
-    API-->>Frontend: Booking Confirmed
-```
-
-### Important Production Rule
-
-Availability validation must occur on the server.
-
-The frontend alone should never be trusted to guarantee availability.
-
----
-
-# 18. Proposed Payment Architecture
-
-A production system should integrate a secure payment gateway.
-
-### Payment Flow
-
-```text
-Customer
-    │
-    ▼
-Auresta Checkout
-    │
-    ▼
-Backend Creates Payment Order
-    │
-    ▼
-Payment Gateway
-    │
-    ├── UPI
-    ├── Card
-    └── Other Payment Methods
-    │
-    ▼
-Payment Confirmation
-    │
-    ▼
-Backend Webhook Validation
-    │
-    ▼
-Database Payment Record
-    │
-    ▼
+User Opens Auresta
+        |
+        v
+Enter Event Requirements
+        |
+        +--> Event Type
+        +--> Location
+        +--> Date
+        +--> Guests
+        +--> Budget
+        |
+        v
+Explore Vendors / Packages
+        |
+        +--> Filter Vendors
+        +--> Sort Vendors
+        +--> View Vendor
+        +--> Select Package
+        +--> Build Custom Package
+        |
+        v
+Booking / Checkout
+        |
+        v
+Continue as Guest OR Login/Signup
+        |
+        v
+Select Booking Details
+        |
+        v
+Select Payment Method
+        |
+        v
+Confirm Booking
+        |
+        v
 Booking Confirmation
+        |
+        v
+My Event
 ```
-
-### Payment Security
-
-Sensitive payment processing should never occur directly in Auresta's frontend.
-
-The backend should:
-
-* Create payment orders.
-* Validate payment responses.
-* Validate webhooks.
-* Update booking status.
-* Calculate deposits.
-* Calculate balances.
-* Record commissions.
 
 ---
 
-# 19. Proposed Messaging Architecture
+## 10. Guest Booking and Authentication Design Decision
 
-A production messaging system should support real-time communication.
+Auresta contains authentication and signup/login functionality, but login is not made mandatory before a user can proceed through the core booking flow.
 
-```mermaid
-flowchart LR
+This is an intentional design decision.
 
-    USER[Customer]
+The backend is hosted/configured through Render, and a backend service can experience a startup or wake-up delay. Depending on the server condition and the user's internet connection, the backend may take approximately 20 seconds to several minutes to become responsive.
 
-    USER --> CHAT[Chat Interface]
+If login were mandatory at the beginning of the user journey, users could be blocked from the main Auresta experience while waiting for the authentication service.
 
-    CHAT --> API[Messaging API]
-
-    API --> DB[(Message Database)]
-
-    API --> RT[Realtime Service]
-
-    RT --> VENDOR[Vendor Interface]
-```
-
-### Message Data
-
-Messages should include:
-
-* Conversation ID
-* Sender ID
-* Receiver ID
-* Message content
-* Timestamp
-* Delivery status
-* Read status
-
----
-
-# 20. Proposed Storage Architecture
-
-Object storage should be used for files.
-
-### Stored Files
-
-Examples include:
-
-* Vendor portfolio images.
-* Vendor verification documents.
-* Profile images.
-* Event images.
-* Package images.
-
-### Storage Flow
+Therefore, Auresta follows a guest-friendly approach.
 
 ```text
-Vendor
-    │
-    ▼
-Upload File
-    │
-    ▼
-Backend Authorization
-    │
-    ▼
-Object Storage
-    │
-    ▼
-File URL / Storage Reference
-    │
-    ▼
-Database Record
-    │
-    ▼
-Auresta Frontend
+Browse Auresta
+      |
+      v
+Explore Vendors / Packages
+      |
+      v
+Select Booking
+      |
+      +--------------------+
+      |                    |
+      v                    v
+Continue as Guest       Login / Signup
+      |                    |
+      +---------+----------+
+                |
+                v
+          Continue Booking
+                |
+                v
+             Checkout
 ```
 
-Private vendor verification documents should not be publicly accessible.
+This design keeps the core booking journey accessible while authentication remains available to users who want to use an authenticated account.
 
 ---
 
-# 21. Current Deployment Architecture
+## 11. Vendor Filtering and Ranking Algorithm
 
-The current Auresta project can be deployed as a static website.
+### 11.1 Problem
 
-### Current Deployment Model
+Auresta contains multiple vendors across different service categories.
 
-```mermaid
-flowchart TD
+Displaying all vendors without processing the available information can make vendor selection difficult.
 
-    DEV[Developer]
+Auresta therefore applies filtering and sorting logic to reduce the available options according to the user's requirements.
 
-    DEV --> REPO[GitHub Repository]
+### 11.2 Inputs
 
-    REPO --> PAGES[GitHub Pages]
+The vendor processing logic uses:
 
-    PAGES --> BROWSER[User Browser]
+- Vendor dataset
+- Selected service categories
+- Verified-only preference
+- Urgent availability requirement
+- Vendor price
+- Vendor rating
+- Vendor availability
+- Selected sorting preference
 
-    BROWSER --> LOCAL[localStorage]
-
-    BROWSER --> EXT[External Browser Resources]
-```
-
-The static deployment model is appropriate for the current frontend prototype.
-
----
-
-# 22. Proposed Production Cloud Architecture
-
-A production implementation could use the following architecture.
-
-```mermaid
-flowchart TD
-
-    USERS[Users]
-    VENDORS[Vendors]
-    ADMINS[Administrators]
-
-    USERS --> DNS[DNS]
-
-    VENDORS --> DNS
-
-    ADMINS --> DNS
-
-    DNS --> CDN[CDN]
-
-    CDN --> FRONTEND[Static Web Application]
-
-    CDN --> WAF[Web Application Firewall]
-
-    WAF --> LB[Load Balancer / API Gateway]
-
-    LB --> API[Application Backend]
-
-    API --> AUTH[Authentication Service]
-
-    API --> CACHE[Redis Cache]
-
-    API --> DB[(PostgreSQL Database)]
-
-    API --> STORAGE[Object Storage]
-
-    API --> PAYMENT[Payment Gateway]
-
-    API --> QUEUE[Background Job Queue]
-
-    QUEUE --> WORKER[Background Workers]
-
-    WORKER --> NOTIFY[Email / SMS / Push Notifications]
-
-    API --> REALTIME[Realtime Messaging Service]
-```
-
----
-
-# 23. Scaling Architecture
-
-As Auresta grows, the architecture should evolve.
-
-## Early Stage
+### 11.3 Processing
 
 ```text
-Static Frontend
-      +
-Single Backend API
-      +
+Load Vendor Dataset
+        |
+        v
+Apply Category Filter
+        |
+        v
+Apply Verified-Only Filter
+        |
+        v
+Apply Urgent Availability Filter
+        |
+        v
+Apply Sorting Rule
+        |
+        +--> Lowest Price
+        +--> Highest Price
+        +--> Highest Rating
+        +--> Fast/Urgent Availability
+        |
+        v
+Filtered and Ranked Vendor List
+```
+
+### 11.4 Example
+
+Input:
+
+```text
+Category = Decoration
+Verified Only = Yes
+Urgent = Yes
+Sort = Highest Rating
+```
+
+Output:
+
+```text
+Only verified decoration vendors
+with urgent availability are displayed,
+ordered by rating.
+```
+
+### 11.5 Code Location
+
+The main implementation is located in:
+
+```text
+js/app.js
+```
+
+The main function is:
+
+```text
+filterVendors()
+```
+
+---
+
+## 12. Package and Budget Processing
+
+Auresta allows users to select predefined packages or create a customised package.
+
+The system calculates the total amount based on the selected services/vendors.
+
+The deposit is calculated as:
+
+```text
+Deposit = Total Amount × 20%
+```
+
+The remaining balance is:
+
+```text
+Balance = Total Amount - Deposit
+```
+
+For example:
+
+```text
+Total = ₹10,000
+
+Deposit = ₹10,000 × 20%
+        = ₹2,000
+
+Balance = ₹10,000 - ₹2,000
+        = ₹8,000
+```
+
+The checkout interface also displays:
+
+- Base service price
+- Platform protection fee
+- Savings/discount information
+- Total amount
+- Deposit
+- Balance
+
+The current interface displays a protection fee and corresponding savings adjustment that offset each other, so the displayed final total remains unchanged.
+
+---
+
+## 13. Booking Processing
+
+The Auresta booking process is implemented through the application state and frontend business logic.
+
+```text
+Select Vendor / Package
+        |
+        v
+Select Booking Date
+        |
+        v
+Review Booking
+        |
+        v
+Select Payment Method
+        |
+        +--> UPI
+        +--> Card
+        +--> Net Banking
+        |
+        v
+Confirm Payment
+        |
+        v
+Create Booking Record
+        |
+        v
+Update Application State
+        |
+        v
+Update Event Information
+        |
+        v
+Update Vendor Booked Dates
+        |
+        v
+Display Booking Confirmation
+```
+
+The booking record contains information such as:
+
+- Booking ID
+- Vendor
+- Event
+- Booking date
+- Package
+- Booking status
+- Total amount
+- Deposit paid
+- Balance due
+- Payment method
+
+The current payment flow is a simulated checkout/payment confirmation process. It is not connected to an external payment gateway.
+
+---
+
+## 14. Support and AI Architecture
+
+Auresta contains a Chat Support interface.
+
+The frontend communicates with the backend AI endpoint:
+
+```text
+POST /api/ai/chat
+```
+
+The flow is:
+
+```text
+User
+ |
+ v
+Chat Support Interface
+ |
+ v
+Frontend API Request
+ |
+ v
+/api/ai/chat
+ |
+ v
+AI Controller
+ |
+ v
+Auresta AI Agent
+ |
+ v
+Ollama / Llama Model
+ |
+ v
+AI Response
+ |
+ v
+Chat Support Interface
+```
+
+The relevant backend files are:
+
+```text
+backend/routes/aiRoutes.js
+backend/controllers/aiController.js
+backend/ai-agent/agent.js
+```
+
+The current AI agent connects to a local Ollama service using the configured Llama model.
+
+Therefore, the AI-support functionality is implemented in the project code, but it should not be described as a fully deployed cloud AI service.
+
+---
+
+## 15. Authentication Architecture
+
+Auresta contains backend authentication functionality.
+
+### Signup
+
+```text
+User Signup
+    |
+    v
+Request Validation
+    |
+    v
+Password Hashing
+    |
+    v
+Create User
+    |
+    v
 PostgreSQL
-      +
-Object Storage
 ```
 
-Suitable for:
-
-* Early customers.
-* Initial vendors.
-* Prototype-to-production transition.
-
-## Growth Stage
+### Login
 
 ```text
-CDN
- │
- ├── Frontend
- │
- └── API Gateway
-        │
-        ├── Multiple API Instances
-        │
-        ├── PostgreSQL
-        │
-        ├── Redis
-        │
-        ├── Object Storage
-        │
-        └── Background Jobs
+User Login
+    |
+    v
+Validate Request
+    |
+    v
+Find User
+    |
+    v
+Compare Password
+    |
+    v
+Generate JWT
+    |
+    v
+Authenticated User
 ```
 
-## Large Marketplace Stage
+### Google Authentication
 
-Services can eventually be separated.
+Auresta also supports Google authentication through Google ID-token verification.
+
+### Protected User Endpoint
+
+The backend provides:
 
 ```text
-Marketplace Platform
-│
-├── Identity Service
-│
-├── Vendor Service
-│
-├── Search Service
-│
-├── Booking Service
-│
-├── Payment Service
-│
-├── Messaging Service
-│
-├── Notification Service
-│
-├── Support Service
-│
-└── Analytics Service
+GET /api/auth/me
 ```
 
-Microservices should only be introduced when the platform scale and team complexity justify them.
+This endpoint requires authentication.
 
----
+### Relevant Files
 
-# 24. Security Architecture
-
-A production Auresta platform should implement:
-
-* HTTPS.
-* Secure authentication.
-* Role-based access control.
-* Server-side authorization.
-* Database access policies.
-* Encrypted credentials.
-* Secure payment handling.
-* Payment webhook verification.
-* Rate limiting.
-* Input validation.
-* File upload validation.
-* Private storage for sensitive vendor documents.
-* Audit logs for administrative actions.
-
----
-
-# 25. Current Architecture vs Production Architecture
-
-| Area                | Current Auresta           | Production Auresta              |
-| ------------------- | ------------------------- | ------------------------------- |
-| Frontend            | Vanilla JavaScript        | Modern web frontend             |
-| Data                | Static JavaScript data    | PostgreSQL database             |
-| State               | Browser state             | Server-backed application state |
-| Persistence         | localStorage              | Persistent cloud database       |
-| Authentication      | Role switching simulation | Secure authentication           |
-| Authorization       | Client-side               | Server-side RBAC                |
-| Booking             | Client-side simulation    | Transaction-safe backend        |
-| Payments            | UI simulation             | Real payment gateway            |
-| Messaging           | Simulated                 | Real-time messaging             |
-| Vendor Verification | Client-side state         | Secure document workflow        |
-| Availability        | Local demo data           | Centralized calendar            |
-| Deployment          | Static hosting            | CDN + frontend + backend        |
-| Scaling             | Single browser session    | Horizontally scalable platform  |
-
----
-
-# 26. Complete Auresta Platform Workflow
-
-The complete Auresta workflow can be represented as:
-
-```mermaid
-flowchart TD
-
-    A[AURESTA]
-
-    A --> USER[Customer]
-    A --> VENDOR[Vendor]
-    A --> ADMIN[Administrator]
-
-    USER --> PLAN[Enter Event Requirements]
-
-    PLAN --> DISCOVER[Discover Vendors]
-
-    DISCOVER --> FILTER[Filter and Compare]
-
-    FILTER --> PROFILE[Vendor Profiles]
-
-    PROFILE --> AVAILABILITY[Check Availability]
-
-    AVAILABILITY --> PACKAGE[Select Package / Build Custom Package]
-
-    PACKAGE --> BOOKING[Create Booking]
-
-    BOOKING --> PAYMENT[Payment]
-
-    PAYMENT --> CONFIRM[Booking Confirmation]
-
-    CONFIRM --> EVENT[Manage Event]
-
-    EVENT --> SUPPORT[Vendor / Support Communication]
-
-    VENDOR --> PROFILEMGMT[Manage Vendor Profile]
-
-    PROFILEMGMT --> CALENDAR[Manage Availability]
-
-    CALENDAR --> BOOKINGS[Manage Bookings]
-
-    BOOKINGS --> REVENUE[Track Revenue]
-
-    VENDOR --> VERIFY[Submit Verification]
-
-    VERIFY --> ADMIN
-
-    ADMIN --> REVIEW[Review Vendor]
-
-    REVIEW --> APPROVE[Approve / Reject]
-
-    ADMIN --> ANALYTICS[Monitor GMV and Commission]
+```text
+backend/routes/authRoutes.js
+backend/controllers/authController.js
+backend/middleware/authMiddleware.js
+backend/middleware/rateLimiters.js
 ```
 
 ---
 
-# 27. Recommended Future Architecture
+## 16. Database Architecture
 
-The recommended evolution for Auresta is:
+Auresta uses PostgreSQL for persistent user/account information.
+
+The current verified database schema contains a `users` table.
+
+### Users Entity
+
+The `users` table includes:
+
+- `id`
+- `name`
+- `email`
+- `password_hash`
+- `google_id`
+- `avatar_url`
+- `role`
+- `created_at`
+- `updated_at`
+
+The user identifier uses UUID.
+
+The supported roles are:
 
 ```text
-CURRENT PROTOTYPE
-        │
-        ▼
-Static Frontend
-JavaScript + localStorage
-        │
-        ▼
-MVP
-        │
-        ├── Authentication
-        ├── PostgreSQL
-        ├── Backend API
-        ├── Real Vendor Accounts
-        └── Persistent Bookings
-        │
-        ▼
-MARKETPLACE PLATFORM
-        │
-        ├── Payment Gateway
-        ├── Real-time Messaging
-        ├── Notifications
-        ├── Secure Verification
-        ├── Centralized Availability
-        └── Admin Analytics
-        │
-        ▼
-SCALABLE PLATFORM
-        │
-        ├── CDN
-        ├── Load Balancing
-        ├── Horizontal API Scaling
-        ├── Cache
-        ├── Background Workers
-        ├── Monitoring
-        └── Advanced Analytics
+consumer
+vendor
+admin
+```
+
+Indexes are provided for important account lookup fields such as email and Google ID.
+
+The database implementation is located in:
+
+```text
+backend/config/db.js
+backend/config/schema.sql
+backend/config/migrate.js
+```
+
+### Current-State Note
+
+The current verified PostgreSQL schema does not yet demonstrate the complete six-entity database structure described in the CIA-III minimum requirements.
+
+Therefore, the current implementation should be documented honestly as having PostgreSQL persistence for user/account information, while several other application data structures are currently managed through frontend application data, state and browser storage.
+
+---
+
+## 17. Current Data Flow
+
+The current Auresta data flow is:
+
+```text
+User Interaction
+       |
+       v
+Auresta UI
+       |
+       v
+JavaScript Event Handler
+       |
+       v
+Application State
+       |
+       +--------------------+
+       |                    |
+       v                    v
+Business Logic          Data Layer
+       |                    |
+       +----------+---------+
+                  |
+                  v
+        Processed Business Result
+                  |
+                  v
+             Updated UI
+                  |
+                  v
+              localStorage
+```
+
+For authentication:
+
+```text
+Frontend
+   |
+   v
+Express API
+   |
+   v
+Authentication Controller
+   |
+   v
+PostgreSQL
+   |
+   v
+JWT / User Response
+   |
+   v
+Frontend
 ```
 
 ---
 
-# 28. Final Architecture Summary
+## 18. Current Deployment Architecture
 
-Auresta currently operates as a sophisticated frontend prototype for an event marketplace.
+The Auresta frontend is hosted through GitHub Pages.
 
-The current implementation provides:
-
-* A multi-role user experience.
-* Vendor discovery.
-* Event planning.
-* Package discovery.
-* Custom package building.
-* Booking flows.
-* Vendor availability.
-* Support interactions.
-* Vendor dashboards.
-* Vendor verification workflows.
-* Admin workflows.
-
-The current architecture is centered around:
+The repository also contains Render deployment configuration for the Node.js backend.
 
 ```text
-Static Web Application
-        │
-        ▼
-Vanilla JavaScript
-        │
-        ├── Static Demo Dataset
-        │
-        ├── Custom State Manager
-        │
-        └── Browser localStorage
+                    GitHub Repository
+                           |
+             +-------------+-------------+
+             |                           |
+             v                           v
+       GitHub Pages                  Render Config
+             |                           |
+             v                           v
+       Auresta Frontend             Node.js Backend
+                                         |
+                                         v
+                                    PostgreSQL
 ```
 
-To become a production-ready marketplace, Auresta should evolve toward:
+The Render configuration is stored in:
 
 ```text
-Users / Vendors / Admins
-        │
-        ▼
-Web Application
-        │
-        ▼
-CDN + Frontend Hosting
-        │
-        ▼
-Backend API
-        │
-        ├── Authentication
-        ├── Vendor Management
-        ├── Booking Engine
-        ├── Payment Integration
-        ├── Messaging
-        ├── Notifications
-        └── Admin Services
-                │
-                ▼
-        PostgreSQL Database
-                +
+render.yaml
+```
+
+It contains configuration for:
+
+- Node runtime
+- Backend start command
+- Production environment
+- PostgreSQL connection
+- JWT configuration
+- CORS configuration
+- Google authentication configuration
+
+The presence of `render.yaml` represents backend deployment configuration and should not by itself be treated as proof that the backend is continuously running in production.
+
+---
+
+## 19. Security Architecture
+
+Auresta includes multiple security mechanisms.
+
+### Password Security
+
+Passwords are hashed using bcrypt rather than stored directly.
+
+### JWT Authentication
+
+JWT is used for authenticated API access.
+
+### Protected Routes
+
+Authentication middleware verifies the Bearer token before protected requests are processed.
+
+### Request Validation
+
+`express-validator` is used to validate authentication requests.
+
+### Rate Limiting
+
+Authentication endpoints use rate limiting to reduce repeated login/signup attempts.
+
+### HTTP Security
+
+Helmet is included in the Express backend for security-related HTTP headers.
+
+### CORS
+
+CORS configuration controls frontend/backend communication.
+
+The security-related implementation uses:
+
+```text
+bcryptjs
+jsonwebtoken
+express-validator
+express-rate-limit
+helmet
+cors
+```
+
+---
+
+## 20. Proposed Scalable Architecture
+
+If Auresta grows significantly beyond its current implementation, the architecture can be expanded into a cloud-based scalable system.
+
+```text
+                         Users
+                           |
+                           v
+                    CDN / Edge Layer
+                           |
+                           v
+                    Load Balancer
+                           |
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+      App Server       App Server       App Server
+          |                |                |
+          +----------------+----------------+
+                           |
+                           v
+                    Application Services
+                           |
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+    Authentication     Booking Service   Vendor Service
+          |                |                |
+          +----------------+----------------+
+                           |
+              +------------+------------+
+              |                         |
+              v                         v
+       PostgreSQL Cluster          Redis Cache
+              |
+              v
+       Read Replicas / Backup
+              |
+              v
         Object Storage
-                +
-        Cache
-                +
-        Background Workers
 ```
 
-This architecture allows Auresta to evolve from its current interactive event-platform prototype into a secure, multi-user, scalable event marketplace.
+A scalable implementation could use cloud services for:
 
+- Load balancing
+- Application hosting
+- Managed PostgreSQL
+- Object storage
+- CDN
+- Caching
+- Monitoring
+- Backup
+- Security
+
+---
+
+## 21. Scaling to 1 Million Users
+
+At 1 million registered users, the current single-instance style architecture would need to be expanded.
+
+### Application Scaling
+
+Multiple backend instances should run behind a load balancer.
+
+### Database Scaling
+
+The database layer can use:
+
+- Connection pooling
+- Read replicas
+- Query optimisation
+- Indexing
+- Database monitoring
+
+### Storage Scaling
+
+Vendor images, portfolios and other large files should be stored using scalable object storage.
+
+### Network Scaling
+
+A CDN can serve static content and media closer to users.
+
+### Traffic Management
+
+A load balancer can distribute incoming requests across multiple application instances.
+
+### Caching
+
+Frequently accessed information such as vendor listings, categories and packages can be cached.
+
+### Security
+
+The system should include:
+
+- HTTPS
+- Authentication controls
+- Rate limiting
+- Secure secrets management
+- Database access controls
+- Monitoring
+
+### Monitoring
+
+The system should monitor:
+
+- API response time
+- Error rate
+- CPU usage
+- Memory usage
+- Database performance
+- Request volume
+- Authentication failures
+
+---
+
+## 22. Scaling to 5 Million Users
+
+At 5 million users, Auresta would require stronger horizontal scaling and data-management strategies.
+
+### Application Layer
+
+Multiple application instances should be deployed across availability zones or equivalent infrastructure.
+
+### Load Balancing
+
+A load balancer distributes traffic between application instances.
+
+### Database Layer
+
+The database architecture should support:
+
+- Primary database
+- Read replicas
+- Connection pooling
+- Indexing
+- Query optimisation
+- Partitioning where appropriate
+
+### Caching
+
+Redis or an equivalent caching layer can reduce repeated database queries.
+
+### Storage
+
+Large files should use scalable object storage.
+
+### Network
+
+A CDN should distribute static content and media efficiently.
+
+### Traffic Management
+
+Autoscaling can add or remove application instances according to traffic.
+
+### Security
+
+The architecture should include:
+
+- HTTPS
+- Web application firewall
+- Rate limiting
+- Identity and access management
+- Secure secret management
+- Database security
+
+### Monitoring and Operations
+
+A production-scale platform should use:
+
+- Centralised logging
+- Monitoring
+- Alerts
+- Database backups
+- Recovery procedures
+
+---
+
+## 23. Quantitative Scalability Model
+
+For scalability planning, the following assumptions are used:
+
+```text
+Initial users = 10,000
+Annual growth = 25%
+Peak simultaneous activity = 10%
+```
+
+The expected user growth is calculated as:
+
+```text
+Future Users = Current Users × 1.25
+```
+
+### User Growth
+
+| Year | Expected Users |
+|---|---:|
+| Initial | 10,000 |
+| Year 1 | 12,500 |
+| Year 2 | 15,625 |
+| Year 3 | 19,531 |
+| Year 4 | 24,414 |
+| Year 5 | 30,518 |
+
+For larger-scale scenarios:
+
+| Registered Users | 10% Peak Active Users |
+|---:|---:|
+| 100,000 | 10,000 |
+| 500,000 | 50,000 |
+| 1,000,000 | 100,000 |
+| 5,000,000 | 500,000 |
+
+If a planning assumption of 5 requests per minute per active user is used:
+
+```text
+Requests per second =
+Active Users × 5 / 60
+```
+
+Therefore:
+
+| Registered Users | Peak Active Users | Approx. Requests/Second |
+|---:|---:|---:|
+| 100,000 | 10,000 | 833 |
+| 500,000 | 50,000 | 4,167 |
+| 1,000,000 | 100,000 | 8,333 |
+| 5,000,000 | 500,000 | 41,667 |
+
+These values are planning assumptions for scalability analysis and are not measured production traffic.
