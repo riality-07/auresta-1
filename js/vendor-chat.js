@@ -141,7 +141,7 @@
       '.vc-panel{width:min(420px,100vw);height:100%;max-height:100%;background:var(--bg-card,#fff);display:flex;flex-direction:column;box-shadow:var(--shadow-lg,0 20px 60px rgba(42,33,25,.25));transform:translateX(100%);transition:transform var(--transition,.2s);}',
       '.vc-open .vc-panel{transform:translateX(0);}',
       '.vc-header{padding:0.9rem 1.1rem;background:var(--bg-main,#FFF6F0);border-bottom:1px solid var(--border-color,#E8D8BD);display:flex;align-items:center;gap:0.7rem;}',
-      '.vc-avatar{width:40px;height:40px;border-radius:var(--radius-full,999px);background:var(--primary-gold,#ECC479);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex:none;}',
+      '.vc-avatar{width:40px;height:40px;border-radius:var(--radius-full,999px);background:var(--primary-gold,#ECC479);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading,"Cormorant Garamond",serif);font-weight:700;color:var(--text-primary,#2A2119);flex:none;}',
       '.vc-info{flex:1;min-width:0;}',
       '.vc-name{font-family:var(--font-heading,"Cormorant Garamond",serif);font-size:1.05rem;font-weight:700;color:var(--text-primary,#2A2119);line-height:1.2;}',
       '.vc-meta{font-size:0.72rem;color:var(--text-secondary,#6C5F51);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
@@ -180,7 +180,7 @@
     chatEl.innerHTML =
       '<div class="vc-panel">' +
         '<div class="vc-header">' +
-          '<div class="vc-avatar">👑</div>' +
+          '<div class="vc-avatar">A</div>' +
           '<div class="vc-info">' +
             '<div class="vc-name"></div>' +
             '<div class="vc-meta"></div>' +
@@ -192,7 +192,7 @@
           '<textarea class="vc-input" rows="1" placeholder="Ask the vendor about availability, pricing, packages…"></textarea>' +
           '<button class="vc-send" type="button">Send</button>' +
         '</div>' +
-        '<div class="vc-note">💬 Replies are instant local answers from this vendor’s FAQ.</div>' +
+        '<div class="vc-note">Replies are instant local answers from this vendor’s FAQ.</div>' +
       '</div>';
 
     document.body.appendChild(chatEl);
