@@ -1022,6 +1022,29 @@ h1, h2, h3, h4, h5, h6,
   outline: none;
   box-shadow: var(--focus-ring);
 }
+.vendor-verified-badge {
+  font-family: var(--font-body);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+.vendor-verified-badge.is-verified {
+  background: var(--text-primary);
+  color: var(--bg-champagne);
+  border: 1px solid rgba(236, 196, 121, 0.55);
+  box-shadow: 0 6px 16px rgba(42, 33, 25, 0.3);
+}
+.vendor-verified-badge.is-pending {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(42, 33, 25, 0.12);
+}
 .vendor-card-body {
   padding: 1.25rem;
   display: flex;
